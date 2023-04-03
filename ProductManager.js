@@ -1,5 +1,4 @@
-const fs = require("fs");
-const { addListener } = require("process");
+import fs from "fs";
 
 const IdGenerator = () => {
   return Date.now();
@@ -17,7 +16,26 @@ const checkID = (id) => {
   return true;
 };
 
-class ProductManager {
+const checkObjectKeys = (obj) => {
+  if (
+    !obj.title ||
+    !obj.description ||
+    !obj.price ||
+    !obj.thumbnail ||
+    !obj.code ||
+    !obj.stock
+  ) {
+    return {
+      state: "error",
+      msgState: "Todos los campos son obligatorios",
+    };
+  }
+  {
+    return { state: "ok", msgState: "Campos validados" };
+  }
+};
+
+export class ProductManager {
   constructor() {
     this.path = "./db.json";
     this.products = [];
@@ -29,11 +47,9 @@ class ProductManager {
       products
         ? (this.products = await JSON.parse(products))
         : (this.products = []);
-      console.log(this.products);
       return products;
     } catch (err) {
       await fs.promises.writeFile(this.path, JSON.stringify([]), "utf-8");
-      console.log(this.products);
     }
   };
 
@@ -49,15 +65,22 @@ class ProductManager {
   };
 
   addProduct = async (data) => {
-    const newItemCreated = {
-      id: IdGenerator(),
-      ...data,
-    };
+    console.log(data);
+    let res = checkObjectKeys(data);
 
-    let products = await this.getProducts();
-    products = JSON.parse(products);
-    products.push(newItemCreated);
-    await fs.promises.writeFile(this.path, JSON.stringify(products), "utf-8");
+    if (res.state === "error") {
+      console.log(res.msgState);
+    } else {
+      const newItemCreated = {
+        id: IdGenerator(),
+        ...data,
+      };
+
+      let products = await this.getProducts();
+      products = JSON.parse(products);
+      products.push(newItemCreated);
+      await fs.promises.writeFile(this.path, JSON.stringify(products), "utf-8");
+    }
   };
 
   updateProduct = async (id, data) => {
