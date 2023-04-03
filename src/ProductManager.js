@@ -48,7 +48,7 @@ export class ProductManager {
       products
         ? (this.products = await JSON.parse(products))
         : (this.products = []);
-      return products;
+      return JSON.parse(products);
     } catch (err) {
       await fs.promises.writeFile(this.path, JSON.stringify([]), "utf-8");
     }
