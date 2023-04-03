@@ -4,17 +4,17 @@ const IdGenerator = () => {
   return Date.now();
 };
 
-const checkID = (id) => {
-  if (!id) {
-    console.error("Deve ingresar un ID valido");
-    return false;
-  }
-  if (typeof id === "string") {
-    console.error("Deve ingresar un ID con valor numerico");
-    return false;
-  }
-  return true;
-};
+// const checkID = (id) => {
+//   if (!id) {
+//     console.error("Deve ingresar un ID valido");
+//     return false;
+//   }
+//   if (typeof id === "string") {
+//     console.error("Deve ingresar un ID con valor numerico");
+//     return false;
+//   }
+//   return true;
+// };
 
 const checkObjectKeys = (obj) => {
   if (
@@ -34,6 +34,35 @@ const checkObjectKeys = (obj) => {
     return { state: "ok", msgState: "Campos validados" };
   }
 };
+
+let objeto = {
+  id: 1680374191231,
+  title:
+    "Smart TV Samsung Neo QLED 4K QN43QN90BAGCZB QLED Tizen 4K 43' 220V - 240V",
+  description:
+    "Con el Smart TV QN43QN90BAG vas a acceder a las aplicaciones en las que se encuentran tus contenidos favoritos. Además, podés navegar por Internet, interactuar en redes sociales y divertirte con videojuegos.",
+  price: 334.999,
+  thumbnail:
+    "https://http2.mlstatic.com/D_NQ_NP_620893-MLA52321232150_112022-O.webp",
+  code: "tectvSamsung231",
+  categoy: ["tecnologías", "tv"],
+  marca: "Samsung",
+  stock: 7,
+};
+
+const codeGenerator = (obj) => {
+  let code = "";
+  const codeGenerator = obj.categoy.forEach((el) => {
+    if (el.length <= 2) {
+      code = code + el;
+    } else {
+      code += el.slice(0, 3);
+    }
+  });
+  code += String(obj.id).slice(10, 13);
+  return code;
+};
+console.log(codeGenerator(objeto));
 
 export class ProductManager {
   constructor() {
