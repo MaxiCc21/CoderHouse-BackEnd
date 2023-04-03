@@ -4,25 +4,12 @@ const IdGenerator = () => {
   return Date.now();
 };
 
-// const checkID = (id) => {
-//   if (!id) {
-//     console.error("Deve ingresar un ID valido");
-//     return false;
-//   }
-//   if (typeof id === "string") {
-//     console.error("Deve ingresar un ID con valor numerico");
-//     return false;
-//   }
-//   return true;
-// };
-
 const checkObjectKeys = (obj) => {
   if (
     !obj.title ||
     !obj.description ||
     !obj.price ||
     !obj.thumbnail ||
-    !obj.code ||
     !obj.stock
   ) {
     return {
@@ -35,21 +22,6 @@ const checkObjectKeys = (obj) => {
   }
 };
 
-let objeto = {
-  id: 1680374191231,
-  title:
-    "Smart TV Samsung Neo QLED 4K QN43QN90BAGCZB QLED Tizen 4K 43' 220V - 240V",
-  description:
-    "Con el Smart TV QN43QN90BAG vas a acceder a las aplicaciones en las que se encuentran tus contenidos favoritos. Además, podés navegar por Internet, interactuar en redes sociales y divertirte con videojuegos.",
-  price: 334.999,
-  thumbnail:
-    "https://http2.mlstatic.com/D_NQ_NP_620893-MLA52321232150_112022-O.webp",
-  code: "tectvSamsung231",
-  categoy: ["tecnologías", "tv"],
-  marca: "Samsung",
-  stock: 7,
-};
-
 const codeGenerator = (obj) => {
   let code = "";
   const codeGenerator = obj.categoy.forEach((el) => {
@@ -59,10 +31,10 @@ const codeGenerator = (obj) => {
       code += el.slice(0, 3);
     }
   });
+  code += obj.marca;
   code += String(obj.id).slice(10, 13);
-  return code;
+  return { code };
 };
-console.log(codeGenerator(objeto));
 
 export class ProductManager {
   constructor() {
@@ -94,17 +66,21 @@ export class ProductManager {
   };
 
   addProduct = async (data) => {
-    console.log(data);
     let res = checkObjectKeys(data);
-
     if (res.state === "error") {
       console.log(res.msgState);
     } else {
-      const newItemCreated = {
+      let newItemCreated = {
         id: IdGenerator(),
         ...data,
       };
 
+      let code = codeGenerator(objeto);
+
+      newItemCreated = {
+        ...newItemCreated,
+        ...code,
+      };
       let products = await this.getProducts();
       products = JSON.parse(products);
       products.push(newItemCreated);
