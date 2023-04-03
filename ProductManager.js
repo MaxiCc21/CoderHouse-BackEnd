@@ -101,7 +101,6 @@ export class ProductManager {
     await fs.promises.writeFile(this.path, JSON.stringify(newData), "utf-8");
   };
 
-  // Listo
   deleteProduct = async (id) => {
     let filterDb = await this.getProducts();
     if (filterDb === "[]") {
@@ -114,5 +113,3 @@ export class ProductManager {
     }
   };
 }
-
-const productManager = new ProductManager();
