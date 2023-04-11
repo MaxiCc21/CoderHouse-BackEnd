@@ -1,4 +1,4 @@
-import fs from "fs";
+const fs = require("fs");
 
 const IdGenerator = () => {
   return Date.now();
@@ -10,16 +10,36 @@ const checkObjectKeys = (obj) => {
     !obj.description ||
     !obj.price ||
     !obj.thumbnail ||
-    !obj.stock
+    !obj.stock ||
+    !obj.categoy
   ) {
     return {
       state: "error",
       msgState: "Todos los campos son obligatorios",
     };
   }
-  {
-    return { state: "ok", msgState: "Campos validados" };
+
+  if (
+    typeof obj.title !== "string" ||
+    typeof obj.description !== "string" ||
+    typeof obj.price !== "number" ||
+    // typeof obj.status !== "boolean" ||
+    typeof obj.thumbnail !== "string" ||
+    typeof obj.stock !== "number" ||
+    typeof obj.categoy !== "object"
+  ) {
+    return {
+      state: "error",
+      msgState: "Uno de los tipo de dato es incorrecto",
+    };
   }
+
+  return {
+    state: 200,
+    stateMsj: "OK",
+    message: "Campos validados",
+    error: false,
+  };
 };
 
 const codeGenerator = (obj) => {
@@ -36,7 +56,7 @@ const codeGenerator = (obj) => {
   return { code };
 };
 
-export class ProductManager {
+class ProductManager {
   constructor() {
     this.path = "./db.json";
     this.products = [];
@@ -48,6 +68,7 @@ export class ProductManager {
       products
         ? (this.products = await JSON.parse(products))
         : (this.products = []);
+
       return JSON.parse(products);
     } catch (err) {
       await fs.promises.writeFile(this.path, JSON.stringify([]), "utf-8");
@@ -55,8 +76,7 @@ export class ProductManager {
   };
 
   getProductById = async (itemID) => {
-    let products = await this.getProducts();
-    products = JSON.parse(products);
+    let products = this.products;
     const found = products.find(({ id }) => id === itemID);
     found
       ? console.log(found)
@@ -68,48 +88,65 @@ export class ProductManager {
   addProduct = async (data) => {
     let res = checkObjectKeys(data);
     if (res.state === "error") {
-      console.log(res.msgState);
+      return res.msgState;
     } else {
       let newItemCreated = {
         id: IdGenerator(),
         ...data,
       };
-
-      let code = codeGenerator(objeto);
+      let code = codeGenerator(newItemCreated);
 
       newItemCreated = {
         ...newItemCreated,
         ...code,
       };
       let products = await this.getProducts();
-      products = JSON.parse(products);
+      // products = JSON.parse(products);
       products.push(newItemCreated);
       await fs.promises.writeFile(this.path, JSON.stringify(products), "utf-8");
+      return {
+        status: "ok",
+        statusMsj: "El Porducto fue agregado satisfactoriamente ",
+      };
     }
   };
 
   updateProduct = async (id, data) => {
     let products = await this.getProducts();
-    products = JSON.parse(products);
 
     let newData = products.map((el) =>
-      el.id === id
-        ? { ...el, ...data }
-        : (console.error(`No se a encotrado ningun producto con ID(${id})`), el)
+      el.id === Number(id) ? { ...el, ...data } : el
     );
 
     await fs.promises.writeFile(this.path, JSON.stringify(newData), "utf-8");
   };
 
-  deleteProduct = async (id) => {
-    let filterDb = await this.getProducts();
-    if (filterDb === "[]") {
-      console.error(`El producto con ID (${id}) no existe`);
+  deleteProduct = async (deleteID) => {
+    let products = await this.getProducts();
+
+    if (products === "[]") {
+      return {
+        status: "Error",
+        statusMsj: "No hay ningun producto",
+      };
+    }
+
+    const found = products.find(({ id }) => id === deleteID);
+    if (!found) {
+      return {
+        status: "Error",
+        statusMsj: `No se encontro ninung producto con ID(${deleteID})`,
+      };
     } else {
-      filterDb = JSON.parse(filterDb);
-      filterDb = filterDb.filter((el) => el.id !== id);
+      let filterDb = products.filter(({ id }) => id !== deleteID);
 
       await fs.promises.writeFile(this.path, JSON.stringify(filterDb), "utf-8");
+      return {
+        status: "ok",
+        statusMsj: `Se elimino producto satisfactoriamente`,
+      };
     }
   };
 }
+
+module.exports = ProductManager;

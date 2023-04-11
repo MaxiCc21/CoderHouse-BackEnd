@@ -1,29 +1,14 @@
-import express from "express";
-import { ProductManager } from "./ProductManager.js";
-const app = express();
+const express = require("express");
+const productRoutes = require("./routes/product.routes");
+const cartRoutes = require("./routes/carts.routes");
 
-const handleProducts = new ProductManager();
+const app = express();
+app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/products", async (request, response) => {
-  let res = await handleProducts.getProducts();
+app.use("/products", productRoutes);
 
-  let { limit } = request.query;
-  if (limit) {
-    res = res.slice(0, limit);
-  }
-  response.send(res);
-});
+app.use("/api/carts", cartRoutes);
 
-app.get("/products/:pid", async (request, response) => {
-  const params = Number(request.params.pid);
-  const product = await handleProducts.getProductById(params);
-  !product
-    ? response.send({
-        error: `No se a econtrado nungun producto con id(${params})`,
-      })
-    : response.send(product);
-});
-
-app.listen(8888);
+app.listen(8080);
