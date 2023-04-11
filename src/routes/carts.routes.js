@@ -19,9 +19,9 @@ router.post("/:cid/product/:pid", async (request, response) => {
   response.send("Post");
 });
 
-router.post("/", (request, response) => {
-  let res = cartHandle.addItem(request.body);
-  response.send("Hola");
+router.post("/", async (request, response) => {
+  let res = await cartHandle.createNewCart(request.body);
+  response.send(res.statusMsj);
 });
 
 module.exports = router;

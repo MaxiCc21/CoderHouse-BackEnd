@@ -98,22 +98,27 @@ class CartManager {
       },
     };
 
-    let newData = carts.map((el) =>
-      el.id === Number(cid) ? res : console.log("err")
-    );
+    let newData = carts.map((el) => (el.id === Number(cid) ? res : el));
     console.log(newData, "???");
-    // let newUpdateItem = {
-    //   ...res,
-    //   products: { ...res.products, ...newItemCreated },
-    // };
 
-    //   let products = await this.getItem();
-    // products = JSON.parse(products);
-    // products.push(newItemCreated);
     await fs.promises.writeFile(this.path, JSON.stringify(newData), "utf-8");
     return {
       status: "ok",
       statusMsj: "El Porducto fue agregado satisfactoriamente ",
+    };
+  };
+
+  createNewCart = async () => {
+    let newCart = {
+      id: IdGenerator(),
+      products: [],
+    };
+    let carts = await this.getItem();
+    carts.push(newCart);
+    await fs.promises.writeFile(this.path, JSON.stringify(carts), "utf-8");
+    return {
+      status: "ok",
+      statusMsj: "Se agrego un carrito correctamente ",
     };
   };
 }
