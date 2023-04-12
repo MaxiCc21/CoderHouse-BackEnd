@@ -16,7 +16,7 @@ router.post("/:cid/product/:pid", async (request, response) => {
   let body = request.body;
   let res = cartHandle.addItem(cid, pid, body);
 
-  response.send("Post");
+  response.send((await res).statusMsj);
 });
 
 router.post("/", async (request, response) => {
