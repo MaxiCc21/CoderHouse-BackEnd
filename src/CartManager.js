@@ -80,28 +80,44 @@ class CartManager {
   };
 
   addItem = async (cid, pid, body) => {
+    console.log(typeof cid);
     let carts = await this.getItem();
-    let res = await this.getItemById(cid);
-    let newItemCreated = {
-      id: pid,
-      ...body,
-    };
+    try {
+      const found = await this.getItemById(cid);
+      if (!found) throw { error: "Errors" };
+      found.products.push({ id: pid });
+      // console.log(found);
 
-    let newItemToCart = res.products;
-    newItemToCart.push(newItemCreated);
+      let updateCarts = carts.map((el) => (el.id === cid ? found : el));
+      await fs.promises.writeFile(
+        this.path,
+        JSON.stringify(updateCarts),
+        "utf-8"
+      );
+    } catch (err) {}
 
-    res = {
-      ...res,
-      products: {
-        ...res.products,
-        ...newItemToCart,
-      },
-    };
+    // let carts = await this.getItem();
+    // let res = await this.getItemById(cid);
+    // let newItemCreated = {
+    //   id: pid,
+    //   ...body,
+    // };
 
-    let newData = carts.map((el) => (el.id === Number(cid) ? res : el));
-    console.log(newData, "???");
+    // let newItemToCart = res.products;
+    // newItemToCart.push(newItemCreated);
 
-    await fs.promises.writeFile(this.path, JSON.stringify(newData), "utf-8");
+    // res = {
+    //   ...res,
+    //   products: {
+    //     ...res.products,
+    //     ...newItemToCart,
+    //   },
+    // };
+
+    // let newData = carts.map((el) => (el.id === Number(cid) ? res : el));
+    // console.log(newData, "???");
+
+    // await fs.promises.writeFile(this.path, JSON.stringify(newData), "utf-8");
     return {
       status: "ok",
       statusMsj: "El Porducto fue agregado satisfactoriamente ",
