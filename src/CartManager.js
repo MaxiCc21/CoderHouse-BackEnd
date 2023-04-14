@@ -80,12 +80,11 @@ class CartManager {
   };
 
   addItem = async (cid, pid, body) => {
-    console.log(typeof cid);
     let carts = await this.getItem();
     try {
       const found = await this.getItemById(cid);
       if (!found) throw { error: "Errors" };
-      found.products.push({ id: pid });
+      found.products.push({ id: pid, ...body });
 
       let updateCarts = carts.map((el) => (el.id === cid ? found : el));
       await fs.promises.writeFile(
