@@ -1,0 +1,13 @@
+<h1>Nuestro mejores Tv</h1>
+<div class="cart-container">
+
+  {{#each products}}
+    <div class="cart">
+      <img src={{{this.thumbnail}}} alt="#" />
+      <div class="cart-info-area">
+        <p>${{this.price}}</p>
+        <h1>{{this.title}}</h1></div>
+    </div>
+  {{/each}}
+
+</div>

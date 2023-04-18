@@ -1,0 +1,27 @@
+.cart-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.cart {
+  background-color: rgba(181, 181, 181, 0.662);
+  width: 200px;
+  height: auto;
+  margin: 10px;
+}
+.cart-info-area {
+  padding: 7px;
+}
+
+.cart h1 {
+  font-size: 1rem;
+}
+
+.cart p {
+  font-size: 1.5rem;
+  font-weight: 1000;
+}
+
+img {
+  width: 200px;
+  height: 200px;
+}
