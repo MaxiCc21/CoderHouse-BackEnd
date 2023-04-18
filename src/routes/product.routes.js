@@ -2,9 +2,16 @@ const { Router, response, request } = require("express");
 const router = Router();
 const handleProducts = new (require("../ProductManager"))();
 
-router.get("/", async (request, response) => {
-  let res = await handleProducts.getProducts();
+function midUser(req, res, next) {
+  if (!req.body.userADMIN) {
+    console.log("No tienes los permisos necesarios ");
+  } else {
+    next();
+  }
+}
 
+router.get("/", midUser, async (request, response) => {
+  let res = await handleProducts.getProducts();
   let { limit } = request.query;
   if (limit) {
     res = res.slice(0, limit);
