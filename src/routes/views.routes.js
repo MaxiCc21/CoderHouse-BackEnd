@@ -7,6 +7,7 @@ router.get("/", async (require, res) => {
 
   let testUser = {
     products: listProducts,
+    style: "home.css",
   };
 
   res.render("home.handlebars", testUser);
