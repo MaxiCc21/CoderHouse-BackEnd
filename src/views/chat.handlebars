@@ -1,0 +1,39 @@
+<div>
+  <h1>Socket.io</h1>
+</div>
+
+<div id="list-products">
+
+</div>
+<br />
+<label for="formAddProduct">Crear un nuevo producto</label>
+<form id="formAddProduct">
+  <label>Titulo</label>
+  <input id="formAddProduct-input-title" name="title" autocomplete="off" />
+  <label>Description</label>
+  <input
+    id="formAddProduct-input-description"
+    name="description"
+    autocomplete="off"
+  />
+  <label>Precio</label>
+  <input id="formAddProduct-input-price" name="price" autocomplete="off" />
+  <label>Imagen</label>
+  <input
+    id="formAddProduct-input-thumbnail"
+    name="thumbnail"
+    type="file"
+    autocomplete="off"
+  />
+  <label>Categoria</label>
+  <input id="formAddProduct-input-categoy" name="categoy" autocomplete="off" />
+
+  <label>Marca</label>
+  <input id="formAddProduct-input-marca" name="marca" autocomplete="off" />
+  <label>Stock</label>
+  <input id="formAddProduct-input-stock" name="stock" autocomplete="off" />
+  <button>Crear</button>
+</form>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/static/js/chat.js"></script>
