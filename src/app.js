@@ -4,6 +4,7 @@ const cartRoutes = require("./routes/carts.routes");
 const viersRoutes = require("./routes/views.routes");
 const cokieParser = require("cookie-parser");
 const { uploader } = require("./utils/multer");
+const productHandle = new (require("./ProductManager"))();
 
 const app = express();
 // HandleBars
@@ -29,4 +30,33 @@ app.use("/api/carts", cartRoutes);
 
 app.use("/home", viersRoutes);
 
-app.listen(8080);
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(500).send("Todo mal");
+});
+
+// Socket-----------------------------------------------------------------------------
+
+app.get("/chat", (req, res) => {
+  res.render("chat", { style: "realTime.css" });
+});
+
+const { Server } = require("socket.io");
+
+const { send } = require("process");
+
+const httpServer = app.listen(8080);
+
+const socketServer = new Server(httpServer);
+
+socketServer.on("connection", async (socket) => {
+  let data = await productHandle.getProducts();
+
+  socket.emit("show-All-Products", data);
+
+  socket.on("addProduct", async (data) => {
+    console.log("????");
+    let res = await productHandle.addProduct(data);
+    console.log(res);
+  });
+});

@@ -1,0 +1,32 @@
+#list-products {
+  background-color: rgb(251, 149, 149);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.product-box {
+  width: 300px;
+  height: 300px;
+  background-color: aqua;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-size: 1rem;
+}
+
+.img {
+  width: 200px;
+  height: 200px;
+}
+
+#formAddProduct {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
