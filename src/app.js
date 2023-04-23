@@ -37,8 +37,8 @@ app.use((err, req, res, next) => {
 
 // Socket-----------------------------------------------------------------------------
 
-app.get("/chat", (req, res) => {
-  res.render("chat", { style: "realTime.css" });
+app.get("/realtimeproducts", (req, res) => {
+  res.render("realTimeProducts", { style: "realTime.css" });
 });
 
 const { Server } = require("socket.io");
@@ -55,7 +55,6 @@ socketServer.on("connection", async (socket) => {
   socket.emit("show-All-Products", data);
 
   socket.on("addProduct", async (data) => {
-    console.log("????");
     let res = await productHandle.addProduct(data);
     console.log(res);
   });
