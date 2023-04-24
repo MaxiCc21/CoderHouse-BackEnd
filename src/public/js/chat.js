@@ -2,18 +2,27 @@ console.log("Socket");
 
 const socket = io();
 
-socket.emit("message", "Hola me estoy comunicando desde un cliente Socket");
+function Eliminar(id) {
+  console.log(id);
+
+  socket.emit("eliminar-producto", id);
+}
+
+socket.on("message", (msg) => {
+  console.log(msg);
+});
 
 socket.on("show-All-Products", (data) => {
   const $list = document.getElementById("list-products");
 
   let tooAdd = "";
 
-  data.forEach(({ title, thumbnail, description }) => {
+  data.forEach(({ id, title, thumbnail, description }) => {
     tooAdd += `
     <div class="product-box">
         <img class="img" src=${thumbnail}>
         <h1 class="title">${title}</h1>
+        <button onClick=Eliminar(${id})>Eliminar</button>
     </div>`;
     $list.innerHTML = tooAdd;
   });

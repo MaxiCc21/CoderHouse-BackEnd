@@ -50,6 +50,7 @@ const httpServer = app.listen(8080);
 const socketServer = new Server(httpServer);
 
 socketServer.on("connection", async (socket) => {
+  socket.emit("message", "Se conectado un usuario");
   let data = await productHandle.getProducts();
 
   socket.emit("show-All-Products", data);
@@ -57,5 +58,10 @@ socketServer.on("connection", async (socket) => {
   socket.on("addProduct", async (data) => {
     let res = await productHandle.addProduct(data);
     console.log(res);
+  });
+
+  socket.on("eliminar-producto", async (dataID) => {
+    let res = await productHandle.deleteProduct(dataID);
+    console.log(res.statusMsj);
   });
 });
