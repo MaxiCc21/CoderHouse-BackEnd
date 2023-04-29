@@ -42,14 +42,11 @@ function Delete(id) {
     confirmButtonText: "",
     denyButtonText: `Eliminar`,
   }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire("Saved!", "", "success");
-    } else if (result.isDenied) {
+    if (result.isDenied) {
       Swal.fire("Changes are not saved", "", "info");
+      socket.emit("eliminar-producto", id);
     }
   });
-
-  const res = socket.emit("eliminar-producto", id);
 }
 
 function Update(id) {

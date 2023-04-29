@@ -1,1 +1,57 @@
-[]
+[
+  {
+    "id": 1680374191231,
+    "title": "Smart TV Samsung Neo QLED 4K QN43QN90BAGCZB QLED Tizen 4K 43' 220V - 240V",
+    "description": "Con el Smart TV QN43QN90BAG vas a acceder a las aplicaciones en las que se encuentran tus contenidos favoritos. Además, podés navegar por Internet, interactuar en redes sociales y divertirte con videojuegos.",
+    "price": 334.999,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_620893-MLA52321232150_112022-O.webp",
+    "code": "tectvSamsung231",
+    "categoy": ["tecnologías", "tv"],
+    "marca": "Samsung",
+    "stock": 7
+  },
+  {
+    "id": 1663274155462,
+    "title": "Smart TV Philips Neo QLED 4K QN43QN90BAGCZB QLED Tizen 4K 43' 220V - 240V",
+    "description": "El compromiso de Philips es brindar nuevas e innovadoras tecnologías. Es por esa razón que se centra en los detalles para poder ofrecer productos que marcan la diferencia y crean una experiencia visual más increíble y auténtica.",
+    "price": 89.999,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_944170-MLA50821605362_072022-O.webp",
+    "code": "tectvPhilips462",
+    "categoy": ["tecnologías", "tv"],
+    "marca": "Philips",
+    "stock": 27
+  },
+  {
+    "id": 1680023481462,
+    "title": "Smart TV LG AI ThinQ 43UP7750PSB LCD webOS 6.0 4K 43' 100V/240V",
+    "description": "LG es innovación y eso se ve en cada uno de sus productos tecnológicos, pensados especialmente para que tu familia y vos disfruten mucho más de la vida. Tener un televisor LG es aprovechar la más alta calidad del mercado.Con el Smart TV 43UP7750 vas a acceder a las aplicaciones en las que se encuentran tus contenidos favoritos. Además, podés navegar por Internet, interactuar en redes sociales y divertirte con videojuegos.Viví en 4KLa cantidad de pixeles que ofrece es 4 veces mayor que la Full HD, ¿el resultado? Escenas mucho más realistas y con un nivel de detalle increíble. Ahora vas a conocer una aventura de inmersión que no va a dejar de sorprenderte.",
+    "price": 129.999,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_753214-MLA48707187900_122021-O.webp",
+    "code": "tectvLG462",
+    "categoy": ["tecnologías", "tv"],
+    "marca": "LG",
+    "stock": 27
+  },
+  {
+    "id": 1158028191466,
+    "title": "Smart TV Samsung Series 7 UN50AU7000GCZB LED Tizen 4K 50' 220V - 240V",
+    "description": "https://http2.mlstatic.com/D_NQ_NP_787221-MLA48007684849_102021-O.webp",
+    "price": 128.999,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_787221-MLA48007684849_102021-O.webp",
+    "code": "tectvSamsung466",
+    "categoy": ["tecnologías", "tv"],
+    "marca": "Samsung",
+    "stock": 53
+  },
+  {
+    "id": 1681152803528,
+    "title": "Smart TV Samsung UN75AU8000GXZD LED Tizen 4K 75' 100V/240V",
+    "description": "Con el Smart TV UN75AU8000G vas a acceder a las aplicaciones en las que se encuentran tus contenidos favoritos. Además, podés navegar por Internet, interactuar en redes sociales y divertirte con videojuegos.",
+    "price": 569.999,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_860131-MLA46796611920_072021-O.webp",
+    "categoy": ["tecnologías", "tv"],
+    "marca": "Samsung",
+    "stock": 2,
+    "code": "tectvSamsung528"
+  }
+]
