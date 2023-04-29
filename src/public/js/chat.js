@@ -1,11 +1,60 @@
-console.log("Socket");
-
 const socket = io();
 
-function Eliminar(id) {
-  console.log(id);
+function newProductCreate() {
+  return {
+    title: title.value,
+    description: description.value,
+    price: Number(price.value),
+    thumbnail: thumbnail.value,
+    categoy: ["electro", "tv"],
+    marca: marca.value,
+    stock: Number(stock.value),
+  };
+}
 
-  socket.emit("eliminar-producto", id);
+function hasAllData() {
+  if (
+    title.value &&
+    description.value &&
+    price.value &&
+    thumbnail.value &&
+    categoy.value &&
+    marca.value &&
+    stock.value
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function setDataForms(id) {
+  let res = productHandle.getElementById(1680374191231);
+  console.log(res);
+}
+
+function Delete(id) {
+  Swal.fire({
+    title: `Seguro que dese eliminar el producto id(${id})`,
+    showConfirmButton: false,
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: "",
+    denyButtonText: `Eliminar`,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire("Saved!", "", "success");
+    } else if (result.isDenied) {
+      Swal.fire("Changes are not saved", "", "info");
+    }
+  });
+
+  const res = socket.emit("eliminar-producto", id);
+}
+
+function Update(id) {
+  console.log(id);
+  title.value = "Prueba";
 }
 
 socket.on("message", (msg) => {
@@ -22,7 +71,10 @@ socket.on("show-All-Products", (data) => {
     <div class="product-box">
         <img class="img" src=${thumbnail}>
         <h1 class="title">${title}</h1>
-        <button onClick=Eliminar(${id})>Eliminar</button>
+        <div class="product-box-button-section">
+          <button class="delete-button" onClick=Delete(${id})>Eliminar</button>
+          <button class="update-button" onClick=Update(${id})>Editar</button>
+        </div>
     </div>`;
     $list.innerHTML = tooAdd;
   });
@@ -52,31 +104,3 @@ $form.addEventListener("submit", (e) => {
     alert("Tiene que ingresar todos los datos");
   }
 });
-
-function newProductCreate() {
-  return {
-    title: title.value,
-    description: description.value,
-    price: Number(price.value),
-    thumbnail: thumbnail.value,
-    categoy: ["electro", "tv"],
-    marca: marca.value,
-    stock: Number(stock.value),
-  };
-}
-
-function hasAllData() {
-  if (
-    title.value &&
-    description.value &&
-    price.value &&
-    thumbnail.value &&
-    categoy.value &&
-    marca.value &&
-    stock.value
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-}

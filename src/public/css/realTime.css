@@ -7,13 +7,17 @@
 
 .product-box {
   width: 300px;
-  height: 300px;
+  height: auto;
   background-color: aqua;
   margin: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
   flex-wrap: wrap;
+}
+
+.product-box-button-section {
+  display: flex;
 }
 
 .title {
@@ -29,4 +33,12 @@
   display: flex;
   flex-direction: column;
   align-items: baseline;
+}
+
+.delete-button {
+  margin-right: 5px;
+}
+
+.update-button {
+  margin-left: 5px;
 }
