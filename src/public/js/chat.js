@@ -1,11 +1,51 @@
-console.log("Socket");
-
 const socket = io();
 
-function Eliminar(id) {
-  console.log(id);
+function newProductCreate() {
+  return {
+    title: title.value,
+    description: description.value,
+    price: Number(price.value),
+    thumbnail: thumbnail.value,
+    categoy: ["electro", "tv"],
+    marca: marca.value,
+    stock: Number(stock.value),
+  };
+}
 
-  socket.emit("eliminar-producto", id);
+function hasAllData() {
+  if (
+    title.value &&
+    description.value &&
+    price.value &&
+    thumbnail.value &&
+    categoy.value &&
+    marca.value &&
+    stock.value
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function Delete(id) {
+  Swal.fire({
+    title: `Seguro que dese eliminar el producto id(${id})`,
+    showConfirmButton: false,
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: "",
+    denyButtonText: `Eliminar`,
+  }).then((result) => {
+    if (result.isDenied) {
+      Swal.fire("Changes are not saved", "", "info");
+      const res = socket.emit("eliminar-producto", id);
+    }
+  });
+}
+
+function Update(id) {
+  console.log(id);
 }
 
 socket.on("message", (msg) => {
@@ -17,12 +57,17 @@ socket.on("show-All-Products", (data) => {
 
   let tooAdd = "";
 
-  data.forEach(({ id, title, thumbnail, description }) => {
+  data.forEach((el) => {
+    JSON.stringify(el);
+    console.log(typeof el);
     tooAdd += `
     <div class="product-box">
-        <img class="img" src=${thumbnail}>
-        <h1 class="title">${title}</h1>
-        <button onClick=Eliminar(${id})>Eliminar</button>
+        <img class="img" src=${el.thumbnail}>
+        <h1 class="title">${el.title}</h1>
+        <div class="product-box-button-section">
+          <button class="delete-button" onClick=Delete(${el.id})>Eliminar</button>
+          <button class="update-button" onClick=Update(${el.id})>Editar</button>
+        </div>
     </div>`;
     $list.innerHTML = tooAdd;
   });
@@ -52,31 +97,3 @@ $form.addEventListener("submit", (e) => {
     alert("Tiene que ingresar todos los datos");
   }
 });
-
-function newProductCreate() {
-  return {
-    title: title.value,
-    description: description.value,
-    price: Number(price.value),
-    thumbnail: thumbnail.value,
-    categoy: ["electro", "tv"],
-    marca: marca.value,
-    stock: Number(stock.value),
-  };
-}
-
-function hasAllData() {
-  if (
-    title.value &&
-    description.value &&
-    price.value &&
-    thumbnail.value &&
-    categoy.value &&
-    marca.value &&
-    stock.value
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-}
