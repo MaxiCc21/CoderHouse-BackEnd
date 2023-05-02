@@ -28,11 +28,6 @@ function hasAllData() {
   }
 }
 
-function setDataForms(id) {
-  let res = productHandle.getElementById(1680374191231);
-  console.log(res);
-}
-
 function Delete(id) {
   Swal.fire({
     title: `Seguro que dese eliminar el producto id(${id})`,
@@ -44,14 +39,13 @@ function Delete(id) {
   }).then((result) => {
     if (result.isDenied) {
       Swal.fire("Changes are not saved", "", "info");
-      socket.emit("eliminar-producto", id);
+      const res = socket.emit("eliminar-producto", id);
     }
   });
 }
 
 function Update(id) {
   console.log(id);
-  title.value = "Prueba";
 }
 
 socket.on("message", (msg) => {
@@ -63,14 +57,16 @@ socket.on("show-All-Products", (data) => {
 
   let tooAdd = "";
 
-  data.forEach(({ id, title, thumbnail, description }) => {
+  data.forEach((el) => {
+    JSON.stringify(el);
+    console.log(typeof el);
     tooAdd += `
     <div class="product-box">
-        <img class="img" src=${thumbnail}>
-        <h1 class="title">${title}</h1>
+        <img class="img" src=${el.thumbnail}>
+        <h1 class="title">${el.title}</h1>
         <div class="product-box-button-section">
-          <button class="delete-button" onClick=Delete(${id})>Eliminar</button>
-          <button class="update-button" onClick=Update(${id})>Editar</button>
+          <button class="delete-button" onClick=Delete(${el.id})>Eliminar</button>
+          <button class="update-button" onClick=Update(${el.id})>Editar</button>
         </div>
     </div>`;
     $list.innerHTML = tooAdd;
