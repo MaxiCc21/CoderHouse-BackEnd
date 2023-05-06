@@ -25,11 +25,13 @@ class UserManager {
   };
 
   createNewUser = async (data) => {
-    console.log(data);
     let users = await this.getAllUser();
     users.push(data);
-
     await fs.promises.writeFile(this.path, JSON.stringify(users), "utf-8");
+    return {
+      status: "ok",
+      statusMsj: "Se agrego un usuario correctamente ",
+    };
   };
 
   deletUser = async (idToDelete) => {
@@ -60,17 +62,4 @@ class UserManager {
   };
 }
 
-const lll = new UserManager();
-// let res = await lll.createNewUser({
-//   id: 12354892,
-//   name: "Maxi",
-//   lastname: "Condori",
-//   "user-name": "MaxiCC21",
-//   mail: "prueba@gmail.com",
-//   password: "asd123",
-//   isAdmin: true,
-//   adress: "calle tan 123",
-// });
-
-let res = await lll.deletUser(12354892);
-console.log(res);
+module.exports = UserManager;

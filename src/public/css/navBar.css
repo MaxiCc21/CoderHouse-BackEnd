@@ -1,0 +1,112 @@
+.my-Nav-Container {
+  background-color: rgba(255, 241, 89, 255);
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.my-nav {
+  display: grid;
+  grid-template-columns: 162px 1fr 0.5fr;
+  grid-template-rows: 1fr 1fr;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "Nav-Logo Nav-Search Nav-Promo"
+    "Nav-Location Nav-Bar Nav-Sesion";
+  background-color: rgba(255, 241, 89, 255);
+  max-width: 100%;
+  padding: 8px 10px 12px 10px;
+  gap: 12px 24px;
+  font-family: "Proxima Nova", -apple-system, Roboto, Arial, sans-serif,
+    sans-serif;
+  color: rgba(51, 51, 51, 0.6);
+  align-items: end;
+  font-size: 14px;
+  width: 90%;
+}
+
+.Nav-Logo {
+  grid-area: Nav-Logo;
+  background-color: rgba(255, 241, 89, 255);
+  background-repeat: no-repeat;
+  overflow: hidden;
+  text-indent: -999px;
+  background-image: url("https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/5.22.8/mercadolibre/logo__large_plus.png");
+  height: 34px;
+  width: 134px;
+  min-width: 170px;
+  display: -webkit-flex;
+  display: flex;
+  position: static;
+  left: 0;
+  top: 0;
+}
+
+.Nav-Search {
+  grid-area: Nav-Search;
+  background-color: rgba(255, 0, 0, 0);
+  min-width: 340px;
+}
+
+.Nav-Promo {
+  grid-area: Nav-Promo;
+  background-color: rgba(43, 255, 0, 0);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Nav-Promo-img {
+  max-width: 340px;
+  max-height: 39px;
+}
+
+.Nav-Location {
+  grid-area: Nav-Location;
+  background-color: rgba(43, 255, 0, 0);
+  display: flex;
+}
+
+.locationIcon {
+  height: 26px;
+}
+
+.Nav-Bar {
+  grid-area: Nav-Bar;
+  background-color: rgba(0, 30, 255, 0);
+  display: flex;
+  height: 36px;
+}
+
+.Nav-Bar .my-ul {
+  display: flex;
+  list-style: none;
+  padding-inline-start: 0px;
+  margin-top: 15px;
+}
+.Nav-Bar .my-ul * {
+  padding: 0px 5px 0px 5px;
+  color: rgba(51, 51, 51, 0.6);
+}
+
+.Nav-Sesion {
+  grid-area: Nav-Sesion;
+  background-color: rgba(255, 166, 0, 0);
+  display: flex;
+  height: 36px;
+  justify-content: flex-end;
+}
+
+.Nav-Sesion .my-ul {
+  display: flex;
+  list-style: none;
+  padding-inline-start: 0px;
+  margin-top: 15px;
+}
+.Nav-Sesion .my-ul * {
+  padding: 0px 5px 0px 5px;
+  color: rgba(28, 28, 28, 0.6);
+}
+
+a {
+  text-decoration: none !important;
+  color: rgba(51, 51, 51, 0.6) !important;
+}
