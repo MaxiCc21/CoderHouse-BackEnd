@@ -4,21 +4,6 @@ const { v4: uuidv4 } = require("uuid");
 
 const handleUser = new (require("../UserManager"))();
 
-function userValidaconDeDatos({
-  nombre,
-  apellido,
-  username,
-  email,
-  direccion,
-  contraseña,
-}) {
-  try {
-    if (typeof nombre !== "string") throw { msg: "Mal nombre" };
-  } catch (err) {
-    console.log(err.msg);
-  }
-}
-
 function idGenerator() {
   return uuidv4();
 }
