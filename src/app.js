@@ -2,6 +2,7 @@ const express = require("express");
 const productRoutes = require("./routes/product.routes");
 const cartRoutes = require("./routes/carts.routes");
 const viersRoutes = require("./routes/views.routes");
+const userRoutes = require("./routes/user.routes");
 const cokieParser = require("cookie-parser");
 const { uploader } = require("./utils/multer");
 const productHandle = new (require("./ProductManager"))();
@@ -29,6 +30,8 @@ app.use("/products", productRoutes);
 app.use("/api/carts", cartRoutes);
 
 app.use("/home", viersRoutes);
+
+app.use("/handleUser", userRoutes);
 
 app.use((err, req, res, next) => {
   console.log(err);
