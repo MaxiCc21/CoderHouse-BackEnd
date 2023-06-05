@@ -3,9 +3,14 @@ const productRoutes = require("./routes/product.routes");
 const cartRoutes = require("./routes/carts.routes");
 const viersRoutes = require("./routes/views.routes");
 const userRoutes = require("./routes/user.routes");
+const chatRoutes = require("./routes/chat.routes");
 const cokieParser = require("cookie-parser");
 const { uploader } = require("./utils/multer");
-const productHandle = new (require("./ProductManager"))();
+const productHandle = new (require("./dao/MongoManager/ProductManager"))();
+const objectConfig = require("./config/objetConfig");
+const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
+
+objectConfig.connectDB();
 
 const app = express();
 // HandleBars
@@ -32,6 +37,8 @@ app.use("/api/carts", cartRoutes);
 app.use("/home", viersRoutes);
 
 app.use("/handleUser", userRoutes);
+
+app.use("/chat", chatRoutes);
 
 app.use((err, req, res, next) => {
   console.log(err);
@@ -60,11 +67,19 @@ socketServer.on("connection", async (socket) => {
 
   socket.on("addProduct", async (data) => {
     let res = await productHandle.addProduct(data);
-    console.log(res);
   });
 
   socket.on("eliminar-producto", async (dataID) => {
     let res = await productHandle.deleteProduct(dataID);
     console.log(res.statusMsj);
+  });
+
+  let messages = await messagesHandle.getMessages();
+  socket.emit("send-all-messages", messages);
+
+  socket.on("new-message", async (data) => {
+    let res = await messagesHandle.addMessages(data);
+    console.log(res);
+    socket.emit("send-all-messages", messages);
   });
 });

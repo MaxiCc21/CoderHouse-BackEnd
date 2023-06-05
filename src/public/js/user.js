@@ -19,13 +19,13 @@ function validarPassword(password) {
 
 function validarDataTypeUser(data) {
   try {
-    if (!isNaN(Number(data.nombre)))
+    if (!isNaN(Number(data.firstname)))
       throw {
         msg: "El dato ingresado el el campo nombre no es valido",
         inputError: "nombre",
       };
 
-    if (!isNaN(Number(data.apellido)))
+    if (!isNaN(Number(data.lastname)))
       throw { msg: "El dato ingresado el el campo apellido no es valido" };
 
     if (!validarUsername(data.username))
@@ -34,10 +34,10 @@ function validarDataTypeUser(data) {
     if (!validarEmail(data.email))
       throw { msg: "El dato ingresado el el campo email no es valido" };
 
-    if (!validarDireccion(data.direccion))
+    if (!validarDireccion(data.adress))
       throw { msg: "El dato ingresado el el campo direccion no es valido" };
 
-    if (!validarPassword(data.contrasena))
+    if (!validarPassword(data.password))
       throw { msg: "El dato ingresado el el campo contraseña no es valido" };
 
     return true;
@@ -57,22 +57,26 @@ const formulario = document.getElementById("creteUser-form");
 
 formulario.addEventListener("submit", (event) => {
   event.preventDefault();
-  const nombre = formulario.elements["nombre"].value;
-  const apellido = formulario.elements["apellido"].value;
+  const firstname = formulario.elements["nombre"].value;
+  const lastname = formulario.elements["apellido"].value;
+  const fullname = `${firstname} ${lastname}`;
   const username = formulario.elements["username"].value;
   const email = formulario.elements["email"].value;
-  const direccion = formulario.elements["direccion"].value;
-  const contrasena = formulario.elements["contrasena"].value;
+  const adress = formulario.elements["direccion"].value;
+  const password = formulario.elements["contrasena"].value;
+  const isAdmin = false;
 
   const data = {
-    nombre,
-    apellido,
+    firstname,
+    lastname,
+    fullname,
     username,
     email,
-    direccion,
-    contrasena,
+    adress,
+    password,
+    isAdmin,
   };
-
+  console.log(JSON.stringify(data));
   if (validarDataTypeUser(data)) {
     fetch("/handleUser/create-user", {
       method: "POST",
