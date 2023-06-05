@@ -1,12 +1,13 @@
 <div class="cart-container">
-
   {{#each products}}
-    <div class="cart">
-      <img src={{{this.thumbnail}}} alt="#" />
-      <div class="cart-info-area">
-        <p>${{this.price}}</p>
-        <h1>{{this.title}}</h1></div>
-    </div>
+    <a href="/products/{{this._id}}" class="link-product-home">
+      <div class="cart">
+        <img src={{{this.thumbnail}}} alt="#" />
+        <div class="cart-info-area">
+          <p>${{this.price}}</p>
+          <h1>{{this.title}}</h1></div>
+      </div>
+    </a>
   {{/each}}
 
 </div>
