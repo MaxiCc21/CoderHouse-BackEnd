@@ -4,6 +4,7 @@ const cartRoutes = require("./routes/carts.routes");
 const viersRoutes = require("./routes/views.routes");
 const userRoutes = require("./routes/user.routes");
 const chatRoutes = require("./routes/chat.routes");
+const cookieRoutes = require("./routes/cookie.routes");
 const cokieParser = require("cookie-parser");
 const { uploader } = require("./utils/multer");
 const productHandle = new (require("./dao/MongoManager/ProductManager"))();
@@ -21,7 +22,7 @@ app.set("view engine", "handlebars");
 // HandleBars
 
 app.use(express.json());
-app.use(cokieParser());
+app.use(cokieParser("c0ntr4s3n4"));
 app.use("/static", express.static(__dirname + "/public"));
 
 app.use(express.urlencoded({ extended: true }));
@@ -39,6 +40,8 @@ app.use("/home", viersRoutes);
 app.use("/handleUser", userRoutes);
 
 app.use("/chat", chatRoutes);
+
+app.use("/cookie", cookieRoutes);
 
 app.use((err, req, res, next) => {
   console.log(err);
