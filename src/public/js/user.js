@@ -78,7 +78,7 @@ formulario.addEventListener("submit", (event) => {
   };
   console.log(JSON.stringify(data));
   if (validarDataTypeUser(data)) {
-    fetch("/handleUser/create-user", {
+    fetch("/views/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

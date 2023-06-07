@@ -16,8 +16,7 @@ function idGenerator() {
 //   res.render("handleUser.handlebars", options);
 // });
 
-//localhost:8080/handleUser/paginate?page=1
-http: router.get("/paginate", async (req, res) => {
+router.get("/paginate", async (req, res) => {
   const { page = 1, limit = 5 } = req.query;
   let data = await handleUser.getAllUserPaginate(page, limit);
   console.log(data);
