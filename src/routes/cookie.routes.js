@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const { get } = require("mongoose");
 const router = Router();
 
 router.get("/setCookie", (req, res) => {
@@ -46,6 +47,25 @@ router.post("/", function (req, res) {
       signed: true,
     })
     .send(req.signedCookies);
+});
+
+router.get("/session", (req, res) => {
+  if (req.session.counter) {
+    req.session.counter++;
+    res.send(`has entrado ${req.session.counter} veces`);
+  } else {
+    req.session.counter = 1;
+    res.send("Bienvenido");
+  }
+});
+
+router.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.send({ status: "error", error: err });
+    }
+  });
+  res.send("Chau");
 });
 
 module.exports = router;

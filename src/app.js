@@ -1,4 +1,5 @@
 const express = require("express");
+const session = require("express-session");
 const productRoutes = require("./routes/product.routes");
 const cartRoutes = require("./routes/carts.routes");
 const viersRoutes = require("./routes/views.routes");
@@ -10,6 +11,8 @@ const { uploader } = require("./utils/multer");
 const productHandle = new (require("./dao/MongoManager/ProductManager"))();
 const objectConfig = require("./config/objetConfig");
 const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
+const FileStore = require("session-file-store");
+const { create } = require("connect-mongo");
 
 objectConfig.connectDB();
 
@@ -26,6 +29,44 @@ app.use(cokieParser("c0ntr4s3n4"));
 app.use("/static", express.static(__dirname + "/public"));
 
 app.use(express.urlencoded({ extended: true }));
+
+// app.use(
+//   session({
+//     secret: "s33sionC0d3",
+//     resave: true,
+//     saveUninitialized: true,
+//   })
+// );
+
+const fileStore = FileStore(session);
+// app.use(
+//   session({
+//     store: new fileStore({
+//       ttl: 100000 * 60,
+//       path: "./session",
+//       retries: 0,
+//     }),
+//     secret: "s33sionC0d3",
+//     resave: true,
+//     saveUninitialized: true,
+//   })
+// );
+app.use(
+  session({
+    store: create({
+      mongoUrl:
+        "mongodb+srv://maxi21498:Morethanwords21@cluster0.2z3gkua.mongodb.net/MercadoLibre",
+      mongoOptions: {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      },
+      ttl: 15,
+    }),
+    secret: "s33sionC0d3",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 app.post("/single", uploader.single("myFile"), (res, req) => {
   res.status(200).send("Todo ok");
