@@ -36,6 +36,7 @@ router.get("/register", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
+  console.log("Entro????????????");
   let options = {
     style: "userCrear.css",
   };
@@ -55,11 +56,12 @@ router.post("/register", async (req, res) => {
     lastname,
     fullname,
     username,
-    mail: email,
+    email,
     password,
     isAdmin,
     adress,
   };
+  console.log(data);
 
   let myRes = await handleUser.createNewUser(data);
   console.log(myRes.statusMsj);

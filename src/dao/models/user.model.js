@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const mongoosePaginate = require("mongoose-paginate-v2");
 
-const collection = "usuarios";
+const collection = "users";
 
 const userSchema = new Schema({
   firstname: String,
@@ -12,10 +12,11 @@ const userSchema = new Schema({
     type: String,
     unique: true,
   },
-  email: {
-    type: String,
-    required: true,
-  },
+  // email: {
+  //   type: String,
+  //   required: true,
+  // },
+  email: String,
   password: String,
   isAdmin: Boolean,
   adress: String,

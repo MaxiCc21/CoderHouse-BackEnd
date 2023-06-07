@@ -59,7 +59,7 @@ formulario.addEventListener("submit", (event) => {
   event.preventDefault();
   const firstname = formulario.elements["nombre"].value;
   const lastname = formulario.elements["apellido"].value;
-  const fullname = `${firstname} ${lastname}`;
+
   const username = formulario.elements["username"].value;
   const email = formulario.elements["email"].value;
   const adress = formulario.elements["direccion"].value;
@@ -69,7 +69,7 @@ formulario.addEventListener("submit", (event) => {
   const data = {
     firstname,
     lastname,
-    fullname,
+    fullname: `${firstname} ${lastname}`,
     username,
     email,
     adress,

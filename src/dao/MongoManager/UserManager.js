@@ -36,7 +36,7 @@ class UserManager {
 
   createNewUser = async (data) => {
     console.log(data);
-    await userModel.create(data);
+    let mures = await userModel.create(data);
     return {
       status: "ok",
       statusMsj: "Se agrego un usuario correctamente ",
