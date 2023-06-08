@@ -50,71 +50,21 @@ router.get("/register", async (req, res) => {
   res.render("users/userRegister.handlebars", options);
 });
 
-// router.post("/register", async (req, res) => {
-//   console.log("Entro????????????");
-//   let options = {
-//     style: "userCrear.css",
-//   };
-//   let {
-//     firstname,
-//     lastname,
-//     fullname,
-//     username,
-//     email,
-//     password,
-//     isAdmin,
-//     adress,
-//   } = req.body;
-
-//   let data = {
-//     firstname,
-//     lastname,
-//     fullname,
-//     username,
-//     email,
-//     password,
-//     isAdmin,
-//     adress,
-//   };
-//   console.log(data);
-
-//   let myRes = await handleUser.createNewUser(data);
-//   console.log(myRes.statusMsj);
-
-//   res.send("home");
-// });
-
 router.post("/register", async (req, res) => {
-  let options = {
-    style: "userCrear.css",
-  };
-  let {
-    firstname,
-    lastname,
-    fullname,
-    username,
-    email,
-    password,
-    isAdmin,
-    address,
-  } = req.body;
-
   let data = {
-    firstname,
-    lastname,
-    fullname,
-    username,
-    email,
-    password,
-    isAdmin,
-    address,
+    ...req.body,
   };
-
-  console.log(data, "/Register");
 
   let myRes = await handleUser.createNewUser(data);
-  // console.log(myRes.statusMsj);
+  console.log(myRes.statusMsj);
 
-  res.redirect("/home");
+  res
+    .cookie("username", data.username, {
+      maxAge: 100000,
+    })
+    .cookie("isAdmin", data.isAdmin, {
+      maxAge: 100000,
+    })
+    .redirect("/home");
 });
 module.exports = router;
