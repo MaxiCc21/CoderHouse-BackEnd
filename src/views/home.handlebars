@@ -1,3 +1,11 @@
+{{#if usercookie}}
+  <div class="bienvenido-area">
+    <h1>Bienvenido {{usercookie}}!!</h1>
+    <form action="/home" method="post">
+      <button id="logout-button" type="submit">Logout</button>
+    </form>
+  </div>
+{{/if}}
 <div class="cart-container">
   {{#each products}}
     <a href="/products/{{this._id}}" class="link-product-home">
@@ -9,5 +17,6 @@
       </div>
     </a>
   {{/each}}
-
 </div>
+
+<script src="/static/js/home.js"></script>

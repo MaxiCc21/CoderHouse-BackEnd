@@ -43,7 +43,7 @@ router.post("/", function (req, res) {
 
   res
     .cookie(username, email, {
-      maxAge: 1000000,
+      maxAge: 10000,
       signed: true,
     })
     .send(req.signedCookies);

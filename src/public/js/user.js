@@ -53,37 +53,69 @@ function validarDataTypeUser(data) {
   }
 }
 
-const formulario = document.getElementById("creteUser-form");
+const RegisterForm = document.getElementById("creteUser-form");
+if (RegisterForm) {
+  RegisterForm.addEventListener("submit", (e) => {
+    RegisterForm.addEventListener("submit", (e) => {
+      const datosFormulario = new FormData(RegisterForm);
+      const firstname = datosFormulario.get("firstname");
+      const lastname = datosFormulario.get("lastname");
+      const username = datosFormulario.get("username");
+      const email = datosFormulario.get("email");
+      const address = datosFormulario.get("address");
+      const password = datosFormulario.get("password");
 
-formulario.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const firstname = formulario.elements["nombre"].value;
-  const lastname = formulario.elements["apellido"].value;
+      const data = {
+        firstname,
+        lastname,
+        username,
+        email,
+        address,
+        password,
+      };
 
-  const username = formulario.elements["username"].value;
-  const email = formulario.elements["email"].value;
-  const adress = formulario.elements["direccion"].value;
-  const password = formulario.elements["contrasena"].value;
-  const isAdmin = false;
+      fetch("/views/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+    });
 
-  const data = {
-    firstname,
-    lastname,
-    fullname: `${firstname} ${lastname}`,
-    username,
-    email,
-    adress,
-    password,
-    isAdmin,
-  };
-  console.log(JSON.stringify(data));
-  if (validarDataTypeUser(data)) {
-    fetch("/views/register", {
+    // if (validarDataTypeUser(data)) {
+    // fetch("/views/register", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(data),
+    // });
+    // }
+  });
+}
+
+// --------------------------------------------------
+//UserLogin
+
+const loginForm = document.getElementById("userLoginForm");
+if (loginForm) {
+  loginForm.addEventListener("submit", (e) => {
+    const datosFormulario = new FormData(loginForm);
+    const identification = datosFormulario.get("identification");
+    const password = datosFormulario.get("password");
+
+    const data = {
+      identification,
+      password,
+    };
+
+    fetch("/views/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
-  }
-});
+  });
+}
