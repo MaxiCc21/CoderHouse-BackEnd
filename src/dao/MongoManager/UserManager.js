@@ -1,3 +1,4 @@
+const { isValidPassword } = require("../../utils/bcryptHas");
 const { userModel } = require("../models/user.model");
 
 const fs = require("fs");
@@ -68,10 +69,11 @@ class UserManager {
       const found = await userModel.findOne({
         $or: [{ username: identification }, { email: identification }],
       });
+      console.log(password, found.password);
       if (!found) {
         throw { status: "error", statusMsj: "No se a econtrado un usuario" };
       } else {
-        if (found.password === password) {
+        if (isValidPassword(password, found.password)) {
           return {
             status: "ok",
             statusMsj: "Bienvenido",

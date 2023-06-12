@@ -14,6 +14,9 @@ const objectConfig = require("./config/objetConfig");
 const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
 const FileStore = require("session-file-store");
 const { create } = require("connect-mongo");
+//Passport
+const { initPassport } = require("./config/passport.config");
+const passport = require("passport");
 
 objectConfig.connectDB();
 
@@ -68,6 +71,11 @@ app.use(
     saveUninitialized: false,
   })
 );
+
+// Passport
+initPassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.post("/single", uploader.single("myFile"), (res, req) => {
   res.status(200).send("Todo ok");

@@ -1,5 +1,8 @@
 <section class="section-user-joinIn">
   <div class="container-user-joinIN">
+    {{#if message.error}}
+      <h1>{{message.error}}</h1>
+    {{/if}}
     <div class="left-site">
       <h2>
         Ingresá tu e-mail,
@@ -32,8 +35,8 @@
             <label htmlFor="#">E-mail o usuario</label>
             <input
               type="text"
-              name="identification"
-              id="identification"
+              name="username"
+              id="username"
               style="margin-bottom: 10px;"
             />
             <label htmlFor="#">Contraseña</label>
