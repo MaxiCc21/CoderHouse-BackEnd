@@ -1,5 +1,3 @@
-const { userModel } = require("./dao/models/user.model");
-
 const fs = require("fs");
 
 class UserManager {
@@ -27,8 +25,9 @@ class UserManager {
   };
 
   createNewUser = async (data) => {
-    console.log(data);
-    await userModel.create(data);
+    let users = await this.getAllUser();
+    users.push(data);
+    await fs.promises.writeFile(this.path, JSON.stringify(users), "utf-8");
     return {
       status: "ok",
       statusMsj: "Se agrego un usuario correctamente ",
@@ -64,6 +63,3 @@ class UserManager {
 }
 
 module.exports = UserManager;
-
-const LLL = new UserManager();
-LLL.getAllUser();
