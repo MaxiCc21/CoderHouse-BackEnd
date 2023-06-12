@@ -1,0 +1,26 @@
+<div class="chat-box">
+  <div class="chat-area">
+
+  </div>
+  <form id="message-form" class="form-container">
+    <input
+      id="input-user"
+      type="text"
+      placeholder="Usuario..."
+      class="message-input"
+      name="user"
+    />
+    <input
+      id="input-message"
+      type="text"
+      placeholder="Escribe un mensaje..."
+      class="message-input"
+      name="message"
+    />
+    <button type="submit" class="send-button">Enviar</button>
+  </form>
+  <!-- Más mensajes... -->
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/static/js/chatt.js"></script>

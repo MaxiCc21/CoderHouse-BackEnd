@@ -1,0 +1,57 @@
+<section class="section-user-joinIn">
+  <div class="container-user-joinIN">
+    <div class="left-site">
+      <h2>
+        Ingresá tu e-mail,
+        <br />
+        teléfono o usuario de
+        <br />
+        Mercado Libre
+      </h2>
+      <hr />
+      <small>Reportar un problema</small>
+      <a href="#" class="user-left-link">
+        <FontAwesomeIcon icon="{faMobile}" class="user-icon-left-left" />
+        Robo o pérdida de teléfono
+        <FontAwesomeIcon icon="{faAngleRight}" class="user-icon-left-right" />
+      </a>
+      <hr style=" margin:1px, width: 220px" />
+      <a href="#" class="user-left-link">
+        <FontAwesomeIcon icon="{faUser}" class="user-icon-left-left" />
+        Robo de cuenta
+        <FontAwesomeIcon icon="{faAngleRight}" class="user-icon-left-right" />
+      </a>
+      <a href="#" class="user-left-link-help">
+        Necesito ayuda con otros temas
+      </a>
+    </div>
+    <div class="right-site">
+      <div class="right-site-content">
+        <form id="userLoginForm" method="post" action="/views/login">
+          <div class="right-site-form-imput-area">
+            <label htmlFor="#">E-mail o usuario</label>
+            <input
+              type="text"
+              name="identification"
+              id="identification"
+              style="margin-bottom: 10px;"
+            />
+            <label htmlFor="#">Contraseña</label>
+            <input type="text" id="password" name="password" />
+          </div>
+          <div class="right-site-form-button-area">
+            <Button variant="contained" type="submit">Continuar</Button>
+            <Button
+              variant="text"
+              {{!-- sx={{ color: "#2596be", paddingLeft: "50px" }} --}}
+            >
+              Crear
+            </Button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="/static/js/user.js"></script>
