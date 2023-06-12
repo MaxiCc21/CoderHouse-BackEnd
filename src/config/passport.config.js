@@ -29,7 +29,7 @@ const initPassport = () => {
           };
           let result = await userModel.create(newUser);
 
-          return done(null, result);
+          return done(null, result, { message: "Usuario creado" });
         } catch (err) {
           return done("Error al obtener el usuario");
         }
