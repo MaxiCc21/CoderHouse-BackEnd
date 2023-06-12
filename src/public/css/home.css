@@ -29,12 +29,3 @@ img {
 .list-products {
   background-color: red;
 }
-
-.bienvenido-area {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.bienvenido-area button {
-  margin-left: 20px;
-}
