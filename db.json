@@ -42,5 +42,16 @@
     "categoy": ["tecnologías", "tv"],
     "marca": "Samsung",
     "stock": 53
+  },
+  {
+    "id": 1681152803528,
+    "title": "Smart TV Samsung UN75AU8000GXZD LED Tizen 4K 75' 100V/240V",
+    "description": "Con el Smart TV UN75AU8000G vas a acceder a las aplicaciones en las que se encuentran tus contenidos favoritos. Además, podés navegar por Internet, interactuar en redes sociales y divertirte con videojuegos.",
+    "price": 569.999,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_860131-MLA46796611920_072021-O.webp",
+    "categoy": ["tecnologías", "tv"],
+    "marca": "Samsung",
+    "stock": 2,
+    "code": "tectvSamsung528"
   }
 ]
