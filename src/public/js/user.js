@@ -19,13 +19,13 @@ function validarPassword(password) {
 
 function validarDataTypeUser(data) {
   try {
-    if (!isNaN(Number(data.nombre)))
+    if (!isNaN(Number(data.firstname)))
       throw {
         msg: "El dato ingresado el el campo nombre no es valido",
         inputError: "nombre",
       };
 
-    if (!isNaN(Number(data.apellido)))
+    if (!isNaN(Number(data.lastname)))
       throw { msg: "El dato ingresado el el campo apellido no es valido" };
 
     if (!validarUsername(data.username))
@@ -34,10 +34,10 @@ function validarDataTypeUser(data) {
     if (!validarEmail(data.email))
       throw { msg: "El dato ingresado el el campo email no es valido" };
 
-    if (!validarDireccion(data.direccion))
+    if (!validarDireccion(data.adress))
       throw { msg: "El dato ingresado el el campo direccion no es valido" };
 
-    if (!validarPassword(data.contrasena))
+    if (!validarPassword(data.password))
       throw { msg: "El dato ingresado el el campo contraseña no es valido" };
 
     return true;
@@ -53,33 +53,69 @@ function validarDataTypeUser(data) {
   }
 }
 
-const formulario = document.getElementById("creteUser-form");
+const RegisterForm = document.getElementById("creteUser-form");
+if (RegisterForm) {
+  RegisterForm.addEventListener("submit", (e) => {
+    RegisterForm.addEventListener("submit", (e) => {
+      const datosFormulario = new FormData(RegisterForm);
+      const firstname = datosFormulario.get("firstname");
+      const lastname = datosFormulario.get("lastname");
+      const username = datosFormulario.get("username");
+      const email = datosFormulario.get("email");
+      const address = datosFormulario.get("address");
+      const password = datosFormulario.get("password");
 
-formulario.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const nombre = formulario.elements["nombre"].value;
-  const apellido = formulario.elements["apellido"].value;
-  const username = formulario.elements["username"].value;
-  const email = formulario.elements["email"].value;
-  const direccion = formulario.elements["direccion"].value;
-  const contrasena = formulario.elements["contrasena"].value;
+      const data = {
+        firstname,
+        lastname,
+        username,
+        email,
+        address,
+        password,
+      };
 
-  const data = {
-    nombre,
-    apellido,
-    username,
-    email,
-    direccion,
-    contrasena,
-  };
+      fetch("/views/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+    });
 
-  if (validarDataTypeUser(data)) {
-    fetch("/handleUser/create-user", {
+    // if (validarDataTypeUser(data)) {
+    // fetch("/views/register", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(data),
+    // });
+    // }
+  });
+}
+
+// --------------------------------------------------
+//UserLogin
+
+const loginForm = document.getElementById("userLoginForm");
+if (loginForm) {
+  loginForm.addEventListener("submit", (e) => {
+    const datosFormulario = new FormData(loginForm);
+    const identification = datosFormulario.get("identification");
+    const password = datosFormulario.get("password");
+
+    const data = {
+      identification,
+      password,
+    };
+
+    fetch("/views/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
-  }
-});
+  });
+}
