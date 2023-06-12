@@ -3,7 +3,7 @@ const { productModel } = require("../models/product.model");
 const IdGenerator = () => {
   return Date.now();
 };
-
+//
 const checkObjectKeys = (obj) => {
   if (
     !obj.title ||

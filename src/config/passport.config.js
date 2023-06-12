@@ -7,6 +7,8 @@ const passport = require("passport"),
     isValidPassword,
   } = require("../utils/bcryptHas");
 const { userModel } = require("../dao/models/user.model");
+const GithubStrategy = require("passport-github2");
+require("dotenv").config();
 
 const LocalStrategy = local.Strategy;
 
@@ -66,6 +68,38 @@ const initPassport = () => {
   });
 };
 
+const initPassportGithub = () => {
+  passport.use(
+    "github",
+    new GithubStrategy(
+      {
+        clientID: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
+        callbackURL: process.env.GITHUB_CALLBACK_URL,
+      },
+      async (accessToken, refreshToken, profile, done) => {
+        console.log(profile);
+        try {
+          let user = await userModel.findOne({ email: profile._json.email });
+          if (!user) {
+            let newUser = {
+              username: profile._json.login,
+              email: "asadasa@gmail.com",
+              passport: "Hola1234",
+            };
+            let result = await userModel.create(newUser);
+            return done(null, result);
+          }
+        } catch (err) {
+          console.log(err);
+          done(err);
+        }
+      }
+    )
+  );
+};
+
 module.exports = {
   initPassport,
+  initPassportGithub,
 };

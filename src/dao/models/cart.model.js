@@ -12,7 +12,7 @@ const cartSchema = new Schema({
 });
 
 const cartModel = model("carts", cartSchema);
-
+//
 module.exports = {
   cartModel,
 };

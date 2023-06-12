@@ -28,34 +28,13 @@ router.get("/login", async (req, res) => {
   res.render("users/userLogin", options);
 });
 
-// router.post("/login", async (req, res) => {
-//   const { identification, password } = req.body;
-//   let data = await handleUser.loginValidation(identification, password);
-//   if (data.status === "ok") {
-//     res
-//       .cookie("username", data.username, {
-//         maxAge: 100000,
-//       })
-//       .redirect("/home");
-//   } else {
-//     res.status(401).redirect("/views/login");
-//   }
-// });
-
-// router.post(
-//   "/login",
-//   passport.authenticate("login", {
-//     failureRedirect: "login",
-//     successRedirect: "home",
-//   })
-// );
-
 router.post(
   "/login",
   passport.authenticate("login", { failureRedirect: "login" }),
   function (req, res) {
     const data = req.user;
-    console.log(req.message, "??????????");
+
+    console.log(data, "??????????");
     res
       .cookie("username", data.username, {
         maxAge: 100000,
@@ -80,26 +59,6 @@ router.get("/register", async (req, res) => {
 
   res.render("users/userRegister.handlebars", options);
 });
-
-// router.post("/register", async (req, res) => {
-//   let data = {
-//     ...req.body,
-//     password: createHashhhh(req.body.password),
-//   };
-
-//   let myRes = await handleUser.createNewUser(data);
-//   console.log(myRes.statusMsj);
-
-//   res
-//     .cookie("username", data.username, {
-//       maxAge: 100000,
-//     })
-//     .cookie("isAdmin", data.isAdmin, {
-//       maxAge: 100000,
-//     })
-//     .redirect("/home");
-// });
-// module.exports = router;
 
 router.post(
   "/register",

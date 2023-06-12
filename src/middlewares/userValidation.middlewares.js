@@ -4,7 +4,7 @@ function auth(req, res, next) {
   }
   return res.status(401).send("Error de autenticacion");
 }
-
+//
 module.exports = {
   auth,
 };

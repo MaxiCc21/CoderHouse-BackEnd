@@ -15,7 +15,10 @@ const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
 const FileStore = require("session-file-store");
 const { create } = require("connect-mongo");
 //Passport
-const { initPassport } = require("./config/passport.config");
+const {
+  initPassport,
+  initPassportGithub,
+} = require("./config/passport.config");
 const passport = require("passport");
 
 objectConfig.connectDB();
@@ -72,8 +75,9 @@ app.use(
   })
 );
 
-// Passport
+// Passportt
 initPassport();
+initPassportGithub();
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -84,6 +88,8 @@ app.post("/single", uploader.single("myFile"), (res, req) => {
 app.use("/products", productRoutes);
 
 app.use("/api/carts", cartRoutes);
+
+app.use("/api/session", userRoutes);
 
 app.use("/home", homeRoutes);
 

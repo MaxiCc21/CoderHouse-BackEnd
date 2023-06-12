@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const passport = require("passport");
 const router = Router();
 const { v4: uuidv4 } = require("uuid");
 
@@ -129,4 +130,21 @@ http: router.delete("/deleteuser/:pid", async (req, res) => {
   }
 });
 
+router.get(
+  "/github",
+  passport.authenticate("github", { scope: ["user:email"] }),
+  (req, res) => {
+    res.send("GET request to the homepage");
+  }
+);
+router.get(
+  "/githubcallback",
+  passport.authenticate("github", {
+    failureRedirect: "login",
+  }),
+  async (req, res) => {
+    req.session.user = req.user;
+    res.redirect("/home");
+  }
+);
 module.exports = router;
