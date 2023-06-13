@@ -78,4 +78,22 @@ router.get("/failregister", (req, res) => {
   res.send({ status: "err", statusMsj: "Fallo autenticate" });
 });
 
+router.get("/product/:pid", async (req, res) => {
+  const pid = req.params.pid;
+
+  const product = await handleProducts.getProductById(pid);
+  const options = {
+    style: "productShow.css",
+    product: product[0],
+  };
+  console.log(product);
+  if (!product) {
+    response.send({
+      error: `No se a econtrado nungun producto con id(${pid})`,
+    });
+  } else {
+    res.render("products/product_show.handlebars", options);
+  }
+});
+
 module.exports = router;
