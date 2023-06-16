@@ -20,13 +20,13 @@ function validarPassword(password) {
 
 function validarDataTypeUser(data) {
   try {
-    if (!isNaN(Number(data.firstname)))
+    if (!isNaN(Number(data.nombre)))
       throw {
         msg: "El dato ingresado el el campo nombre no es valido",
         inputError: "nombre",
       };
 
-    if (!isNaN(Number(data.lastname)))
+    if (!isNaN(Number(data.apellido)))
       throw { msg: "El dato ingresado el el campo apellido no es valido" };
 
     if (!validarUsername(data.username))
@@ -35,10 +35,10 @@ function validarDataTypeUser(data) {
     if (!validarEmail(data.email))
       throw { msg: "El dato ingresado el el campo email no es valido" };
 
-    if (!validarDireccion(data.adress))
+    if (!validarDireccion(data.direccion))
       throw { msg: "El dato ingresado el el campo direccion no es valido" };
 
-    if (!validarPassword(data.password))
+    if (!validarPassword(data.contrasena))
       throw { msg: "El dato ingresado el el campo contraseña no es valido" };
 
     return true;
@@ -54,26 +54,25 @@ function validarDataTypeUser(data) {
   }
 }
 
-const RegisterForm = document.getElementById("creteUser-form");
-if (RegisterForm) {
-  RegisterForm.addEventListener("submit", (e) => {
-    RegisterForm.addEventListener("submit", (e) => {
-      const datosFormulario = new FormData(RegisterForm);
-      const firstname = datosFormulario.get("firstname");
-      const lastname = datosFormulario.get("lastname");
-      const username = datosFormulario.get("username");
-      const email = datosFormulario.get("email");
-      const address = datosFormulario.get("address");
-      const password = datosFormulario.get("password");
+const formulario = document.getElementById("creteUser-form");
 
-      const data = {
-        firstname,
-        lastname,
-        username,
-        email,
-        address,
-        password,
-      };
+formulario.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const nombre = formulario.elements["nombre"].value;
+  const apellido = formulario.elements["apellido"].value;
+  const username = formulario.elements["username"].value;
+  const email = formulario.elements["email"].value;
+  const direccion = formulario.elements["direccion"].value;
+  const contrasena = formulario.elements["contrasena"].value;
+
+  const data = {
+    nombre,
+    apellido,
+    username,
+    email,
+    direccion,
+    contrasena,
+  };
 
       fetch("/views/login", {
         method: "POST",
@@ -119,5 +118,5 @@ if (loginForm) {
       },
       body: JSON.stringify(data),
     });
-  });
-}
+  }
+});
