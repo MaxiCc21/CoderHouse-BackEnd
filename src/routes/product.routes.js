@@ -1,6 +1,6 @@
 const { Router, response, request } = require("express");
 const router = Router();
-const handleProducts = new (require("../ProductManager"))();
+const handleProducts = new (require("../dao/MongoManager/ProductManager"))();
 
 function midUser(req, res, next) {
   if (!req.body.userADMIN) {
@@ -10,7 +10,7 @@ function midUser(req, res, next) {
   }
 }
 
-router.get("/", midUser, async (request, response) => {
+router.get("/", async (request, response) => {
   let res = await handleProducts.getProducts();
   let { limit } = request.query;
   if (limit) {
@@ -20,21 +20,25 @@ router.get("/", midUser, async (request, response) => {
 });
 
 router.get("/:pid", async (request, response) => {
-  const params = Number(request.params.pid);
-  const product = await handleProducts.getProductById(params);
-  console.log(product);
+  const pid = request.params.pid;
+
+  const product = await handleProducts.getProductById(pid);
   !product
     ? response.send({
-        error: `No se a econtrado nungun producto con id(${params})`,
+        error: `No se a econtrado nungun producto con id(${pid})`,
       })
     : response.send(product);
 });
 
-router.delete("/:pid", async (request, response) => {
-  const params = Number(request.params.pid);
-  const res = await handleProducts.deleteProduct(params);
+router.delete("/:pid", async (req, res) => {
+  let pid = req.params.pid;
 
-  response.send(res.statusMsj);
+  let myRes = await handleProducts.deleteProduct(pid);
+  if (!myRes) {
+    res.send("Producto eliminado exitosamento");
+  } else {
+    res.send("A ocurrido un error al eliminar el Producto");
+  }
 });
 
 router.post("/", async (request, response) => {

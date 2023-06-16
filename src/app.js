@@ -1,8 +1,12 @@
 const express = require("express");
+const session = require("express-session");
 const productRoutes = require("./routes/product.routes");
 const cartRoutes = require("./routes/carts.routes");
-const viersRoutes = require("./routes/views.routes");
+const homeRoutes = require("./routes/home.routes");
+const chatRoutes = require("./routes/chat.routes");
 const userRoutes = require("./routes/user.routes");
+const viewsRoutes = require("./routes/views.routes");
+const cookieRoutes = require("./routes/cookie.routes");
 const cokieParser = require("cookie-parser");
 const { uploader } = require("./utils/multer");
 const productHandle = new (require("./dao/MongoManager/ProductManager"))();
@@ -30,7 +34,7 @@ app.set("view engine", "handlebars");
 // HandleBars
 
 app.use(express.json());
-app.use(cokieParser());
+app.use(cokieParser("c0ntr4s3n4"));
 app.use("/static", express.static(__dirname + "/public"));
 
 app.use(express.urlencoded({ extended: true }));
@@ -95,7 +99,11 @@ app.use("/api/session", userRoutes);
 
 app.use("/home", homeRoutes);
 
-app.use("/handleUser", userRoutes);
+app.use("/views", viewsRoutes);
+
+app.use("/chat", chatRoutes);
+
+app.use("/cookie", cookieRoutes);
 
 app.use((err, req, res, next) => {
   console.log(err);
@@ -124,7 +132,6 @@ socketServer.on("connection", async (socket) => {
 
   socket.on("addProduct", async (data) => {
     let res = await productHandle.addProduct(data);
-    console.log(res);
   });
 
   socket.on("eliminar-producto", async (dataID) => {
