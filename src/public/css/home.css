@@ -1,27 +1,19 @@
-html {
-  background-color: #ebebeb;
-}
-
 .cart-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
 }
-
 .cart {
-  background-color: #fff;
+  background-color: rgba(181, 181, 181, 0.662);
   width: 200px;
   height: auto;
   margin: 10px;
 }
-
 .cart-info-area {
   padding: 7px;
 }
 
 .cart h1 {
   font-size: 1rem;
-  font-family: "Courier New", Courier, monospace;
 }
 
 .cart p {
@@ -36,13 +28,4 @@ img {
 
 .list-products {
   background-color: red;
-}
-
-.bienvenido-area {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.bienvenido-area button {
-  margin-left: 20px;
 }
