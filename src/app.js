@@ -14,6 +14,8 @@ const objectConfig = require("./config/objetConfig");
 const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
 const FileStore = require("session-file-store");
 const { create } = require("connect-mongo");
+
+const cors = require("cors");
 //Passport
 const {
   initPassport,
@@ -58,6 +60,7 @@ const fileStore = FileStore(session);
 //     saveUninitialized: true,
 //   })
 // );
+
 app.use(
   session({
     store: create({
@@ -80,6 +83,9 @@ initPassport();
 initPassportGithub();
 app.use(passport.initialize());
 app.use(passport.session());
+
+// cors
+app.use(cors());
 
 app.post("/single", uploader.single("myFile"), (res, req) => {
   res.status(200).send("Todo ok");
@@ -141,4 +147,13 @@ socketServer.on("connection", async (socket) => {
     console.log(res);
     socket.emit("send-all-messages", messages);
   });
+});
+
+app.use((req, res, next) => {
+  // Guardar un nuevo parámetro en req
+  req.customParam = "authorization";
+  next();
+});
+app.get("*", (req, res) => {
+  res.status(404).send("Not found");
 });

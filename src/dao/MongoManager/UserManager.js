@@ -71,21 +71,50 @@ class UserManager {
       });
       console.log(password, found.password);
       if (!found) {
-        throw { status: "error", statusMsj: "No se a econtrado un usuario" };
+        throw {
+          status: "error",
+          statusMsj: "No se a econtrado un usuario",
+          ok: false,
+        };
       } else {
         if (isValidPassword(password, found.password)) {
           return {
             status: "ok",
             statusMsj: "Bienvenido",
             username: found.username,
+            found,
+            ok: true,
           };
         } else {
-          return { status: "err", statusMsj: "La contraseña es incorrecta" };
+          return {
+            status: "err",
+            statusMsj: "La contraseña es incorrecta",
+            ok: false,
+          };
         }
       }
     } catch (err) {
       return err;
     }
+  };
+
+  loginValidationGithub = async (loginEmail) => {
+    const item_found = await userModel.findOne({ email: loginEmail });
+
+    if (!item_found) {
+      return {
+        status: "error",
+        stateMsj: "No se a econtrado un usuario",
+        ok: false,
+        item_found: false,
+      };
+    }
+    return {
+      status: "ok",
+      stateMsj: "Usuario encotrado",
+      ok: true,
+      item_found,
+    };
   };
 }
 

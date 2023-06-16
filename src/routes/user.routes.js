@@ -140,10 +140,11 @@ router.get(
 router.get(
   "/githubcallback",
   passport.authenticate("github", {
-    failureRedirect: "login",
+    failureRedirect: "/views/register",
   }),
   async (req, res) => {
     req.session.user = req.user;
+
     res.redirect("/home");
   }
 );

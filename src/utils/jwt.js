@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const JWT_PRIVATE_KEY = "palaabraJwtSecreto";
 
 const generateToke = (user) => {
-  const token = jwt.sign({ user }, JWT_PRIVATE_KEY, { expiresIn: "24h" });
+  const token = jwt.sign({ user }, JWT_PRIVATE_KEY, { expiresIn: "1d" });
   return token;
 };
 
@@ -20,6 +20,7 @@ const authToken = (req, res, next) => {
         .send({ status: "error", satusMsj: "No autorizado" });
     }
     req.user = credential.user;
+    console.log("Entra?????????????");
     next();
   });
 };

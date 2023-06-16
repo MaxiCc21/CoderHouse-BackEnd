@@ -3,8 +3,11 @@ const router = Router();
 const handleProducts = new (require("../dao/MongoManager/ProductManager"))();
 
 router.get("/", async (req, res) => {
+  console.log("/Home");
   const { username } = req.cookies;
   let listProducts = await handleProducts.getProducts();
+
+  const authHeader = req.headers.authorization;
 
   let testUser = {
     products: listProducts,
@@ -18,4 +21,5 @@ router.get("/", async (req, res) => {
 router.post("/", (req, res) => {
   res.clearCookie("username").redirect("home");
 });
+
 module.exports = router;

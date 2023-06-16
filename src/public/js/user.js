@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const nameRegex = /^[A-Za-zÁ-ú']{2,30}$/;
 const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -109,6 +110,7 @@ if (loginForm) {
       identification,
       password,
     };
+    const token = jwt.sign({ userId: "123456789" }, "secret_key");
 
     fetch("/views/login", {
       method: "POST",

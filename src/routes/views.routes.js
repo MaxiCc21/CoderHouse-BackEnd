@@ -4,6 +4,8 @@ const handleProducts = new (require("../dao/MongoManager/ProductManager"))();
 const { v4: uuidv4 } = require("uuid");
 const { createHashhhh } = require("../utils/bcryptHas");
 const passport = require("passport");
+const { generateToke } = require("../utils/jwt");
+const jwt = require("jsonwebtoken");
 
 const handleUser = new (require("../dao/MongoManager/UserManager"))();
 
@@ -19,10 +21,8 @@ router.get("/", async (require, res) => {
 });
 
 router.get("/login", async (req, res) => {
-  let data = await handleUser.getAllUser();
   let options = {
     style: "user_Ingresar.css",
-    data,
   };
 
   res.render("users/userLogin", options);
@@ -30,11 +30,26 @@ router.get("/login", async (req, res) => {
 
 router.post(
   "/login",
-  passport.authenticate("login", { failureRedirect: "login" }),
+  passport.authenticate("login", {
+    failureRedirect: "login",
+    // successRedirect: "/home",
+  }),
   function (req, res) {
     const data = req.user;
 
-    console.log(data, "??????????");
+    console.log(data, "PPPPPPPPPPPPPPPPPPPPPP");
+
+    const accessToken = generateToke({
+      sub: data._id,
+      username: data.username,
+      email: data.email,
+      isAdmin: data.isAdmin,
+    });
+    req.headers.authorization = accessToken;
+
+    console.log(req.authorization);
+
+    // res.header("Authorization", `Bearer ${accessToken}`).redirect("/home");
     res
       .cookie("username", data.username, {
         maxAge: 100000,
