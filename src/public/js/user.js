@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const nameRegex = /^[A-Za-zÁ-ú']{2,30}$/;
 const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -73,8 +74,44 @@ formulario.addEventListener("submit", (event) => {
     contrasena,
   };
 
-  if (validarDataTypeUser(data)) {
-    fetch("/handleUser/create-user", {
+      fetch("/views/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+    });
+
+    // if (validarDataTypeUser(data)) {
+    // fetch("/views/register", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(data),
+    // });
+    // }
+  });
+}
+
+// --------------------------------------------------
+//UserLogin
+
+const loginForm = document.getElementById("userLoginForm");
+if (loginForm) {
+  loginForm.addEventListener("submit", (e) => {
+    const datosFormulario = new FormData(loginForm);
+    const identification = datosFormulario.get("identification");
+    const password = datosFormulario.get("password");
+
+    const data = {
+      identification,
+      password,
+    };
+    const token = jwt.sign({ userId: "123456789" }, "secret_key");
+
+    fetch("/views/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
