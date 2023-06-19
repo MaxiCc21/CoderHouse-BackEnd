@@ -7,13 +7,13 @@ const generateToke = (user) => {
 };
 
 const authToken = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
+  const authHeader = req.cookies["jwtCoder"];
   if (!authHeader) {
-    return res.status(401).send({ status: "error", satusMsj: "No autorizado" });
+    return res.status(401).send({ status: "error", satusMsj: "No Cookie" });
   }
   const token = authHeader.split(" ")[1];
 
-  jwt.verify(token, JWT_PRIVATE_KEY, (error, credential) => {
+  jwt.verify("token", privateKey, (error, credential) => {
     if (error) {
       return res
         .status(403)

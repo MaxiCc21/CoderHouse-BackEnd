@@ -22,7 +22,7 @@ const LocalStrategy = local.Strategy;
 const cookieExtrator = (req) => {
   let token = null;
   if (req && req.cookies) {
-    token = req.cookies("jwtCoder");
+    token = req.cookies["jwtCoder"];
   }
   return token;
 };
@@ -30,8 +30,6 @@ const optionsJWT = {};
 
 optionsJWT.jwtFromRequest = ExtractJWT.fromExtractors([cookieExtrator]);
 optionsJWT.secretOrKey = privateKey;
-optionsJWT.issuer = "accounts.examplesoft.com";
-optionsJWT.audience = "yoursite.net";
 
 const initPassportJWT = () => {
   passport.use(

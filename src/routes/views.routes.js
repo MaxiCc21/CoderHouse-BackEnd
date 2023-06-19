@@ -67,7 +67,7 @@ router.post(
     const token = generateToke(newUser);
     res
       .cookie("jwtCoder", token, {
-        maxAge: 100000,
+        maxAge: 100000 * 60,
         httpOnly: true,
       })
       .redirect("/home");

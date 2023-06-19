@@ -23,6 +23,7 @@ const cors = require("cors");
 const {
   initPassport,
   initPassportGithub,
+  initPassportJWT,
 } = require("./config/passport.config");
 const passport = require("passport");
 
@@ -84,6 +85,7 @@ app.use(
 // Passportt
 initPassport();
 initPassportGithub();
+initPassportJWT();
 app.use(passport.initialize());
 app.use(passport.session());
 
