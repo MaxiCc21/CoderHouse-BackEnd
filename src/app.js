@@ -6,6 +6,7 @@ const homeRoutes = require("./routes/home.routes");
 const chatRoutes = require("./routes/chat.routes");
 const userRoutes = require("./routes/user.routes");
 const viewsRoutes = require("./routes/views.routes");
+const newUserRoutes = require("./routes/newUser.routes");
 const cookieRoutes = require("./routes/cookie.routes");
 const cokieParser = require("cookie-parser");
 const { uploader } = require("./utils/multer");
@@ -14,6 +15,8 @@ const objectConfig = require("./config/objetConfig");
 const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
 const FileStore = require("session-file-store");
 const { create } = require("connect-mongo");
+
+const NewUserRoutes = new newUserRoutes();
 
 const cors = require("cors");
 //Passport
@@ -96,6 +99,8 @@ app.use("/products", productRoutes);
 app.use("/api/carts", cartRoutes);
 
 app.use("/api/session", userRoutes);
+
+app.use("/prueba", NewUserRoutes.getRouter());
 
 app.use("/home", homeRoutes);
 

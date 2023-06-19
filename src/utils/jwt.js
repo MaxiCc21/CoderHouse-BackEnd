@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
-const JWT_PRIVATE_KEY = "palaabraJwtSecreto";
+const { privateKey } = require("../config/objetConfig");
 
 const generateToke = (user) => {
-  const token = jwt.sign({ user }, JWT_PRIVATE_KEY, { expiresIn: "1d" });
+  const token = jwt.sign({ user }, privateKey, { expiresIn: "1d" });
   return token;
 };
 

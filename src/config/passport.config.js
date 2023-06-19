@@ -10,10 +10,43 @@ const { userModel } = require("../dao/models/user.model");
 const GithubStrategy = require("passport-github2");
 const handleUser = new (require("../dao/MongoManager/UserManager"))();
 
+const passportJWT = require("passport-jwt");
+const { privateKey } = require("./objetConfig");
+const JWTStrategy = passportJWT.Strategy;
+const ExtractJWT = passportJWT.ExtractJwt;
+
 require("dotenv").config();
 
 const LocalStrategy = local.Strategy;
 
+const cookieExtrator = (req) => {
+  let token = null;
+  if (req && req.cookies) {
+    token = req.cookies("jwtCoder");
+  }
+  return token;
+};
+const optionsJWT = {};
+
+optionsJWT.jwtFromRequest = ExtractJWT.fromExtractors([cookieExtrator]);
+optionsJWT.secretOrKey = privateKey;
+optionsJWT.issuer = "accounts.examplesoft.com";
+optionsJWT.audience = "yoursite.net";
+
+const initPassportJWT = () => {
+  passport.use(
+    "jwt",
+    new JWTStrategy(optionsJWT, async (jwt_payload, done) => {
+      try {
+        done(null, jwt_payload);
+      } catch (err) {
+        return done(err);
+      }
+    })
+  );
+};
+
+// --------------------------------------------
 const initPassport = () => {
   passport.use(
     "register",
@@ -151,4 +184,5 @@ const initPassportGithub = () => {
 module.exports = {
   initPassport,
   initPassportGithub,
+  initPassportJWT,
 };

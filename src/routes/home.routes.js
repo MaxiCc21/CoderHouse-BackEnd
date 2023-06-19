@@ -7,8 +7,7 @@ router.get("/", async (req, res) => {
   const { username } = req.cookies;
   let listProducts = await handleProducts.getProducts();
 
-  const authHeader = req.headers.authorization;
-
+  console.log(req.cookies, "Cookies");
   let testUser = {
     products: listProducts,
     style: "home.css",

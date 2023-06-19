@@ -4,6 +4,7 @@ const handleProducts = new (require("../dao/MongoManager/ProductManager"))();
 const { v4: uuidv4 } = require("uuid");
 const { createHashhhh } = require("../utils/bcryptHas");
 const passport = require("passport");
+const { generateToke } = require("../utils/jwt");
 
 const handleUser = new (require("../dao/MongoManager/UserManager"))();
 
@@ -56,12 +57,18 @@ router.post(
   function (req, res) {
     const data = req.user;
     console.log(req.message, "??????????");
+    const newUser = {
+      sub: data._id,
+      username: data.username,
+      role: "user",
+      email: data.email,
+      isAdmin: data.isAdmin,
+    };
+    const token = generateToke(newUser);
     res
-      .cookie("username", data.username, {
+      .cookie("jwtCoder", token, {
         maxAge: 100000,
-      })
-      .cookie("isAdmin", data.isAdmin, {
-        maxAge: 100000,
+        httpOnly: true,
       })
       .redirect("/home");
   }
