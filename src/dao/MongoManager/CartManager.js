@@ -96,7 +96,7 @@ class CartManager {
   addItem = async (cid, pid, body) => {
     try {
       const cart = await cartModel.findOneAndUpdate(
-        { _id: cid, "products.product": pid },
+        { _id: cid, "products.body.id": 1 },
         { $inc: { "products.$.quantity": 1 } },
         { new: true }
       );
@@ -104,7 +104,7 @@ class CartManager {
       if (!cart) {
         const cart = await cartModel.findOneAndUpdate(
           { _id: cid },
-          { $addToSet: { products: { product: body, quantity: 1, body } } },
+          { $addToSet: { products: { product: pid, quantity: 1, body } } },
           { new: true }
         );
         return cart;
