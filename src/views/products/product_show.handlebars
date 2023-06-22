@@ -41,7 +41,24 @@
         <h2>{{product.title}}</h2>
         <span>{{product.price}}</span>
       </div>
-      <div class="z4-mid-productShow">z4</div>
+      <div class="z4-mid-productShow">
+        <form
+          id="showProduct-form"
+          action="/products/{{product._id}}"
+          method="post"
+        >
+          <input
+            type="text"
+            value="{{product._id}}"
+            hidden="true"
+            name="productID"
+          />
+          <button type="submit">comprar</button>
+
+        </form>
+      </div>
     </section>
   </div>
 </div>
+
+<script src="/static/js/productShow.js"></script>

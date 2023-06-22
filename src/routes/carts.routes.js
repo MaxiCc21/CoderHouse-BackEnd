@@ -22,10 +22,10 @@ router.get("/:cid", async (request, response) => {
 router.post("/:cid/product/:pid", async (request, response) => {
   let { cid } = request.params;
   let { pid } = request.params;
-  let body = request.body;
+  let body = { id: 1, name: "hola" };
   let res = await cartHandle.addItem(cid, pid, body);
-  console.log(res.status, res.statusMsj);
-  response.send(res.statusMsj);
+  // console.log(res.status, res.statusMsj);
+  response.send(res);
 });
 
 router.post("/", async (request, response) => {

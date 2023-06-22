@@ -9,7 +9,7 @@ const generateToke = (user) => {
 const authToken = (req, res, next) => {
   const authHeader = req.cookies["jwtCoder"];
   if (!authHeader) {
-    return res.status(401).send({ status: "error", satusMsj: "No Cookie" });
+    return res.status(401).redirec({ status: "error", satusMsj: "No Cookie" });
   }
   const token = authHeader.split(" ")[1];
 
@@ -20,7 +20,7 @@ const authToken = (req, res, next) => {
         .send({ status: "error", satusMsj: "No autorizado" });
     }
     req.user = credential.user;
-    console.log("Entra?????????????");
+
     next();
   });
 };

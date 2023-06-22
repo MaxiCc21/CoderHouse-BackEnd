@@ -79,27 +79,32 @@ class CartManager {
   //   } catch (err) {}
   // };
 
-  createNewCart = async () => {
+  createNewCart = async (uid) => {
+    const cartData = {
+      id_user_to_cart: uid,
+    };
+
     try {
-      await cartModel.create({});
+      await cartModel.create(cartData);
       return { state: "ok", statusMsj: "Se a creado un carrido" };
     } catch (err) {
-      console.log("A ocurrido un error : ", err);
+      return { state: "error", statusMsj: "Se aproducido un error", err };
     }
   };
 
   // Agregar un item al carrito
-  addItem = async (data) => {
+  addItem = async (cid, pid, body) => {
     try {
       const cart = await cartModel.findOneAndUpdate(
         { _id: cid, "products.product": pid },
         { $inc: { "products.$.quantity": 1 } },
         { new: true }
       );
+      console.log(cart, "cartttt");
       if (!cart) {
         const cart = await cartModel.findOneAndUpdate(
           { _id: cid },
-          { $addToSet: { products: { product: pid, quantity: 1 } } },
+          { $addToSet: { products: { product: body, quantity: 1, body } } },
           { new: true }
         );
         return cart;
