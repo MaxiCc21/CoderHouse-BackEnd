@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/static/css/{{style}}" />
     <link rel="stylesheet" href="/static/css/navBar.css" />
+    <link rel="stylesheet" href="/static/css/main.css" />
     <title>{{{title}}}</title>
   </head>
   <body>
@@ -54,15 +55,37 @@
         </div>
         <div class="Nav-Sesion">
           <ul class="my-ul">
-            <li>
-              <a href="/handleUser/create-user">Creá tu cuenta</a>
-            </li>
-            <li>
-              <a href="/handleUser">Ingresá</a>
-            </li>
-            <li>
-              <a href="#">Mis Compras</a>
-            </li>
+            {{#if usercookie}}
+              <li>
+                <a href="/views/register">{{usercookie}}</a>
+              </li>
+              <li>
+                <a href="/views/misCompras">Mis Compras</a>
+              </li>
+              <li>
+                <a href="/views/register">Favoritos</a>
+              </li>
+              <li>
+                <a href="#">Camp logo</a>
+              </li>
+              <li>
+                <a href="#">Carr logo</a>
+              </li>
+            {{else}}
+              <li>
+                <a href="/views/register">Creá tu cuenta</a>
+              </li>
+              <li>
+                <a href="/views/login">Ingresá</a>
+              </li>
+              <li>
+                <a href="/views/misCompras">Mis Compras</a>
+              </li>
+              <li>
+                <a href="#">Carrito logo</a>
+              </li>
+            {{/if}}
+
           </ul>
           <a href="#">
             <FontAwesomeIcon class="locationIcon" icon="{faCartShopping}" />
