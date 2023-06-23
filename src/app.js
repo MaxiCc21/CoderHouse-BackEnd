@@ -6,6 +6,7 @@ const homeRoutes = require("./routes/home.routes");
 const chatRoutes = require("./routes/chat.routes");
 const userRoutes = require("./routes/user.routes");
 const viewsRoutes = require("./routes/views.routes");
+const newUserRoutes = require("./routes/newUser.routes");
 const cookieRoutes = require("./routes/cookie.routes");
 const cokieParser = require("cookie-parser");
 const { uploader } = require("./utils/multer");
@@ -15,11 +16,14 @@ const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
 const FileStore = require("session-file-store");
 const { create } = require("connect-mongo");
 
+const NewUserRoutes = new newUserRoutes();
+
 const cors = require("cors");
 //Passport
 const {
   initPassport,
   initPassportGithub,
+  initPassportJWT,
 } = require("./config/passport.config");
 const passport = require("passport");
 
@@ -81,6 +85,7 @@ app.use(
 // Passportt
 initPassport();
 initPassportGithub();
+initPassportJWT();
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -96,6 +101,8 @@ app.use("/products", productRoutes);
 app.use("/api/carts", cartRoutes);
 
 app.use("/api/session", userRoutes);
+
+app.use("/prueba", NewUserRoutes.getRouter());
 
 app.use("/home", homeRoutes);
 

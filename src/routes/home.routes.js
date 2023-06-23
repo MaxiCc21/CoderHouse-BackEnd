@@ -1,25 +1,33 @@
 const { Router, response, request } = require("express");
+const { authToken } = require("../utils/jwt");
+const { passportAuth } = require("../config/passportAuth");
+const { authorizaton } = require("../config/passportAuthorization");
+const f = require("session-file-store");
 const router = Router();
 const handleProducts = new (require("../dao/MongoManager/ProductManager"))();
 
-router.get("/", async (req, res) => {
-  console.log("/Home");
-  const { username } = req.cookies;
-  let listProducts = await handleProducts.getProducts();
+router.get(
+  "/",
 
-  const authHeader = req.headers.authorization;
+  passportAuth("jwt"),
+  authorizaton("PUBLIC"),
+  async (req, res) => {
+    console.log("/Home");
+    let listProducts = await handleProducts.getProducts();
 
-  let testUser = {
-    products: listProducts,
-    style: "home.css",
-    usercookie: username,
-  };
+    const jwtUser = req.user ? req.user : false;
+    let testUser = {
+      products: listProducts,
+      style: "home.css",
+      usercookie: jwtUser.username ? req.user.username : null,
+    };
 
-  res.render("home.handlebars", testUser);
-});
+    res.render("home.handlebars", testUser);
+  }
+);
 
 router.post("/", (req, res) => {
-  res.clearCookie("username").redirect("home");
+  res.clearCookie("jwtCoder").redirect("/home");
 });
 
 module.exports = router;

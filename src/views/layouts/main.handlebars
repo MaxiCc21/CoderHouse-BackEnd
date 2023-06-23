@@ -55,15 +55,37 @@
         </div>
         <div class="Nav-Sesion">
           <ul class="my-ul">
-            <li>
-              <a href="/views/register">Creá tu cuenta</a>
-            </li>
-            <li>
-              <a href="/views/login">Ingresá</a>
-            </li>
-            <li>
-              <a href="#">Mis Compras</a>
-            </li>
+            {{#if usercookie}}
+              <li>
+                <a href="/views/register">{{usercookie}}</a>
+              </li>
+              <li>
+                <a href="/views/misCompras">Mis Compras</a>
+              </li>
+              <li>
+                <a href="/views/register">Favoritos</a>
+              </li>
+              <li>
+                <a href="#">Camp logo</a>
+              </li>
+              <li>
+                <a href="#">Carr logo</a>
+              </li>
+            {{else}}
+              <li>
+                <a href="/views/register">Creá tu cuenta</a>
+              </li>
+              <li>
+                <a href="/views/login">Ingresá</a>
+              </li>
+              <li>
+                <a href="/views/misCompras">Mis Compras</a>
+              </li>
+              <li>
+                <a href="#">Carrito logo</a>
+              </li>
+            {{/if}}
+
           </ul>
           <a href="#">
             <FontAwesomeIcon class="locationIcon" icon="{faCartShopping}" />
