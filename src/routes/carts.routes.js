@@ -1,10 +1,28 @@
 const { Router, response, request } = require("express");
+const { passportAuth } = require("../config/passportAuth");
+const { authorizaton } = require("../config/passportAuthorization");
 const router = Router();
 const cartHandle = new (require("../dao/MongoManager/CartManager"))();
 
-router.get("/", async (req, res) => {
-  let myres = await cartHandle.getItem();
-  res.send(myres);
+router.get("/", passportAuth("jwt"), authorizaton("user"), async (req, res) => {
+  console.log("/api/carts");
+  const user = req.user;
+  const jwtUser = user ? user : false;
+
+  const productDataUser = await cartHandle.getItemToCart(jwtUser.sub);
+
+  if (!productDataUser.ok) {
+    res.status(400).send("Algo salio mal al cargar los productos");
+  }
+  console.log(productDataUser.statusMsj);
+  const options = {
+    title: "Carrito de compras",
+    style: "cart.css",
+    products: productDataUser.data,
+    usercookie: jwtUser.username ? jwtUser.username : null,
+  };
+
+  res.render("cart/cart.handlebars", options);
 });
 
 router.get("/:cid", async (request, response) => {
