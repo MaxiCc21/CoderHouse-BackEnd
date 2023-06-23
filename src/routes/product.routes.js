@@ -1,8 +1,10 @@
 const { Router, response, request } = require("express");
 const { authToken } = require("../utils/jwt");
 const { authorizaton } = require("../config/passportAuthorization");
+const { passportAuth } = require("../config/passportAuth");
 const router = Router();
 const handleProducts = new (require("../dao/MongoManager/ProductManager"))();
+const handleCart = new (require("../dao/MongoManager/CartManager"))();
 
 function midUser(req, res, next) {
   if (!req.body.userADMIN) {
@@ -23,8 +25,9 @@ router.get("/", async (request, response) => {
 
 router.get(
   "/:pid",
+
+  passportAuth("jwt"),
   authorizaton("PUBLIC"),
-  // authToken("jwt"),
   async (req, res) => {
     const pid = req.params.pid;
 
@@ -35,27 +38,40 @@ router.get(
         error: `No se a econtrado nungun producto con id(${pid})`,
       });
     }
-
+    const jwtUser = req.user ? req.user : false;
     const options = {};
     options.style = "productShow.css";
     options.product = product[0];
-
-    res.render("products/product_show.handlebars", options);
+    (options.usercookie = jwtUser.username ? req.user.username : null),
+      res.render("products/product_show.handlebars", options);
   }
 );
 
 router.post(
   "/:pid",
-  // authorizaton("PUBLIC"),
-  // authToken("jwt"),
+  passportAuth("jwt"),
+  authorizaton("user"),
+
   async (req, res) => {
-    const { pid } = req.params;
-    const foundProduct = await handleProducts.getProductById(pid);
+    console.log("#POST /Agregar al carrito");
+    const foundProduct = await handleProducts.getProductById(req.params.pid);
 
     if (!foundProduct) {
       res.send({ status: "error", statusMsg: "No se a econtrado un producto" });
     } else {
-      res.send(foundProduct);
+      if (req.body.action === "comprar") {
+        console.log("comprar");
+        console.log(req.user, "PPPPPPPPPPPPP");
+        res.send("comprar");
+      } else if (req.body.action === "carrito") {
+        console.log(req.user, "req.user???????????");
+        let cid = req.user.sub;
+        let pid = foundProduct[0]._id;
+        let body = foundProduct[0];
+        const itemAdd = await handleCart.addItem(cid, pid, body);
+        console.log(itemAdd);
+        res.send({ cid, pid, body });
+      }
     }
   }
 );

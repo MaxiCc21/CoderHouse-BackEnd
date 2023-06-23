@@ -8,9 +8,9 @@ const handleProducts = new (require("../dao/MongoManager/ProductManager"))();
 
 router.get(
   "/",
-  // authorizaton("PUBLIC"),
-  // passportAuth("jwt"),
 
+  passportAuth("jwt"),
+  authorizaton("PUBLIC"),
   async (req, res) => {
     console.log("/Home");
     let listProducts = await handleProducts.getProducts();

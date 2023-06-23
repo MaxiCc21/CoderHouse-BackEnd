@@ -58,6 +58,7 @@ router.post(
   "/login",
   passport.authenticate("login", { failureRedirect: "login" }),
   async function (req, res) {
+    console.log("/login");
     const data = req.user;
 
     const newUser = {

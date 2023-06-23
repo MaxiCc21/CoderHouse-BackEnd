@@ -6,7 +6,6 @@ $form.addEventListener("submit", (e) => {
   const productID = formulario.get("productID");
 
   console.log(productID);
-
   fetch(`/products/${productID}`, {
     method: "POST",
     headers: {

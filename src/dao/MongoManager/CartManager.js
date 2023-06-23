@@ -1,5 +1,6 @@
 const fs = require("fs");
 const { cartModel } = require("../models/cart.model");
+const { log } = require("console");
 
 const IdGenerator = () => {
   return Date.now();
@@ -59,34 +60,17 @@ class CartManager {
     }
   };
 
-  // addItem = async (cid, pid, body) => {
-  //   let carts = await this.getItem();
-  //   try {
-  //     const found = await this.getItemById(cid);
-  //     if (!found) throw { error: "Errors" };
-  //     found.products.push({ id: pid, ...body });
-
-  //     let updateCarts = carts.map((el) => (el.id === cid ? found : el));
-  //     await fs.promises.writeFile(
-  //       this.path,
-  //       JSON.stringify(updateCarts),
-  //       "utf-8"
-  //     );
-  //     return {
-  //       status: "ok",
-  //       statusMsj: "El Porducto fue agregado satisfactoriamente ",
-  //     };
-  //   } catch (err) {}
-  // };
-
   createNewCart = async (uid) => {
     const cartData = {
       id_user_to_cart: uid,
     };
 
     try {
-      await cartModel.create(cartData);
-      return { state: "ok", statusMsj: "Se a creado un carrido" };
+      const cart = await cartModel.findOne({ id_user_to_cart: uid });
+      if (!cart) {
+        await cartModel.create(cartData);
+        return { state: "ok", statusMsj: "Se a creado un carrido" };
+      }
     } catch (err) {
       return { state: "error", statusMsj: "Se aproducido un error", err };
     }
@@ -96,17 +80,20 @@ class CartManager {
   addItem = async (cid, pid, body) => {
     try {
       const cart = await cartModel.findOneAndUpdate(
-        { _id: cid, "products.body.id": 1 },
+        { id_user_to_cart: cid, "products.product._id": pid },
         { $inc: { "products.$.quantity": 1 } },
         { new: true }
       );
-      console.log(cart, "cartttt");
+      console.log("inc quantity");
+
       if (!cart) {
         const cart = await cartModel.findOneAndUpdate(
-          { _id: cid },
-          { $addToSet: { products: { product: pid, quantity: 1, body } } },
+          { id_user_to_cart: cid },
+          { $addToSet: { products: { product: body, quantity: 1 } } },
           { new: true }
         );
+        console.log("Add product");
+        console.log(cart);
         return cart;
       }
       return cart;

@@ -8,6 +8,7 @@ const generateToke = (user) => {
 
 const authToken = (req, res, next) => {
   const authHeader = req.cookies["jwtCoder"];
+  console.log(req, "???????????");
   if (!authHeader) {
     return res.status(401).redirec({ status: "error", satusMsj: "No Cookie" });
   }
