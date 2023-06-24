@@ -14,6 +14,7 @@ router.get("/", passportAuth("jwt"), authorizaton("user"), async (req, res) => {
   if (!productDataUser.ok) {
     res.status(400).send("Algo salio mal al cargar los productos");
   }
+  //Tengo que usar socket.io para modificar el carrito para no hcer refresco de paguina
   console.log(productDataUser.statusMsj);
   const options = {
     title: "Carrito de compras",

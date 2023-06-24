@@ -156,11 +156,6 @@ socketServer.on("connection", async (socket) => {
   });
 });
 
-app.use((req, res, next) => {
-  // Guardar un nuevo parámetro en req
-  req.customParam = "authorization";
-  next();
-});
 app.get("*", (req, res) => {
   res.status(404).send("Not found");
 });

@@ -42,6 +42,32 @@ class CartManager {
     this.items = [];
   }
 
+  getItemToCart = async (uid) => {
+    try {
+      const found = await cartModel.findOne({ id_user_to_cart: uid }).lean();
+      if (!found) {
+        return {
+          status: "error",
+          statusMsj: "No se encotrado un carrito con dicho ID",
+          ok: false,
+          data: null,
+        };
+      }
+      return {
+        status: "ok",
+        statusMsj: "Se econtro el carrito",
+        ok: true,
+        data: found.products,
+      };
+
+      return products;
+    } catch (err) {
+      return { status: "error", statusMsj: `error:${err}` };
+    }
+
+    return found;
+  };
+
   getItem = async () => {
     try {
       let myRes = await cartModel.find().lean();
