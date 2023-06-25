@@ -11,6 +11,7 @@ const cookieRoutes = require("./routes/cookie.routes");
 const cokieParser = require("cookie-parser");
 const { uploader } = require("./utils/multer");
 const productHandle = new (require("./dao/MongoManager/ProductManager"))();
+const cartHandle = new (require("./dao/MongoManager/CartManager"))();
 const objectConfig = require("./config/objetConfig");
 const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
 const FileStore = require("session-file-store");
@@ -154,13 +155,30 @@ socketServer.on("connection", async (socket) => {
     console.log(res);
     socket.emit("send-all-messages", messages);
   });
+  //------------------------------------------------
+  socket.on("cartDeleteItem", async ($userIdInput, $productIdInput) => {
+    let res = await cartHandle.deleteItemToCart($userIdInput, $productIdInput);
+    console.log(res.statusMsj);
+    if (res.ok) {
+      socket.emit("okModCart", "Todo ok ");
+    }
+  });
+  socket.on("cartAddItem", async ($userIdInput, $productIdInput) => {
+    let res = await cartHandle.addItemToCart($userIdInput, $productIdInput);
+    console.log(res.statusMsj);
+    if (res.ok) {
+      socket.emit("okModCart", "Todo ok ");
+    }
+  });
+  socket.on("cartDeleteProduct", async (userIdInput, productIdInput) => {
+    let res = await cartHandle.DeleteProduct(userIdInput, productIdInput);
+    console.log(res.statusMsj);
+    if (res.ok) {
+      socket.emit("okModCart", "Todo ok ");
+    }
+  });
 });
 
-app.use((req, res, next) => {
-  // Guardar un nuevo parámetro en req
-  req.customParam = "authorization";
-  next();
-});
 app.get("*", (req, res) => {
   res.status(404).send("Not found");
 });

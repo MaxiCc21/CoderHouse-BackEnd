@@ -3,9 +3,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link rel="stylesheet" href="/static/css/{{style}}" />
     <link rel="stylesheet" href="/static/css/navBar.css" />
     <link rel="stylesheet" href="/static/css/main.css" />
+    <script
+      src="https://kit.fontawesome.com/91d81ca14f.js"
+      crossorigin="anonymous"
+    ></script>
     <title>{{{title}}}</title>
   </head>
   <body>
@@ -35,6 +40,7 @@
           <ul class="my-ul">
             <li>
               <a href="#">Categoria</a>
+
             </li>
             <li>
               <a href="#">Ofertas</a>
@@ -57,7 +63,10 @@
           <ul class="my-ul">
             {{#if usercookie}}
               <li>
-                <a href="/views/register">{{usercookie}}</a>
+                <a href="/views/register">
+                  <i class="fa-regular fa-user"></i>
+                  {{usercookie}}
+                </a>
               </li>
               <li>
                 <a href="/views/misCompras">Mis Compras</a>
@@ -66,10 +75,12 @@
                 <a href="/views/register">Favoritos</a>
               </li>
               <li>
-                <a href="#">Camp logo</a>
+                <a href="#"><i class="fa-solid fa-bell"></i></a>
               </li>
               <li>
-                <a href="#">Carr logo</a>
+                <a href="/api/carts"><i
+                    class="fa-solid fa-cart-shopping"
+                  ></i></a>
               </li>
             {{else}}
               <li>
@@ -82,7 +93,9 @@
                 <a href="/views/misCompras">Mis Compras</a>
               </li>
               <li>
-                <a href="#">Carrito logo</a>
+                <a href="/api/carts">
+                  <i class="fa-solid fa-cart-shopping"></i>
+                </a>
               </li>
             {{/if}}
 
@@ -102,4 +115,10 @@
   <script
     src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"
   ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"
+  ></script>
+
 </html>
