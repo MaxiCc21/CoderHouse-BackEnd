@@ -6,8 +6,7 @@ const cartHandle = new (require("../dao/MongoManager/CartManager"))();
 
 router.get("/", passportAuth("jwt"), authorizaton("user"), async (req, res) => {
   console.log("/api/carts");
-  const user = req.user;
-  const jwtUser = user ? user : false;
+  const jwtUser = req.user;
 
   const productDataUser = await cartHandle.getItemToCart(jwtUser.sub);
 
@@ -20,6 +19,7 @@ router.get("/", passportAuth("jwt"), authorizaton("user"), async (req, res) => {
     title: "Carrito de compras",
     style: "cart.css",
     products: productDataUser.data,
+    userId: jwtUser.sub,
     usercookie: jwtUser.username ? jwtUser.username : null,
   };
 

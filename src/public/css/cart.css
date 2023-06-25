@@ -108,3 +108,38 @@
 .purchase-summary-box button {
   margin-top: 10px;
 }
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-btn {
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  background-color: #ccc;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.quantity-input {
+  width: 50px;
+  height: 30px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  text-align: center; /* Centra el número dentro del input */
+  padding: 0 5px;
+  appearance: none;
+}
+
+.quantity-input::-webkit-inner-spin-button,
+.quantity-input::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.quantity-btn:hover {
+  background-color: #aaa;
+}

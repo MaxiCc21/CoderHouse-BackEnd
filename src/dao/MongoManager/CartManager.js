@@ -1,6 +1,7 @@
 const fs = require("fs");
 const { cartModel } = require("../models/cart.model");
 const { log } = require("console");
+const { ObjectId } = require("bson");
 
 const IdGenerator = () => {
   return Date.now();
@@ -59,13 +60,72 @@ class CartManager {
         ok: true,
         data: found.products,
       };
-
-      return products;
     } catch (err) {
       return { status: "error", statusMsj: `error:${err}` };
     }
+  };
 
-    return found;
+  deleteItemToCart = async (uid, pid) => {
+    console.log(uid, pid);
+    pid = new ObjectId(pid);
+    try {
+      const cart = await cartModel
+        .findOneAndUpdate(
+          { id_user_to_cart: uid, "products.product._id": pid },
+          { $inc: { "products.$.quantity": -1 } },
+          { new: true }
+        )
+        .lean();
+
+      const cartDeleteProduct = await cartModel
+        .findOneAndUpdate(
+          { id_user_to_cart: uid, "products.product._id": pid },
+          { $pull: { products: { "product._id": pid, quantity: 0 } } },
+          { new: true }
+        )
+        .lean();
+
+      return {
+        status: "Ok",
+        statusMsj: "Se elimino una unidad del peoducto",
+        ok: true,
+        data: null,
+      };
+    } catch (error) {
+      return {
+        status: "error",
+        statusMsj: `Error agregando producto al carrito: ${error.message}`,
+        ok: false,
+        data: null,
+      };
+    }
+  };
+  addItemToCart = async (uid, pid) => {
+    console.log(uid, pid);
+    pid = new ObjectId(pid);
+    try {
+      const cart = await cartModel
+        .findOneAndUpdate(
+          { id_user_to_cart: uid, "products.product._id": pid },
+          { $inc: { "products.$.quantity": 1 } },
+          { new: true }
+        )
+        .lean();
+
+      return {
+        status: "Ok",
+        statusMsj: "Se agrego una unidad del peoducto",
+        ok: true,
+        data: null,
+      };
+    } catch (error) {
+      return {
+        status: "error",
+        statusMsj: `Error agregando producto al carrito: ${error.message}`,
+        ok: false,
+        data: null,
+      };
+    }
   };
 
   getItem = async () => {
@@ -104,6 +164,7 @@ class CartManager {
 
   // Agregar un item al carrito
   addItem = async (cid, pid, body) => {
+    console.log(cid, pid, "despues");
     try {
       const cart = await cartModel.findOneAndUpdate(
         { id_user_to_cart: cid, "products.product._id": pid },

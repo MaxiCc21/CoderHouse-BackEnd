@@ -1,6 +1,8 @@
 <main class="cart">
+  <input type="text" hidden="true" value="{{userId}}" id="userID_input" />
   <section class="main-box-cart">
     <div class="z1-left-cart">
+
       {{#each products}}
         <div class="product-box">
           <div class="img-product-box">
@@ -12,10 +14,35 @@
             <p>
               {{this.product.title}}
             </p>
-            <a href="">Eliminar</a><a href="">Guardar</a><a href="">Comprar
-              ahora</a>
+            <input
+              type="text"
+              hidden="true"
+              value="{{this.product._id}}"
+              id="productID_input"
+            />
+
+            <a href="/api/carts">Eliminar</a>
+            <a href="">Guardar</a>
+            <a href="">Comprar ahora</a>
           </div>
-          <div class="quantity-product-box"> {{this.quantity}}</div>
+          <span>{{this.product._id}}</span>
+          <div class="quantity-product-box">
+
+            <div class="quantity-selector">
+              <button
+                id="cart_EliminiarItem"
+                class="quantity-btn minus"
+              >-</button>
+              <input
+                type="number"
+                class="quantity-input"
+                min="1"
+                value={{this.quantity}}
+                readonly
+              />
+              <button id="cart_AgregarItem" class="quantity-btn plus">+</button>
+            </div>
+          </div>
           <div class="price-product-box"> {{this.product.price}}</div>
         </div>
       {{/each}}
@@ -41,9 +68,12 @@
           <span>Total</span>
           <span>$----</span>
         </div>
-        <button type="button" class="btn btn-primary">Primary</button>
+        <button type="button" class="btn btn-primary">Continuar con la compra</button>
       </div>
     </div>
   </section>
 
 </main>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/static/js/cart.js"></script>
