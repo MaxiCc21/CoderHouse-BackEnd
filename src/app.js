@@ -170,6 +170,13 @@ socketServer.on("connection", async (socket) => {
       socket.emit("okModCart", "Todo ok ");
     }
   });
+  socket.on("cartDeleteProduct", async (userIdInput, productIdInput) => {
+    let res = await cartHandle.DeleteProduct(userIdInput, productIdInput);
+    console.log(res.statusMsj);
+    if (res.ok) {
+      socket.emit("okModCart", "Todo ok ");
+    }
+  });
 });
 
 app.get("*", (req, res) => {

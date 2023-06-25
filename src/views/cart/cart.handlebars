@@ -21,7 +21,7 @@
               id="productID_input"
             />
 
-            <a href="/api/carts">Eliminar</a>
+            <a href="" id="cartDeleteProduct">Eliminar</a>
             <a href="">Guardar</a>
             <a href="">Comprar ahora</a>
           </div>
@@ -30,7 +30,7 @@
 
             <div class="quantity-selector">
               <button
-                id="cart_EliminiarItem"
+                id="cartSubtractAmountProduct"
                 class="quantity-btn minus"
               >-</button>
               <input
@@ -40,7 +40,10 @@
                 value={{this.quantity}}
                 readonly
               />
-              <button id="cart_AgregarItem" class="quantity-btn plus">+</button>
+              <button
+                id="cartAddAmountProduct"
+                class="quantity-btn plus"
+              >+</button>
             </div>
           </div>
           <div class="price-product-box"> {{this.product.price}}</div>

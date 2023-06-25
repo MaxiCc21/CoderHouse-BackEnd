@@ -66,7 +66,6 @@ class CartManager {
   };
 
   deleteItemToCart = async (uid, pid) => {
-    console.log(uid, pid);
     pid = new ObjectId(pid);
     try {
       const cart = await cartModel
@@ -164,14 +163,12 @@ class CartManager {
 
   // Agregar un item al carrito
   addItem = async (cid, pid, body) => {
-    console.log(cid, pid, "despues");
     try {
       const cart = await cartModel.findOneAndUpdate(
         { id_user_to_cart: cid, "products.product._id": pid },
         { $inc: { "products.$.quantity": 1 } },
         { new: true }
       );
-      console.log("inc quantity");
 
       if (!cart) {
         const cart = await cartModel.findOneAndUpdate(
@@ -179,13 +176,43 @@ class CartManager {
           { $addToSet: { products: { product: body, quantity: 1 } } },
           { new: true }
         );
-        console.log("Add product");
-        console.log(cart);
         return cart;
       }
       return cart;
     } catch (error) {
       console.log(`Error agregando producto al carrito: ${error.message}`);
+    }
+  };
+  DeleteProduct = async (uid, pid) => {
+    pid = new ObjectId(pid);
+    console.log(uid, pid);
+    try {
+      const deleteAllProducts = await cartModel.findOneAndUpdate(
+        { id_user_to_cart: uid },
+        { $pull: { products: { "product._id": pid } } },
+        { new: true }
+      );
+      if (!deleteAllProducts) {
+        return {
+          status: "error",
+          statusMsj: `Error al buscar el carrito`,
+          ok: false,
+          data: null,
+        };
+      }
+      return {
+        status: "ok",
+        statusMsj: `Producto eliminado del carrito`,
+        ok: true,
+        data: null,
+      };
+    } catch (err) {
+      return {
+        status: "error",
+        statusMsj: `error:${err}`,
+        ok: false,
+        data: null,
+      };
     }
   };
 }

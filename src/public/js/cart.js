@@ -5,21 +5,35 @@ socket.on("message", async (data) => {
   console.log(data);
 });
 
-const $AgregarButton = document.querySelectorAll("#cart_AgregarItem");
-const $EliminarButton = document.querySelectorAll("#cart_EliminiarItem");
+const $SumarCantidadButton = document.querySelectorAll("#cartAddAmountProduct");
+const $RestarCantidadButton = document.querySelectorAll(
+  "#cartSubtractAmountProduct"
+);
+const $EliminarProductoA = document.querySelectorAll("#cartDeleteProduct");
 
 const $productIdInput = document.querySelectorAll("#productID_input");
 const $userIdInput = document.getElementById("userID_input").value;
 
-$EliminarButton.forEach((node, index) => {
-  node.addEventListener("click", (e) => {
+$EliminarProductoA.forEach((link, index) => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    socket.emit(
+      "cartDeleteProduct",
+      $userIdInput,
+      $productIdInput[index].value
+    );
+  });
+});
+
+$RestarCantidadButton.forEach((button, index) => {
+  button.addEventListener("click", (e) => {
     e.preventDefault();
     socket.emit("cartDeleteItem", $userIdInput, $productIdInput[index].value);
   });
 });
 
-$AgregarButton.forEach((node, index) => {
-  node.addEventListener("click", (e) => {
+$SumarCantidadButton.forEach((button, index) => {
+  button.addEventListener("click", (e) => {
     e.preventDefault();
     socket.emit("cartAddItem", $userIdInput, $productIdInput[index].value);
   });
