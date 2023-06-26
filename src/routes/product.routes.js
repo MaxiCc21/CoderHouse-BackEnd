@@ -42,8 +42,8 @@ router.get(
     const options = {};
     options.style = "productShow.css";
     options.product = product[0];
-    (options.usercookie = jwtUser.username ? req.user.username : null),
-      res.render("products/product_show.handlebars", options);
+    options.usercookie = jwtUser;
+    res.render("products/product_show.handlebars", options);
   }
 );
 
@@ -61,10 +61,9 @@ router.post(
     } else {
       if (req.body.action === "comprar") {
         console.log("comprar");
-        console.log(req.user, "PPPPPPPPPPPPP");
+
         res.send("comprar");
       } else if (req.body.action === "carrito") {
-        console.log(req.user, "req.user???????????");
         let cid = req.user.sub;
         let pid = foundProduct[0]._id;
         let body = foundProduct[0];
