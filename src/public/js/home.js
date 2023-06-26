@@ -14,12 +14,10 @@ if (logoutButton) {
   });
 }
 
-var elementos = document.querySelectorAll("#text");
+const $productTitleP = document.querySelectorAll("#productTitle");
 
-// Modificar la propiedad 'height' de cada elemento
-elementos.forEach(function (elemento) {
-  console.log(elemento, elemento.textContent.length);
-  if (elemento.textContent.length > 68) {
-    elemento.style.bottom = -15;
+$productTitleP.forEach(function (p) {
+  if (p.textContent.length > 68) {
+    p.style.bottom = -15;
   }
 });
