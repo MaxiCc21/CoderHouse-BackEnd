@@ -69,7 +69,6 @@ class UserManager {
       const found = await userModel.findOne({
         $or: [{ username: identification }, { email: identification }],
       });
-      console.log(password, found.password);
       if (!found) {
         throw {
           status: "error",

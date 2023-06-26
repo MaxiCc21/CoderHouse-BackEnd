@@ -29,12 +29,23 @@
           />
         </div>
         <div class="Nav-Location">
-          <a href="#">
-            <FontAwesomeIcon class="locationIcon" icon="{faLocationDot}" />
-            Enviar a
-            <br />
-            Capital Federal
-          </a>
+          {{#if usercookie}}
+            <a href="#">
+              <i class="fa-solid fa-location-dot"></i>
+              Enviar a
+              {{usercookie.username}}
+              <br />
+              {{usercookie.address}}
+            </a>
+          {{else}}
+            <a href="#">
+              <i class="fa-regular fa-bell"></i>
+              Enviar a
+              <br />
+              Capital Federal
+            </a>
+          {{/if}}
+
         </div>
         <div class="Nav-Bar">
           <ul class="my-ul">
@@ -65,7 +76,7 @@
               <li>
                 <a href="/views/register">
                   <i class="fa-regular fa-user"></i>
-                  {{usercookie}}
+                  {{usercookie.username}}
                 </a>
               </li>
               <li>

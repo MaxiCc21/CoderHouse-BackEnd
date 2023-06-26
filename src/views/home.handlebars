@@ -1,22 +1,39 @@
 {{#if usercookie}}
   <div class="bienvenido-area">
-    <h1>Bienvenido {{usercookie}}!!</h1>
+    <h1>Bienvenido {{usercookie.username}}!!</h1>
     <form action="/home" method="post">
       <button id="logout-button" type="submit">Logout</button>
     </form>
   </div>
 {{/if}}
 <div class="cart-container">
+  <div id="myDiv" class="cart">
+    <img
+      src="https://http2.mlstatic.com/D_NQ_NP_753214-MLA48707187900_122021-O.webp"
+      alt="#"
+    />
+    <div class="cart-info-area">
+      <p>$100000</p>
+      <p id="text">Smart TV LG AI ThinQ 43UP7750PSB LCD webOS 6.0 4K 43'
+        100V/240V</p>
+    </div>
+
+  </div>
   {{#each products}}
     <a href="/products/{{this._id}}" class="link-product-home">
       <div class="cart">
         <img src={{{this.thumbnail}}} alt="#" />
         <div class="cart-info-area">
           <p>${{this.price}}</p>
-          <h1>{{this.title}}</h1></div>
+          <h1>{{this.title}}</h1>
+        </div>
       </div>
     </a>
   {{/each}}
+  <div id="myDiv">
+    <p id="text">Texto adicional</p>
+  </div>
+
 </div>
 
 <script src="/static/js/home.js"></script>

@@ -349,3 +349,22 @@ template {
 [hidden] {
   display: none;
 }
+
+.btn-blue-main {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #3483fa;
+  color: #ffffff !important;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+  border: 2px solid transparent;
+  width: 300px;
+  font-family: "Arial Rounded", sans-serif !important;
+  border-radius: 8px;
+}
+
+.btn-blue-main:hover {
+  background-color: #2968c8;
+  border-color: #2968c8;
+}

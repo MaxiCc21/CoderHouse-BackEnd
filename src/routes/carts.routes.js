@@ -9,18 +9,17 @@ router.get("/", passportAuth("jwt"), authorizaton("user"), async (req, res) => {
   const jwtUser = req.user;
 
   const productDataUser = await cartHandle.getItemToCart(jwtUser.sub);
-
   if (!productDataUser.ok) {
     res.status(400).send("Algo salio mal al cargar los productos");
   }
   //Tengo que usar socket.io para modificar el carrito para no hcer refresco de paguina
   console.log(productDataUser.statusMsj);
+  console.log(jwtUser);
   const options = {
     title: "Carrito de compras",
     style: "cart.css",
     products: productDataUser.data,
-    userId: jwtUser.sub,
-    usercookie: jwtUser.username ? jwtUser.username : null,
+    usercookie: jwtUser,
   };
 
   res.render("cart/cart.handlebars", options);
