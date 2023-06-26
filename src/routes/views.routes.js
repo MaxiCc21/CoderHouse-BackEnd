@@ -56,8 +56,10 @@ router.get("/login", async (req, res) => {
 
 router.post(
   "/login",
-  passport.authenticate("login", { failureRedirect: "login" }),
+  passport.authenticate("login", { failureRedirect: "/login" }),
+
   async function (req, res) {
+    console.log(req.user, "/login");
     console.log("/login");
     const data = req.user;
 
@@ -66,6 +68,7 @@ router.post(
       username: data.username,
       role: "user",
       email: data.email,
+      address: data.address,
       isAdmin: data.isAdmin,
     };
     const token = generateToke(newUser);

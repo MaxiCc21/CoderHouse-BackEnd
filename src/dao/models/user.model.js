@@ -19,7 +19,7 @@ const userSchema = new Schema({
   email: String,
   password: String,
   isAdmin: Boolean,
-  adress: String,
+  address: String,
   lastUpdate: { type: Date, default: Date.now },
 });
 
