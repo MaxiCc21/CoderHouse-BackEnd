@@ -32,6 +32,7 @@ router.get(
     const pid = req.params.pid;
 
     const product = await handleProducts.getProductById(pid);
+    console.log(product, "asdasdasdadasd");
 
     if (!product) {
       res.send({
