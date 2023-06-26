@@ -13,3 +13,13 @@ if (logoutButton) {
     });
   });
 }
+
+var elementos = document.querySelectorAll("#text");
+
+// Modificar la propiedad 'height' de cada elemento
+elementos.forEach(function (elemento) {
+  console.log(elemento, elemento.textContent.length);
+  if (elemento.textContent.length > 68) {
+    elemento.style.bottom = -15;
+  }
+});
