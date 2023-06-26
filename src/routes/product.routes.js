@@ -29,11 +29,8 @@ router.get(
   passportAuth("jwt"),
   authorizaton("PUBLIC"),
   async (req, res) => {
-    const pid = req.params.pid;
-
+    const { pid } = req.params;
     const product = await handleProducts.getProductById(pid);
-    console.log(product, "asdasdasdadasd");
-
     if (!product) {
       res.send({
         error: `No se a econtrado nungun producto con id(${pid})`,
@@ -42,7 +39,7 @@ router.get(
     const jwtUser = req.user ? req.user : false;
     const options = {};
     options.style = "productShow.css";
-    options.product = product[0];
+    options.product = product;
     options.usercookie = jwtUser;
     res.render("products/product_show.handlebars", options);
   }
@@ -65,9 +62,10 @@ router.post(
 
         res.send("comprar");
       } else if (req.body.action === "carrito") {
+        console.log(foundProduct);
         let cid = req.user.sub;
-        let pid = foundProduct[0]._id;
-        let body = foundProduct[0];
+        let pid = foundProduct._id;
+        let body = foundProduct;
         const itemAdd = await handleCart.addItem(cid, pid, body);
         console.log(itemAdd);
         res.send({ cid, pid, body });

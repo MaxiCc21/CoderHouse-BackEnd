@@ -74,9 +74,9 @@ class ProductManager {
   };
 
   getProductById = async (itemID) => {
-    itemID = new ObjectId(itemID);
+    console.log(itemID, "product");
     try {
-      const found = await productModel.find({ _id: itemID }).lean();
+      const found = await productModel.findOne({ _id: itemID }).lean();
       return found;
     } catch (err) {
       console.log(err);
