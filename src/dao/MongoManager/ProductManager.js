@@ -143,6 +143,15 @@ class HandleProducts {
       console.log(err.stateMsj);
     }
   };
+
+  getProductById = async (itemID) => {
+    try {
+      const found = await this.productModel.find({ _id: itemID }).lean();
+      return found;
+    } catch (err) {
+      console.log(err);
+    }
+  };
 }
 
 module.exports = HandleProducts;
