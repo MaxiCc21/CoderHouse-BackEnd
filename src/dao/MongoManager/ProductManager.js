@@ -1,5 +1,7 @@
 const fs = require("fs");
 const { productModel } = require("../models/product.model");
+const { ObjectId } = require("bson");
+
 const IdGenerator = () => {
   return Date.now();
 };
@@ -21,8 +23,9 @@ class ProductManager {
   };
 
   getProductById = async (itemID) => {
+    console.log(itemID, "product");
     try {
-      const found = await productModel.find({ _id: itemID }).lean();
+      const found = await productModel.findOne({ _id: itemID }).lean();
       return found;
     } catch (err) {
       console.log(err);

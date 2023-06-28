@@ -23,6 +23,7 @@ router.get(
   "/:pid",
   passportAuth("jwt"),
   authorizaton("PUBLIC"),
+
   showSingleProductGET
 );
 
@@ -30,7 +31,9 @@ router.post(
   "/:pid",
   passportAuth("jwt"),
   authorizaton("user"),
+
   showSingleProductPOST
+
 );
 
 router.delete("/:pid", async (req, res) => {

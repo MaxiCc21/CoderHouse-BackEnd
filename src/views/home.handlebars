@@ -1,19 +1,23 @@
 {{#if usercookie}}
   <div class="bienvenido-area">
-    <h1>Bienvenido {{usercookie}}!!</h1>
+    <h1>Bienvenido {{usercookie.username}}!!</h1>
     <form action="/home" method="post">
       <button id="logout-button" type="submit">Logout</button>
     </form>
   </div>
 {{/if}}
+
 <div class="cart-container">
+
   {{#each products}}
     <a href="/products/{{this._id}}" class="link-product-home">
-      <div class="cart">
+      <div id="myDiv" class="cart">
         <img src={{{this.thumbnail}}} alt="#" />
         <div class="cart-info-area">
-          <p>${{this.price}}</p>
-          <h1>{{this.title}}</h1></div>
+          <div class="cartPrice"> <p>${{this.price}}</p></div>
+          <div class="cartTitle"> <p id="text">{{this.title}}</p></div>
+
+        </div>
       </div>
     </a>
   {{/each}}

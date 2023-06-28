@@ -1,0 +1,112 @@
+<main class="cart">
+  <input
+    type="text"
+    hidden="true"
+    value="{{usercookie.sub}}"
+    id="userID_input"
+  />
+  <section class="main-box-cart">
+    <div class="z1-left-cart">
+
+      {{#if products}}
+        {{#each products}}
+          <div class="product-box">
+            <div class="img-product-box">
+              <img
+                src="{{this.product.thumbnail}}"
+                alt="{{this.product.title}}"
+              /></div>
+            <div class="title-product-box">
+              <p>
+                {{this.product.title}}
+              </p>
+              <input
+                type="text"
+                hidden="true"
+                value="{{this.product._id}}"
+                id="productID_input"
+              />
+
+              <a href="" id="cartDeleteProduct">Eliminar</a>
+              <a href="">Guardar</a>
+              <a href="">Comprar ahora</a>
+            </div>
+
+            <div class="quantity-product-box">
+
+              <div class="quantity-selector">
+                <button
+                  id="cartSubtractAmountProduct"
+                  class="quantity-btn minus"
+                >-</button>
+                <input
+                  type="number"
+                  class="quantity-input"
+                  min="1"
+                  value={{this.quantity}}
+                  readonly
+                />
+                <button
+                  id="cartAddAmountProduct"
+                  class="quantity-btn plus"
+                >+</button>
+              </div>
+            </div>
+            <div class="price-product-box"> {{this.product.price}}</div>
+          </div>
+        {{/each}}
+      {{else}}
+        <div class="product-box noProductBox">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <p>¡Empieza un carrito de compras!</p>
+          <span>Sumá productos y conseguí envío gratis.</span>
+          <a href="/home" class="btn-blue-main">Descubrir productos</a>
+        </div>
+      {{/if}}
+
+    </div>
+
+    <div class="z1-rigt-cart">
+      {{#if products}}
+        <div class="purchase-summary-box">
+          <div class="purchase-summary-title-row">
+            <h2>Resumen de compra</h2>
+          </div>
+          <hr />
+          <div class="purchase-summary-amoun-row">
+            <span>Productos(2)</span>
+            <span>$----</span></div>
+          <div class="purchase-summary-shipping-row">
+            <span>Envios</span>
+            <span>GRATIS</span>
+          </div>
+          <div class="purchase-summary-coupon-row">
+            <span>Ingresar código de cupón</span>
+          </div>
+          <div class="purchase-summary-total-ticket-row">
+            <span>Total</span>
+            <span>$----</span>
+          </div>
+          <button type="button" class="btn-blue-main">Continuar compra</button>
+        </div>
+      {{else}}
+        <div class="noProducts purchase-summary-box">
+          <div class="purchase-summary-title-row">
+            <h2>Resumen de compra</h2>
+          </div>
+          <hr />
+          <div class="purchase-summary-amoun-row">
+            <span>Aquí verás los importes de tu compra una vez que agregues
+              productos.</span>
+          </div>
+
+        </div>
+      {{/if}}
+
+    </div>
+  </section>
+
+</main>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/static/js/cart.js"></script>

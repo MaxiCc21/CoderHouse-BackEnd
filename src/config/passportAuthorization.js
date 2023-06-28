@@ -1,6 +1,5 @@
 const authorizaton = (role) => {
   return async (req, res, next) => {
-    console.log(req.user);
     if (role === "PUBLIC") {
       console.log("Pasa directo");
       return next();
