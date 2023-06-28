@@ -218,3 +218,35 @@ class CartManager {
 }
 
 module.exports = CartManager;
+
+class HandleCart {
+  constructor() {
+    this.cartModel = cartModel;
+  }
+  addItem = async (cid, pid, body) => {
+    try {
+      const cart = await this.cartModel.findOneAndUpdate(
+        { id_user_to_cart: cid, "products.product._id": pid },
+        { $inc: { "products.$.quantity": 1 } },
+        { new: true }
+      );
+      console.log("inc quantity");
+
+      if (!cart) {
+        const cart = await this.cartModel.findOneAndUpdate(
+          { id_user_to_cart: cid },
+          { $addToSet: { products: { product: body, quantity: 1 } } },
+          { new: true }
+        );
+        console.log("Add product");
+        console.log(cart);
+        return cart;
+      }
+      return cart;
+    } catch (error) {
+      console.log(`Error agregando producto al carrito: ${error.message}`);
+    }
+  };
+}
+
+module.exports = HandleCart;
