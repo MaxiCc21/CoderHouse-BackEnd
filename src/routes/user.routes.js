@@ -2,7 +2,12 @@ const { Router } = require("express");
 const passport = require("passport");
 const router = Router();
 const { v4: uuidv4 } = require("uuid");
-const { getPaginate } = require("../controllers/user.controller");
+const {
+  loginGET,
+  loginPOST,
+  registerGET,
+  registerPOST,
+} = require("../controller/user.controller");
 
 const handleUser = new (require("../dao/MongoManager/UserManager"))();
 
@@ -18,7 +23,24 @@ function idGenerator() {
 //   res.render("handleUser.handlebars", options);
 // });
 
-router.get("/paginate", getPaginate);
+router.get("/paginate", async (req, res) => {
+  const { page = 1, limit = 5 } = req.query;
+  let data = await handleUser.getAllUserPaginate(page, limit);
+  console.log(data);
+  const { docs, hasPrevPage, hasNextPage, prevPage, nextPage } = data;
+  let options = {
+    style: "showUser_paginate.css",
+    users: docs,
+    page,
+    hasPrevPage,
+    hasNextPage,
+    prevPage,
+    nextPage,
+    disabled: "disabled",
+  };
+
+  res.render("showUser_paginate.handlebars", options);
+});
 
 router.get("/", async (req, res) => {
   let data = await handleUser.getAllUser();
@@ -133,3 +155,32 @@ router.get(
   }
 );
 module.exports = router;
+
+// ---------------------------
+router.get("/login", loginGET);
+
+router.post(
+  "/login",
+  passport.authenticate("login", { failureRedirect: "/login" }),
+  loginPOST
+);
+
+router.get("/failLogin", (req, res) => {
+  res.send("Mal login");
+});
+
+router.get("/register", registerGET);
+
+router.post(
+  "/register",
+  passport.authenticate("register", {
+    failureRedirect: "login",
+    successRedirect: "login",
+  }),
+  registerPOST
+);
+
+router.get("/failregister", (req, res) => {
+  console.log("ERRRRRRRRRRR");
+  res.send({ status: "err", statusMsj: "Fallo autenticate" });
+});

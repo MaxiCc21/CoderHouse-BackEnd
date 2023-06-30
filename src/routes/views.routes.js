@@ -25,20 +25,6 @@ router.get("/", async (require, res) => {
 
 router.get("/login", loginGET);
 
-// router.post("/login", async (req, res) => {
-//   const { identification, password } = req.body;
-//   let data = await handleUser.loginValidation(identification, password);
-//   if (data.status === "ok") {
-//     res
-//       .cookie("username", data.username, {
-//         maxAge: 100000,
-//       })
-//       .redirect("/home");
-//   } else {
-//     res.status(401).redirect("/views/login");
-//   }
-// });
-
 // router.post(
 //   "/login",
 //   passport.authenticate("login", {
@@ -51,35 +37,6 @@ router.post(
   "/login",
   passport.authenticate("login", { failureRedirect: "/login" }),
   loginPOST
-
-  // async function (req, res) {
-  //   console.log(req.user, "/login");
-  //   console.log("/login");
-  //   const data = req.user;
-
-  //   const newUser = {
-  //     sub: data._id,
-  //     username: data.username,
-  //     role: "user",
-  //     email: data.email,
-  //     address: data.address,
-  //     isAdmin: data.isAdmin,
-  //   };
-  //   const token = generateToke(newUser);
-  //   try {
-  //     const crearCarrito = await handleCart.createNewCart(data._id);
-  //     console.log(crearCarrito.statusMsj);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-
-  //   res
-  //     .cookie("jwtCoder", token, {
-  //       maxAge: 100000 * 60,
-  //       httpOnly: true,
-  //     })
-  //     .redirect("/home");
-  // }
 );
 
 router.get("/failLogin", (req, res) => {

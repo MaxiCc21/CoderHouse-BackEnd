@@ -21,6 +21,8 @@ class UserController {
     res.render("showUser_paginate.handlebars", options);
   };
 
+  //* ------------Login------------
+
   loginGET = async (req, res) => {
     let options = {
       style: "user_Ingresar.css",
@@ -55,6 +57,21 @@ class UserController {
         httpOnly: true,
       })
       .redirect("/home");
+  };
+
+  //* ------------Register------------
+
+  registerGET = async (req, res) => {
+    let options = {
+      style: "userCrear.css",
+      title: "Mercado-Libre | Usuario",
+    };
+
+    res.render("users/userRegister.handlebars", options);
+  };
+
+  registerPOST = async (req, res) => {
+    res.redirect("/login");
   };
 }
 module.exports = new UserController();

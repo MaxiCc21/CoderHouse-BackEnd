@@ -101,7 +101,7 @@ app.use("/products", productRoutes);
 
 app.use("/api/carts", cartRoutes);
 
-app.use("/api/session", userRoutes);
+app.use("/session", userRoutes);
 
 app.use("/prueba", NewUserRoutes.getRouter());
 
