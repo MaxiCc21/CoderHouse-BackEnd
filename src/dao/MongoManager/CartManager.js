@@ -39,13 +39,14 @@ const checkItemsKeys = (obj) => {
 
 class CartManager {
   constructor() {
-    this.path = "./carts.json";
-    this.items = [];
+    this.cartModel = cartModel;
   }
 
   getItemToCart = async (uid) => {
     try {
-      const found = await cartModel.findOne({ id_user_to_cart: uid }).lean();
+      const found = await this.cartModel
+        .findOne({ id_user_to_cart: uid })
+        .lean();
       if (!found) {
         return {
           status: "error",
@@ -68,7 +69,7 @@ class CartManager {
   deleteItemToCart = async (uid, pid) => {
     pid = new ObjectId(pid);
     try {
-      const cart = await cartModel
+      const cart = await this.cartModel
         .findOneAndUpdate(
           { id_user_to_cart: uid, "products.product._id": pid },
           { $inc: { "products.$.quantity": -1 } },
@@ -76,7 +77,7 @@ class CartManager {
         )
         .lean();
 
-      const cartDeleteProduct = await cartModel
+      const cartDeleteProduct = await this.cartModel
         .findOneAndUpdate(
           { id_user_to_cart: uid, "products.product._id": pid },
           { $pull: { products: { "product._id": pid, quantity: 0 } } },
@@ -103,7 +104,7 @@ class CartManager {
     console.log(uid, pid);
     pid = new ObjectId(pid);
     try {
-      const cart = await cartModel
+      const cart = await this.cartModel
         .findOneAndUpdate(
           { id_user_to_cart: uid, "products.product._id": pid },
           { $inc: { "products.$.quantity": 1 } },
@@ -129,7 +130,7 @@ class CartManager {
 
   getItem = async () => {
     try {
-      let myRes = await cartModel.find().lean();
+      let myRes = await this.cartModel.find().lean();
       return myRes;
     } catch (err) {
       console.log(err.stateMsj);
@@ -138,7 +139,7 @@ class CartManager {
 
   getItemById = async (itemID) => {
     try {
-      const found = await cartModel.find({ _id: itemID }).lean();
+      const found = await this.cartModel.find({ _id: itemID }).lean();
       return found;
     } catch (err) {
       console.log("A occurido un error");
@@ -151,27 +152,43 @@ class CartManager {
     };
 
     try {
-      const cart = await cartModel.findOne({ id_user_to_cart: uid });
+      const cart = await this.cartModel.findOne({ id_user_to_cart: uid });
       if (!cart) {
-        await cartModel.create(cartData);
-        return { state: "ok", statusMsj: "Se a creado un carrido" };
+        await this.cartModel.create(cartData);
+        return {
+          state: "ok",
+          statusMsj: "Se a creado un carrido",
+          ok: true,
+          data: undefined,
+        };
       }
+      return {
+        state: "ok",
+        statusMsj: "Todo piola con el carrito",
+        ok: true,
+        data: undefined,
+      };
     } catch (err) {
-      return { state: "error", statusMsj: "Se aproducido un error", err };
+      return {
+        state: "error",
+        statusMsj: `Se aproducido un error: ${err}`,
+        ok: false,
+        data: undefined,
+      };
     }
   };
 
   // Agregar un item al carrito
   addItem = async (cid, pid, body) => {
     try {
-      const cart = await cartModel.findOneAndUpdate(
+      const cart = await this.cartModel.findOneAndUpdate(
         { id_user_to_cart: cid, "products.product._id": pid },
         { $inc: { "products.$.quantity": 1 } },
         { new: true }
       );
 
       if (!cart) {
-        const cart = await cartModel.findOneAndUpdate(
+        const cart = await this.cartModel.findOneAndUpdate(
           { id_user_to_cart: cid },
           { $addToSet: { products: { product: body, quantity: 1 } } },
           { new: true }
@@ -187,7 +204,7 @@ class CartManager {
     pid = new ObjectId(pid);
     console.log(uid, pid);
     try {
-      const deleteAllProducts = await cartModel.findOneAndUpdate(
+      const deleteAllProducts = await this.cartModel.findOneAndUpdate(
         { id_user_to_cart: uid },
         { $pull: { products: { "product._id": pid } } },
         { new: true }
@@ -218,35 +235,3 @@ class CartManager {
 }
 
 module.exports = CartManager;
-
-class HandleCart {
-  constructor() {
-    this.cartModel = cartModel;
-  }
-  addItem = async (cid, pid, body) => {
-    try {
-      const cart = await this.cartModel.findOneAndUpdate(
-        { id_user_to_cart: cid, "products.product._id": pid },
-        { $inc: { "products.$.quantity": 1 } },
-        { new: true }
-      );
-      console.log("inc quantity");
-
-      if (!cart) {
-        const cart = await this.cartModel.findOneAndUpdate(
-          { id_user_to_cart: cid },
-          { $addToSet: { products: { product: body, quantity: 1 } } },
-          { new: true }
-        );
-        console.log("Add product");
-        console.log(cart);
-        return cart;
-      }
-      return cart;
-    } catch (error) {
-      console.log(`Error agregando producto al carrito: ${error.message}`);
-    }
-  };
-}
-
-module.exports = HandleCart;
