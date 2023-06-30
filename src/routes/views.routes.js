@@ -7,6 +7,7 @@ const passport = require("passport");
 const { generateToke } = require("../utils/jwt");
 const { passportAuth } = require("../config/passportAuth");
 const { authorizaton } = require("../config/passportAuthorization");
+const { loginGET, loginPOST } = require("../controller/user.controller");
 
 const handleUser = new (require("../dao/MongoManager/UserManager"))();
 const handleCart = new (require("../dao/MongoManager/CartManager"))();
@@ -22,29 +23,7 @@ router.get("/", async (require, res) => {
   res.render("home.handlebars", testUser);
 });
 
-router.get("/login", async (req, res) => {
-  let data = await handleUser.getAllUser();
-  let options = {
-    style: "user_Ingresar.css",
-    data,
-  };
-
-  res.render("users/userLogin", options);
-});
-
-// router.post("/login", async (req, res) => {
-//   const { identification, password } = req.body;
-//   let data = await handleUser.loginValidation(identification, password);
-//   if (data.status === "ok") {
-//     res
-//       .cookie("username", data.username, {
-//         maxAge: 100000,
-//       })
-//       .redirect("/home");
-//   } else {
-//     res.status(401).redirect("/views/login");
-//   }
-// });
+router.get("/login", loginGET);
 
 // router.post(
 //   "/login",
@@ -57,35 +36,7 @@ router.get("/login", async (req, res) => {
 router.post(
   "/login",
   passport.authenticate("login", { failureRedirect: "/login" }),
-
-  async function (req, res) {
-    console.log(req.user, "/login");
-    console.log("/login");
-    const data = req.user;
-
-    const newUser = {
-      sub: data._id,
-      username: data.username,
-      role: "user",
-      email: data.email,
-      address: data.address,
-      isAdmin: data.isAdmin,
-    };
-    const token = generateToke(newUser);
-    try {
-      const crearCarrito = await handleCart.createNewCart(data._id);
-      console.log(crearCarrito.statusMsj);
-    } catch (err) {
-      console.log(err);
-    }
-
-    res
-      .cookie("jwtCoder", token, {
-        maxAge: 100000 * 60,
-        httpOnly: true,
-      })
-      .redirect("/home");
-  }
+  loginPOST
 );
 
 router.get("/failLogin", (req, res) => {
