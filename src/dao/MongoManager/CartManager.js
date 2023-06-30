@@ -193,11 +193,26 @@ class CartManager {
           { $addToSet: { products: { product: body, quantity: 1 } } },
           { new: true }
         );
-        return cart;
+        return {
+          status: "ok",
+          statusMsj: "Se agrego el producto al carrito",
+          ok: true,
+          data: null,
+        };
       }
-      return cart;
-    } catch (error) {
-      console.log(`Error agregando producto al carrito: ${error.message}`);
+      return {
+        status: "ok",
+        statusMsj: "Se agrego un producto",
+        ok: true,
+        data: null,
+      };
+    } catch (err) {
+      return {
+        status: "error",
+        statusMsj: `Error agregando producto al carrito: ${err}`,
+        ok: false,
+        data: null,
+      };
     }
   };
   DeleteProduct = async (uid, pid) => {

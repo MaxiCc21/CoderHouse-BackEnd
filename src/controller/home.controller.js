@@ -9,7 +9,7 @@ class UserController {
     let testUser = {
       products: listProducts,
       style: "home.css",
-      usercookie: jwtUser.username ? req.user.username : null,
+      usercookie: jwtUser,
     };
 
     res.render("home.handlebars", testUser);

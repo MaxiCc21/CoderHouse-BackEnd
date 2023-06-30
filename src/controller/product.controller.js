@@ -35,7 +35,8 @@ class ProductControler {
         let pid = foundProduct[0]._id;
         let body = foundProduct[0];
         const itemAdd = await cartService.addItem(cid, pid, body);
-        res.send({ cid, pid, body });
+        console.log(itemAdd.statusMsj);
+        res.send({ Message: itemAdd.statusMsj, cid, pid, body });
       }
     }
   };
