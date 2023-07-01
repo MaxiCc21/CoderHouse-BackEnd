@@ -79,6 +79,17 @@
                   {{usercookie.username}}
                 </a>
               </li>
+              <ul class="dropdown">
+                <li>
+                  <button onclick="myFunction()" class="dropbtn">Menú</button>
+                  <div id="myDropdown" class="dropdown-content">
+                    <a href="#">Opción 1</a>
+                    <a href="#">Opción 2</a>
+                    <a href="/session/logout">Cerrar sesion</a>
+                  </div>
+                </li>
+              </ul>
+
               <li>
                 <a href="/views/misCompras">Mis Compras</a>
               </li>
@@ -131,5 +142,7 @@
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
     crossorigin="anonymous"
   ></script>
+
+  <script src="/static/js/main.js"></script>
 
 </html>

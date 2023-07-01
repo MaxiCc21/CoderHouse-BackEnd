@@ -110,3 +110,68 @@ a {
   text-decoration: none !important;
   color: rgba(51, 51, 51, 0.6) !important;
 }
+
+/* -------------------------------------------------------- */
+/* Estilos para la lista */
+.dropdown {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilos para los elementos de lista */
+.dropdown li {
+  position: relative;
+  display: inline-block;
+}
+
+/* Estilos para el botón del menú */
+.dropbtn {
+  background-color: transparent;
+  color: #333;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: color 0.3s;
+}
+
+.dropbtn:hover {
+  color: #666;
+}
+
+/* Estilos para el contenido del menú desplegable */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  min-width: 160px;
+  z-index: 1;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* Estilos para los enlaces dentro del menú desplegable */
+.dropdown-content a {
+  display: block;
+  padding: 12px 16px !important;
+  text-decoration: none !important;
+  color: #333 !important;
+  transition: background-color 0.3s;
+  border-bottom: 1px solid #ddd;
+}
+
+.dropdown-content a:last-child {
+  border-bottom: none; /* Elimina el borde inferior del último elemento */
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Muestra el menú desplegable cuando se hace clic en el botón */
+.show {
+  display: block;
+}
