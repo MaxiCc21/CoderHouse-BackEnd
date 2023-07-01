@@ -73,23 +73,18 @@
         <div class="Nav-Sesion">
           <ul class="my-ul">
             {{#if usercookie}}
-              <li>
-                <a href="/session/register">
+              <li class="dropdown">
+                <a onclick="myFunction()" class="dropbtn">
                   <i class="fa-regular fa-user"></i>
-                  {{usercookie.username}}
-                </a>
+                  {{usercookie.username}}</a>
+                <div id="myDropdown" class="dropdown-content">
+                  <a href="#">Opción 1</a>
+                  <a href="#">Opción 2</a>
+                  <form id="dropdownForm" action="/home" method="post">
+                    <button type="submit" class="mydropbtn">Cerrar sesion</button>
+                  </form>
+                </div>
               </li>
-              <ul class="dropdown">
-                <li>
-                  <button onclick="myFunction()" class="dropbtn">Menú</button>
-                  <div id="myDropdown" class="dropdown-content">
-                    <a href="#">Opción 1</a>
-                    <a href="#">Opción 2</a>
-                    <a href="/session/logout">Cerrar sesion</a>
-                  </div>
-                </li>
-              </ul>
-
               <li>
                 <a href="/views/misCompras">Mis Compras</a>
               </li>
