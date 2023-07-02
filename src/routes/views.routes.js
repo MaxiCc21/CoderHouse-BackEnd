@@ -23,8 +23,6 @@ router.get("/", async (require, res) => {
   res.render("home.handlebars", testUser);
 });
 
-router.get("/login", loginGET);
-
 // router.post(
 //   "/login",
 //   passport.authenticate("login", {
