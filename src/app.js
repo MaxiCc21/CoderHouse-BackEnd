@@ -16,6 +16,7 @@ const objectConfig = require("./config/objetConfig");
 const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
 const FileStore = require("session-file-store");
 const { create } = require("connect-mongo");
+// const core = required("core");
 
 const NewUserRoutes = new newUserRoutes();
 
@@ -39,6 +40,7 @@ app.set("view engine", "handlebars");
 // HandleBars
 
 app.use(express.json());
+// app.use(core());
 app.use(cokieParser("c0ntr4s3n4"));
 app.use("/static", express.static(__dirname + "/public"));
 
