@@ -1,4 +1,5 @@
 const { connect } = require("mongoose");
+const { MongoSingleton } = require("../utils/singleton");
 require("dotenv").config();
 
 let url =
@@ -6,8 +7,11 @@ let url =
 
 module.exports = {
   privateKey: process.env.PRIVATE_KEY_CODER,
-  connectDB: () => {
-    connect(url);
-    console.log("Base de datos conectadas");
+  // connectDB: () => {
+  //   connect(url);
+  //   console.log("Base de datos conectadas");
+  // },
+  connectDB: async () => {
+    await MongoSingleton.getInstance();
   },
 };
