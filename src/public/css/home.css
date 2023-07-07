@@ -47,7 +47,7 @@ img {
   height: 320px;
 }
 
-#text {
+#productTitle {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -60,11 +60,11 @@ img {
   font-family: "Agdasima", sans-serif;
 }
 
-#myDiv:hover #text {
+#myDiv:hover #productTitle {
   opacity: 1;
   transition-delay: 0.1s;
 }
-#myDiv:not(:hover) #text {
+#myDiv:not(:hover) #productTitle {
   opacity: 0;
   transition-delay: 0s;
 }
@@ -74,4 +74,8 @@ img {
 }
 .cartTitle {
   padding-top: 5px;
+}
+
+#productPrice {
+  color: black;
 }
