@@ -79,7 +79,7 @@ const initPassport = () => {
         const loginRes = await handleUser.loginValidation(username, password);
 
         if (!loginRes.ok) {
-          return done(error, null, { message: loginRes.statusMsj });
+          return done(null, null, { message: loginRes.statusMsj });
         }
 
         return done(null, loginRes.found, { message: loginRes.statusMsj });
