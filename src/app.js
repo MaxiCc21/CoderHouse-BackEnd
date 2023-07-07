@@ -16,6 +16,7 @@ const objectConfig = require("./config/objetConfig");
 const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
 const FileStore = require("session-file-store");
 const { create } = require("connect-mongo");
+// const core = required("core");
 
 const NewUserRoutes = new newUserRoutes();
 
@@ -39,6 +40,7 @@ app.set("view engine", "handlebars");
 // HandleBars
 
 app.use(express.json());
+// app.use(core());
 app.use(cokieParser("c0ntr4s3n4"));
 app.use("/static", express.static(__dirname + "/public"));
 
@@ -101,7 +103,7 @@ app.use("/products", productRoutes);
 
 app.use("/api/carts", cartRoutes);
 
-app.use("/api/session", userRoutes);
+app.use("/session", userRoutes);
 
 app.use("/prueba", NewUserRoutes.getRouter());
 
@@ -127,6 +129,7 @@ app.get("/realtimeproducts", (req, res) => {
 const { Server } = require("socket.io");
 
 const { send } = require("process");
+const { cartService } = require("./service/idex");
 
 const httpServer = app.listen(8080);
 
@@ -155,23 +158,23 @@ socketServer.on("connection", async (socket) => {
     console.log(res);
     socket.emit("send-all-messages", messages);
   });
-  //------------------------------------------------
+  //------------------CART------------------------------
   socket.on("cartDeleteItem", async ($userIdInput, $productIdInput) => {
-    let res = await cartHandle.deleteItemToCart($userIdInput, $productIdInput);
+    let res = await cartService.deleteItemToCart($userIdInput, $productIdInput);
     console.log(res.statusMsj);
     if (res.ok) {
       socket.emit("okModCart", "Todo ok ");
     }
   });
   socket.on("cartAddItem", async ($userIdInput, $productIdInput) => {
-    let res = await cartHandle.addItemToCart($userIdInput, $productIdInput);
+    let res = await cartService.addItemToCart($userIdInput, $productIdInput);
     console.log(res.statusMsj);
     if (res.ok) {
       socket.emit("okModCart", "Todo ok ");
     }
   });
   socket.on("cartDeleteProduct", async (userIdInput, productIdInput) => {
-    let res = await cartHandle.DeleteProduct(userIdInput, productIdInput);
+    let res = await cartService.DeleteProduct(userIdInput, productIdInput);
     console.log(res.statusMsj);
     if (res.ok) {
       socket.emit("okModCart", "Todo ok ");

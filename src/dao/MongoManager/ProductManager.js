@@ -6,57 +6,6 @@ const IdGenerator = () => {
   return Date.now();
 };
 //
-const checkObjectKeys = (obj) => {
-  if (
-    !obj.title ||
-    !obj.description ||
-    !obj.price ||
-    !obj.thumbnail ||
-    !obj.stock ||
-    !obj.categoy
-  ) {
-    return {
-      state: "error",
-      msgState: "Todos los campos son obligatorios",
-    };
-  }
-
-  if (
-    typeof obj.title !== "string" ||
-    typeof obj.description !== "string" ||
-    typeof obj.price !== "number" ||
-    // typeof obj.status !== "boolean" ||
-    typeof obj.thumbnail !== "string" ||
-    typeof obj.stock !== "number" ||
-    typeof obj.categoy !== "object"
-  ) {
-    return {
-      state: "error",
-      msgState: "Uno de los tipo de dato es incorrecto",
-    };
-  }
-
-  return {
-    state: 200,
-    stateMsj: "OK",
-    message: "Campos validados",
-    error: false,
-  };
-};
-
-const codeGenerator = (obj) => {
-  let code = "";
-  const codeGenerator = obj.categoy.forEach((el) => {
-    if (el.length <= 2) {
-      code = code + el;
-    } else {
-      code += el.slice(0, 3);
-    }
-  });
-  code += obj.marca;
-  code += String(obj.id).slice(10, 13);
-  return { code };
-};
 
 class ProductManager {
   constructor() {
@@ -129,3 +78,83 @@ class ProductManager {
 }
 
 module.exports = ProductManager;
+
+const checkObjectKeys = (obj) => {
+  if (
+    !obj.title ||
+    !obj.description ||
+    !obj.price ||
+    !obj.thumbnail ||
+    !obj.stock ||
+    !obj.categoy
+  ) {
+    return {
+      state: "error",
+      msgState: "Todos los campos son obligatorios",
+    };
+  }
+
+  if (
+    typeof obj.title !== "string" ||
+    typeof obj.description !== "string" ||
+    typeof obj.price !== "number" ||
+    // typeof obj.status !== "boolean" ||
+    typeof obj.thumbnail !== "string" ||
+    typeof obj.stock !== "number" ||
+    typeof obj.categoy !== "object"
+  ) {
+    return {
+      state: "error",
+      msgState: "Uno de los tipo de dato es incorrecto",
+    };
+  }
+
+  return {
+    state: 200,
+    stateMsj: "OK",
+    message: "Campos validados",
+    error: false,
+  };
+};
+
+const codeGenerator = (obj) => {
+  let code = "";
+  const codeGenerator = obj.categoy.forEach((el) => {
+    if (el.length <= 2) {
+      code = code + el;
+    } else {
+      code += el.slice(0, 3);
+    }
+  });
+  code += obj.marca;
+  code += String(obj.id).slice(10, 13);
+  return { code };
+};
+
+class HandleProducts {
+  // manager User
+  constructor() {
+    //  iniciar la base de datos
+    this.productModel = productModel;
+  }
+
+  getProducts = async () => {
+    try {
+      let myRes = await this.productModel.find().lean();
+      return myRes;
+    } catch (err) {
+      console.log(err.stateMsj);
+    }
+  };
+
+  getProductById = async (itemID) => {
+    try {
+      const found = await this.productModel.find({ _id: itemID }).lean();
+      return found;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
+
+module.exports = HandleProducts;

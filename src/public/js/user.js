@@ -75,7 +75,7 @@ if (RegisterForm) {
         password,
       };
 
-      fetch("/views/login", {
+      fetch("/session/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -112,7 +112,7 @@ if (loginForm) {
     };
     const token = jwt.sign({ userId: "123456789" }, "secret_key");
 
-    fetch("/views/login", {
+    fetch("/session/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

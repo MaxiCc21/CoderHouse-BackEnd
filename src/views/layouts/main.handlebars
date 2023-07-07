@@ -73,17 +73,23 @@
         <div class="Nav-Sesion">
           <ul class="my-ul">
             {{#if usercookie}}
-              <li>
-                <a href="/views/register">
+              <li class="dropdown">
+                <a onclick="myFunction()" class="dropbtn">
                   <i class="fa-regular fa-user"></i>
-                  {{usercookie.username}}
-                </a>
+                  {{usercookie.username}}</a>
+                <div id="myDropdown" class="dropdown-content">
+                  <a href="#">Opción 1</a>
+                  <a href="#">Opción 2</a>
+                  <form id="dropdownForm" action="/home" method="post">
+                    <button type="submit" class="mydropbtn">Cerrar sesion</button>
+                  </form>
+                </div>
               </li>
               <li>
                 <a href="/views/misCompras">Mis Compras</a>
               </li>
               <li>
-                <a href="/views/register">Favoritos</a>
+                <a href="/session/register">Favoritos</a>
               </li>
               <li>
                 <a href="#"><i class="fa-solid fa-bell"></i></a>
@@ -95,10 +101,10 @@
               </li>
             {{else}}
               <li>
-                <a href="/views/register">Creá tu cuenta</a>
+                <a href="/session/register">Creá tu cuenta</a>
               </li>
               <li>
-                <a href="/views/login">Ingresá</a>
+                <a href="/session/login">Ingresá</a>
               </li>
               <li>
                 <a href="/views/misCompras">Mis Compras</a>
@@ -131,5 +137,7 @@
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
     crossorigin="anonymous"
   ></script>
+
+  <script src="/static/js/main.js"></script>
 
 </html>

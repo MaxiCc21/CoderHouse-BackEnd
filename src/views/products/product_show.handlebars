@@ -1,4 +1,10 @@
 <div class="showProduct">
+  <input
+    type="number"
+    value="{{product.rating}}"
+    id="ratingProductValue"
+    hidden="true"
+  />
   <div class="main-box-productShow">
     <section class="top-section-productShow">
       <div class="z1-top-productShow">También puede interesarteel diario de
@@ -7,7 +13,6 @@
       <div class="z2-top-productShow">
         <a href="">Volver </a>|
         <a href="">Libros, Revistas y Comics</a><a href="">Libros Físicos</a>
-
       </div>
       <div class="z3-top-productShow">
         <a href="">Compartir</a>
@@ -38,28 +43,82 @@
           alt="{{product.thumbnail}}"
         /></div>
       <div class="z3-mid-productShow">
-        <h2>{{product.title}}</h2>
-        <span>{{product.price}}</span>
+        <div class="z3-mid-productShow-title">
+          <h2>{{product.title}}</h2>
+        </div>
+        <div class="z3-mid-productShow-rating">
+          <div class="rating">
+            <input type="radio" id="star5" name="rating" value="5" />
+            <label for="star5"></label>
+            <input type="radio" id="star4" name="rating" value="4" />
+            <label for="star4"></label>
+            <input type="radio" id="star3" name="rating" value="3" />
+            <label for="star3"></label>
+            <input type="radio" id="star2" name="rating" value="2" />
+            <label for="star2"></label>
+            <input type="radio" id="star1" name="rating" value="1" />
+            <label for="star1"></label>
+          </div>
+          <div id="ratingValue"></div>
+        </div>
+        <div class="z3-mid-productShow-price">
+          <span>${{product.price}}</span>
+        </div>
+
       </div>
       <div class="z4-mid-productShow">
-        <form
-          id="showProduct-form"
-          action="/products/{{product._id}}"
-          method="post"
-        >
-          <input
-            type="text"
-            value="{{product._id}}"
-            hidden="true"
-            name="productID"
-          />
-          <button type="submit" name="action" value="comprar">comprar</button>
-          <button type="submit" name="action" value="carrito">Agregar al carrito</button>
+        <div class="z4-mid-productShow-info-shipping">
+          <span id="z4-info-shipping-1"><i
+              class="fa-solid fa-truck fa-sm"
+            ></i>Llega gratis el viernes
+          </span>
+          <span id="z4-info-shipping-2">
+            <i class="fa-solid fa-bolt-lightning"></i>
+            FULL
+          </span>
+          <br />
+          <span id="z4-info-address" style="color: #2c6ddd;"><i
+              class="fa-solid fa-location-dot"
+              style="color: #2c6ddd;"
+            ></i>
+            {{usercookie.address}}</span>
+        </div>
+        <div class="z4-mid-productShow-info-stock">
+          <span>Stock disponible</span><br />
+          <span>Cantidad: {{product.stock}}</span>
+        </div>
 
-        </form>
+        <div class="z4-mid-productShow-button-area">
+          <form
+            id="showProduct-form"
+            action="/products/{{product._id}}"
+            method="post"
+          >
+            <input
+              type="text"
+              value="{{product._id}}"
+              hidden="true"
+              name="productID"
+            />
+            <button
+              class="btn-blue-main"
+              type="submit"
+              name="action"
+              value="comprar"
+            >Comprar</button>
+            <button
+              class="btn-blue-main"
+              type="submit"
+              name="action"
+              value="carrito"
+            >Agregar al carrito</button>
+
+          </form>
+        </div>
       </div>
     </section>
   </div>
 </div>
 
 <script src="/static/js/productShow.js"></script>
+<script src="/static/js/main.js"></script>
