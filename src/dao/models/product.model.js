@@ -9,6 +9,7 @@ const ProductSchema = new Schema({
   marca: String,
   stock: Number,
   createTime: { type: Date, default: Date.now },
+  rating: Number,
 });
 
 const productModel = model("products", ProductSchema);
