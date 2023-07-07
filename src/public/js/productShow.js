@@ -13,3 +13,16 @@ $form.addEventListener("submit", (e) => {
     },
   });
 });
+
+const ratingProductValue = document.getElementById("ratingProductValue").value;
+setRating(ratingProductValue);
+
+function setRating(rating) {
+  const stars = document.querySelectorAll(".rating input");
+
+  stars.forEach((star) => {
+    if (star.value == rating) {
+      star.checked = true;
+    }
+  });
+}

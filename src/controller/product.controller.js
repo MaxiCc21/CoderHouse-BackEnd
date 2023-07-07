@@ -15,8 +15,8 @@ class ProductControler {
     const options = {};
     options.style = "productShow.css";
     options.product = product[0];
-    (options.usercookie = jwtUser.username ? req.user.username : null),
-      res.render("products/product_show.handlebars", options);
+    options.usercookie = jwtUser ? jwtUser : null;
+    res.render("products/product_show.handlebars", options);
   };
 
   showSingleProductPOST = async (req, res) => {
