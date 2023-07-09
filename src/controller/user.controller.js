@@ -38,6 +38,7 @@ class UserController {
     const newUser = {
       sub: data._id,
       username: data.username,
+      fullname: data.fullname,
       role: "user",
       email: data.email,
       address: data.address,

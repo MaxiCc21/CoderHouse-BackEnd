@@ -1,6 +1,8 @@
 const { Router } = require("express");
 const { get } = require("mongoose");
 const { ticketService } = require("../service/idex");
+const { passportAuth } = require("../config/passportAuth");
+const { authorizaton } = require("../config/passportAuthorization");
 
 const router = Router();
 
@@ -38,4 +40,21 @@ router.get("/done", (req, res) => {
   res.render("done.handlebars");
 });
 
+router.get(
+  "/shopping",
+  passportAuth("jwt"),
+  authorizaton("user"),
+  (req, res) => {
+    const jwtUser = req.user;
+    console.log(jwtUser);
+    const options = {
+      title: "Comprar producto",
+      style: "shopping.css",
+
+      usercookie: jwtUser,
+    };
+
+    res.render("shopping/shopping", options);
+  }
+);
 module.exports = router;
