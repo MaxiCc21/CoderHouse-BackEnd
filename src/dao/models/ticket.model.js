@@ -1,26 +1,27 @@
 const { Schema, model } = require("mongoose");
 
-const TicketSchema = new mongoose.Schema({
-  numeroRecibo: {
+const TicketSchema = new Schema({
+  receiptNumber: {
     type: String,
     required: true,
     unique: true,
   },
-  fecha: {
+  date: {
     type: Date,
     required: true,
+    default: Date.now,
   },
-  detallesCompra: [
+  purchaseDetails: [
     {
-      producto: {
+      product: {
         type: String,
         required: true,
       },
-      cantidad: {
+      quantity: {
         type: Number,
         required: true,
       },
-      precioUnitario: {
+      unitPrice: {
         type: Number,
         required: true,
       },
@@ -30,7 +31,7 @@ const TicketSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  impuestos: {
+  taxes: {
     type: Number,
     required: true,
   },
@@ -38,11 +39,11 @@ const TicketSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  metodoPago: {
+  paymentMethod: {
     type: String,
     required: true,
   },
-  numeroTarjeta: {
+  cardNumber: {
     type: String,
   },
 });
