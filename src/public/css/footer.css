@@ -1,0 +1,19 @@
+footer {
+  background-color: #fff;
+}
+
+.footer-link-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding-top: 15px;
+}
+.footer-link-section a {
+  font-size: 13px;
+  color: black !important;
+}
+
+.footer-copyright-section * {
+  color: #999;
+  font-size: 12px;
+}
