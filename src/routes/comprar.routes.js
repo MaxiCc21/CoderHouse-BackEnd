@@ -41,7 +41,7 @@ router.get("/done", (req, res) => {
 });
 
 router.get(
-  "/shopping",
+  "/shipment",
   passportAuth("jwt"),
   authorizaton("user"),
   (req, res) => {
@@ -57,4 +57,28 @@ router.get(
     res.render("shopping/shopping", options);
   }
 );
+
+// router.post("/methodPayment", (req, res) => {
+//   const shippingWay = req.body;
+
+//   res.redirect("/comprar/prueba?dato=" + shippingWay);
+// });
+router.post("/methodPayment", (req, res) => {
+  console.log(req.body, "BODYYY");
+  const options = {
+    style: "methodPayment.css",
+    data: req.body,
+  };
+
+  res.render("shopping/methodPayment", options);
+});
+
+router.get("/methodPayment", (req, res) => {
+  res.redirect("/comprar/shipment");
+});
+
+router.post("/prueba", (req, res) => {
+  console.log(req.params, "asdasdsd");
+  res.render("shopping/prueba");
+});
 module.exports = router;
