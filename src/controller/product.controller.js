@@ -1,4 +1,4 @@
-const { productService, cartService } = require("../service/idex");
+const { productService, cartService } = require("../service");
 
 class ProductControler {
   showSingleProductGET = async (req, res) => {

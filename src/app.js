@@ -9,6 +9,7 @@ const viewsRoutes = require("./routes/views.routes");
 const newUserRoutes = require("./routes/newUser.routes");
 const cookieRoutes = require("./routes/cookie.routes");
 const comprarRoutes = require("./routes/comprar.routes");
+const mailRoutes = require("./routes/mailing.routes");
 const cokieParser = require("cookie-parser");
 const { uploader } = require("./utils/multer");
 const productHandle = new (require("./dao/MongoManager/ProductManager"))();
@@ -118,6 +119,8 @@ app.use("/cookie", cookieRoutes);
 
 app.use("/comprar", comprarRoutes);
 
+app.use("/email", mailRoutes);
+
 app.use((err, req, res, next) => {
   console.log(err);
   res.status(500).send("Todo mal");
@@ -132,7 +135,7 @@ app.get("/realtimeproducts", (req, res) => {
 const { Server } = require("socket.io");
 
 const { send } = require("process");
-const { cartService } = require("./service/idex");
+const { cartService } = require("./service");
 
 const httpServer = app.listen(8080);
 

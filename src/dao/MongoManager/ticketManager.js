@@ -1,6 +1,7 @@
 const { cartModel } = require("../models/cart.model");
 const { messageModel } = require("../models/messages.model");
 const { ticketModel } = require("../models/ticket.model");
+const { ObjectId } = require("bson");
 
 function purchaseDetailsGenerate(products) {
   const arrayProducts = [];
@@ -36,7 +37,170 @@ function calculatePricesGenerate(tickeProducts) {
   };
 }
 
+function modDataProductToTicket(data) {
+  const ArryData = [];
+  data.forEach((producto) => {
+    let data = {
+      product: producto.product.title,
+      quantity: producto.quantity,
+      unitPrice: producto.product.price,
+    };
+    ArryData.unshift(data);
+  });
+  if (ArryData.length === 0) {
+    return {
+      status: "error",
+      statusMsj: "Ah ocurrido un error inesperado",
+      ok: false,
+      data: undefined,
+    };
+  }
+  return {
+    status: "ok",
+    statusMsj: "Data Modificada con exito",
+    ok: true,
+    data: ArryData,
+  };
+}
 class TicketManager {
+  getTicket = async (uid) => {
+    const found = await ticketModel.findOne({ id_user_to_ticket: uid }).lean();
+    if (found) {
+      return {
+        status: "ok",
+        statusMsj: "Ticket Encontrado",
+        ok: true,
+        data: found,
+      };
+    }
+    return {
+      status: "error",
+      statusMsj: "No se a encontrado el ticket",
+      ok: false,
+      data: null,
+    };
+  };
+
+  validationSend = async (data) => {
+    if (data.isSend) {
+      return true;
+    }
+    return false;
+  };
+
+  editTicketShipment = async (userID, address, tipoDeEnvio) => {
+    const foundTicket = await this.getTicket(userID);
+    if (!foundTicket.ok) {
+      console.log("No se encontró el ticket.");
+      return foundTicket;
+    }
+
+    if (!foundTicket.isSend) {
+      const updateTicket = await ticketModel.findOneAndUpdate(
+        {
+          id_user_to_ticket: userID,
+          isSend: false,
+        },
+        {
+          $set: {
+            shippingDestination: address,
+            shippingType: tipoDeEnvio,
+          },
+        },
+        { new: true }
+      );
+      return {
+        status: "ok",
+        statusMsj: "Ticket Encontrado",
+        ok: true,
+        data: null,
+      };
+    }
+    return {
+      status: "error",
+      statusMsj: "El tiket ya fue enviado",
+      ok: false,
+      data: null,
+    };
+  };
+
+  editTicketProducts = async (userID, productsArray, ticketID) => {
+    ticketID = "649a0b54d584f1b08e5e2f1b";
+    const foundTicket = await this.getTicket(userID);
+    if (!foundTicket.ok) {
+      console.log("No se encontró el ticket.");
+      return foundTicket;
+    }
+
+    const ModProductData = modDataProductToTicket(productsArray);
+    if (!ModProductData.ok) {
+      return ModProductData;
+    }
+
+    const { subtotal, taxes, total } = calculatePricesGenerate(
+      ModProductData.data
+    );
+
+    const updateTicketpurchaseDetails = await ticketModel.findOneAndUpdate(
+      {
+        id_user_to_ticket: userID,
+      },
+      {
+        $set: {
+          purchaseDetails: ModProductData.data,
+          subtotal,
+          taxes,
+          total,
+        },
+      },
+      { new: true }
+    );
+
+    if (!updateTicketpurchaseDetails) {
+      return {
+        status: "error",
+        statusMsj: "Ha ocurrido un error inisperado",
+        ok: false,
+        data: undefined,
+      };
+    }
+    return {
+      status: "ok",
+      statusMsj: "Modificaciones realizadas al ticket con exito",
+      ok: true,
+      data: undefined,
+    };
+  };
+
+  editTicketMethodPayment = async (userID, metodoDePago, datosDeTarjeta) => {
+    const foundTicket = await this.getTicket(userID);
+    if (!foundTicket.ok) {
+      console.log("No se encontró el ticket.");
+      return foundTicket;
+    }
+    if (!foundTicket.isSend) {
+      const updateTicket = await ticketModel.findOneAndUpdate(
+        {
+          id_user_to_ticket: userID,
+        },
+        {
+          $set: {
+            paymentMethod: metodoDePago,
+            cardNumber: datosDeTarjeta,
+          },
+        },
+        { new: true }
+      );
+      return {
+        status: "ok",
+        statusMsj: "Ticket Encontrado",
+        ok: true,
+        data: null,
+      };
+    }
+    console.log(userID);
+  };
+
   generateTicket = async (ticketData) => {
     try {
       if (Object.keys(ticketData).length === 0) {
@@ -120,6 +284,51 @@ class TicketManager {
         data: null,
       };
     }
+  };
+
+  cleanTicket = async (userID) => {
+    const cleanTicket = await ticketModel.findOneAndUpdate(
+      {
+        id_user_to_ticket: userID,
+        isSend: false,
+      },
+      {
+        $unset: {
+          paymentMethod: 1,
+          cardNumber: 1,
+        },
+      },
+      { new: true }
+    );
+  };
+
+  purchaseMade = async (userID) => {
+    const purchaseMade = await ticketModel.findOneAndUpdate(
+      {
+        id_user_to_ticket: userID,
+      },
+      {
+        $set: {
+          isSend: true,
+        },
+      },
+      { new: true }
+    );
+    console.log(purchaseMade);
+    if (!purchaseMade) {
+      return {
+        status: "error",
+        statusMsj: `Ha ocurrido un error inesperado /n No se a encotrado el ticket`,
+        ok: false,
+        data: undefined,
+      };
+    }
+    return {
+      status: "ok",
+      statusMsj: "Gracias por su compra!! /n Vuelva pronto",
+      ok: true,
+      data: undefined,
+    };
   };
 }
 

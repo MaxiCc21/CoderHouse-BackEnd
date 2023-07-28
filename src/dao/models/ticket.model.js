@@ -1,6 +1,8 @@
 const { Schema, model } = require("mongoose");
 
 const TicketSchema = new Schema({
+  id_user_to_ticket: Schema.Types.ObjectId,
+
   receiptNumber: {
     type: String,
     required: true,
@@ -45,6 +47,20 @@ const TicketSchema = new Schema({
   },
   cardNumber: {
     type: String,
+  },
+  shippingDestination: {
+    type: String,
+    required: true,
+    default: "---",
+  },
+  shippingType: {
+    type: String,
+    required: true,
+    default: "---",
+  },
+  isSend: {
+    type: Boolean,
+    default: false,
   },
 });
 

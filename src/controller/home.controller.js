@@ -1,4 +1,4 @@
-const { productService } = require("../service/idex");
+const { productService } = require("../service");
 
 class UserController {
   loadProduct = async (req, res) => {

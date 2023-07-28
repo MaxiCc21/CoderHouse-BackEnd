@@ -1,4 +1,4 @@
-const { userService, cartService } = require("../service/idex");
+const { userService, cartService } = require("../service");
 const { generateToke } = require("../utils/jwt");
 
 class UserController {
