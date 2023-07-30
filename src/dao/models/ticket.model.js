@@ -1,6 +1,23 @@
 const { Schema, model } = require("mongoose");
 
-const TicketSchema = new mongoose.Schema({
+const TicketSchema = new Schema({
+  id_user_to_ticket: Schema.Types.ObjectId,
+
+  username: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+
+  receiptNumber: {
+    type: String,
+    required: true,
+    unique: true,
+    default: "---",
+  },
   date: {
     type: Date,
     required: true,
@@ -41,6 +58,19 @@ const TicketSchema = new mongoose.Schema({
   },
   cardNumber: {
     type: String,
+    default: "---",
+  },
+  shippingDestination: {
+    type: String,
+    default: "---",
+  },
+  shippingType: {
+    type: String,
+    default: "---",
+  },
+  isSend: {
+    type: Boolean,
+    default: false,
     default: "---",
   },
   shippingDestination: {

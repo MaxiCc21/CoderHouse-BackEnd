@@ -43,6 +43,7 @@ class CartManager {
   }
 
   getItemToCart = async (uid) => {
+    uid = new ObjectId(uid);
     try {
       const found = await this.cartModel
         .findOne({ id_user_to_cart: uid })

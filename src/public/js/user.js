@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { ticketService } = require("../../service");
 const nameRegex = /^[A-Za-zÁ-ú']{2,30}$/;
 const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -57,7 +58,7 @@ function validarDataTypeUser(data) {
 const RegisterForm = document.getElementById("creteUser-form");
 if (RegisterForm) {
   RegisterForm.addEventListener("submit", (e) => {
-    RegisterForm.addEventListener("submit", (e) => {
+    RegisterForm.addEventListener("submit", async (e) => {
       const datosFormulario = new FormData(RegisterForm);
       const firstname = datosFormulario.get("firstname");
       const lastname = datosFormulario.get("lastname");
@@ -65,17 +66,29 @@ if (RegisterForm) {
       const email = datosFormulario.get("email");
       const address = datosFormulario.get("address");
       const password = datosFormulario.get("password");
+      const fullname = `${firstname} ${lastname}`;
 
+      const dataForTicket = {
+        username: "Maxi",
+        email: "Comor",
+      };
+
+      const createTicketToUser = await ticketService.createNewTicket(
+        dataForTicket
+      );
+
+      console.log(createTicketToUser);
       const data = {
         firstname,
         lastname,
+        fullname,
         username,
         email,
         address,
         password,
       };
 
-      fetch("/session/login", {
+      fetch("/session/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

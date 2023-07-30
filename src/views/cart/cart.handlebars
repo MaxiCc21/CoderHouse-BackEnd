@@ -1,10 +1,5 @@
 <main class="cart">
-  <input
-    type="text"
-    hidden="true"
-    value="{{usercookie.sub}}"
-    id="userID_input"
-  />
+
   <section class="main-box-cart">
     <div class="z1-left-cart">
 
@@ -74,7 +69,7 @@
           </div>
           <hr />
           <div class="purchase-summary-amoun-row">
-            <span>Productos(2)</span>
+            <span>Productos({{products.length}})</span>
             <span>$----</span></div>
           <div class="purchase-summary-shipping-row">
             <span>Envios</span>
@@ -87,7 +82,16 @@
             <span>Total</span>
             <span>$----</span>
           </div>
-          <button type="button" class="btn-blue-main">Continuar compra</button>
+          <form action="/api/carts" method="post">
+            <input
+              type="text"
+              hidden="true"
+              value="{{usercookie.sub}}"
+              id="userID_input"
+              name="userID"
+            />
+            <button type="submit" class="btn-blue-main">Continuar compra</button>
+          </form>
         </div>
       {{else}}
         <div class="noProducts purchase-summary-box">

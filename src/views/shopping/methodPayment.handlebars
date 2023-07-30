@@ -1,0 +1,109 @@
+<form
+  id="formShoppingWay"
+  action="/comprar/methodPayment"
+  name="shippingWayForm"
+  method="post"
+>
+  <section id="methodPayment">
+    <div class="methodPayment-container">
+      <div class="z5-right-methodPayment">
+        <div class="z5-methodPayment-info-shopping">
+          <h2>Resumen de compra</h2>
+          <hr />
+          <div class="z5-info-quiantity">
+            <span>Productos (2)</span>
+            <span>$ 6.94900</span>
+          </div>
+          <br />
+          <hr />
+          <div class="z5-info-totalPrice">
+            <span>Pagas</span>
+            <span>$ 6.94900</span>
+          </div>
+        </div>
+      </div>
+      <div class="z4-left-bottom-methodPayment">
+        <button class="btn-blue-main" type="submit">Continuar</button>
+      </div>
+      <div class="z3-left-mid2-methodPayment">
+        <strong>Con débito o crédito</strong>
+        <div class="mid-box-methodPayment methodPayment-main-box">
+          <div class="leftzone-mid-box-methodPayment">
+            <div class="contenedor">
+              <div class="barra"></div>
+              <input
+                type="checkbox"
+                id="send-input"
+                name="TypeMastercard"
+                onclick="myFuncion(this)"
+                value="5547851369422257"
+              />
+            </div>
+          </div>
+          <div class="logo-mid-box-methodPayment"><i
+              class="fa-brands fa-cc-mastercard fa-lg"
+            ></i></div>
+
+          <div class="centerzone-mid-box-methodPayment">Mastercard debito
+            ****7894</div>
+        </div>
+        <div class="mid-box-methodPayment methodPayment-main-box">
+          <div class="leftzone-mid-box-methodPayment">
+            <div class="contenedor">
+              <div class="barra" id="barra-methodPayment-VisaDebito"></div>
+              <input
+                type="checkbox"
+                id="input-methodPayment-VisaDebito"
+                name="TypeVisa"
+                onclick="myFuncion(this)"
+                value="1203002455789546"
+              />
+            </div>
+          </div>
+          <div class="logo-mid-box-methodPayment"><i
+              class="fa-brands fa-cc-visa fa-lg"
+            ></i></div>
+
+          <div class="centerzone-mid-box-methodPayment">Visa debito ****1234</div>
+        </div>
+      </div>
+      <div class="z2-left-mid1-methodPayment">
+        <span>Con Mercado Pago
+        </span>
+        <div class="methodPayment-mid-box methodPayment-main-box">
+          <div class="z1-input-mid-box-methodPayment">
+            <div class="contenedor">
+              <div id="barraMercadoPago" class="barra barra-azul"></div>
+              <input
+                checked
+                type="checkbox"
+                id="mercadoPago-payment-input"
+                name="TypeMercadoPago"
+                onclick="myFuncion(this)"
+              />
+            </div>
+          </div>
+          <div class="z2-log-mid-box-methodPayment">
+            <div id="z1-log-mid-box">
+              <i class="fa-solid fa-dollar-sign" style="color: #1d56b9;"></i>
+            </div>
+          </div>
+          <div class="z3-data-mid-box-methodPayment">
+            <span>Disponible en Mercado Pago</span>
+            <small>Salgo: 345.678</small>
+          </div>
+          <div class="z3-link-mid-box-methodPayment">
+          </div>
+        </div>
+      </div>
+      <div class="z1-left-top-methodPayment">
+        <h1>
+          ¿Cómo querés pagar?
+        </h1>
+      </div>
+
+    </div>
+  </section>
+</form>
+
+<script src="/static/js/methodPayment.js"></script>
