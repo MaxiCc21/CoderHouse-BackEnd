@@ -5,7 +5,7 @@ const authorizaton = (role) => {
       return next();
     }
     if (!req.user) {
-      return res.status(403).redirect("/views/login");
+      return res.status(403).redirect("/session/login");
     }
 
     if (req.user.role !== role)

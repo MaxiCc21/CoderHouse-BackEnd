@@ -1,4 +1,4 @@
-const { userService, cartService } = require("../service/idex");
+const { userService, cartService, ticketService } = require("../service");
 const { generateToke } = require("../utils/jwt");
 
 class UserController {
@@ -33,19 +33,31 @@ class UserController {
 
   loginPOST = async (req, res) => {
     console.log("/login");
+
     const data = req.user;
 
     const newUser = {
       sub: data._id,
       username: data.username,
+      fullname: data.fullname,
       role: "user",
       email: data.email,
       address: data.address,
       isAdmin: data.isAdmin,
     };
+
+    const newTicketData = {
+      id_user_to_ticket: data._id,
+      username: data.username,
+      email: data.email,
+    };
     const token = generateToke(newUser);
+
     try {
       const crearCarrito = await cartService.createNewCart(data._id);
+      const createTicketToUser = await ticketService.createNewTicket(
+        newTicketData
+      );
       console.log(crearCarrito.statusMsj);
     } catch (err) {
       console.log(err);
@@ -71,7 +83,7 @@ class UserController {
   };
 
   registerPOST = async (req, res) => {
-    res.redirect("/login");
+    res.send("/home");
   };
 }
 module.exports = new UserController();

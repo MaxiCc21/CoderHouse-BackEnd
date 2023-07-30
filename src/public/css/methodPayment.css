@@ -1,0 +1,239 @@
+#methodPayment {
+  background-color: var(--main-backgournd-color-grey);
+  display: flex;
+  justify-content: center;
+  min-height: 600px;
+}
+.methodPayment-container {
+  width: 80%;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 0.4fr 1.2fr 2.5fr 0.7fr;
+  gap: 0px 15px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "z1-left-top-methodPayment z1-left-top-methodPayment z5-right-methodPayment"
+    "z2-left-mid1-methodPayment z2-left-mid1-methodPayment z5-right-methodPayment"
+    "z3-left-mid2-methodPayment z3-left-mid2-methodPayment z5-right-methodPayment"
+    "z4-left-bottom-methodPayment z4-left-bottom-methodPayment z5-right-methodPayment";
+}
+
+.z5-right-methodPayment {
+  grid-area: z5-right-methodPayment;
+  background-color: #f5f5f5 !important;
+}
+
+.z4-left-bottom-methodPayment {
+  grid-area: z4-left-bottom-methodPayment;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.z4-left-bottom-methodPayment button {
+  width: 150px;
+}
+
+.z3-left-mid2-methodPayment {
+  grid-area: z3-left-mid2-methodPayment;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.z2-left-mid1-methodPayment {
+  grid-area: z2-left-mid1-methodPayment;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.z1-left-top-methodPayment {
+  grid-area: z1-left-top-methodPayment;
+}
+
+.methodPayment-mid-box {
+  margin-top: 10px;
+  height: 70%;
+  display: grid;
+  grid-template-columns: 0.5fr 0.3fr 2.2fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas: "z1-input-mid-box-methodPayment z2-log-mid-box-methodPayment z3-data-mid-box-methodPayment ";
+  align-items: center;
+}
+
+.z1-log-mid-box-methodPayment {
+  grid-area: z1-log-mid-box-methodPayment;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#z1-log-mid-box {
+  border-radius: 200px 200px 200px 200px;
+  -webkit-border-radius: 200px 200px 200px 200px;
+  -moz-border-radius: 200px 200px 200px 200px;
+  background-color: #f5f5f5;
+  height: 55px;
+  width: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.z2-data-mid-box-methodPayment {
+  grid-area: z2-data-mid-box-methodPayment;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.z3-link-mid-box-methodPayment {
+  grid-area: z3-link-mid-box-methodPayment;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.z3-link-mid-box-methodPayment small {
+  color: var(--color-blue-primario);
+  letter-spacing: 0.3px;
+}
+
+.z1-left-top-methodPayment h1 {
+  font-size: 24px;
+}
+
+.z5-methodPayment-info-shopping {
+  margin: 10px;
+}
+.z5-methodPayment-info-shopping div {
+  font-family: var(--main-font-family);
+  font-size: 17px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 300;
+  color: #333;
+}
+.z5-methodPayment-info-shopping h2 {
+  font-family: var(--main-font-family);
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 600;
+  color: #333;
+  padding: 8px 0 12px;
+  display: inline-block;
+}
+
+.methodPayment-main-box {
+  background-color: #fff;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+
+/* -------------------------------- */
+.contenedor {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+input[type="checkbox"] {
+  width: 16px; /* Ajustar el tamaño del input según tus necesidades */
+  height: 16px; /* Ajustar el tamaño del input según tus necesidades */
+  border-radius: 50%;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: none;
+  margin-right: 10px;
+  transition: border-color 0.3s;
+  border: 2px solid gray;
+  padding: 0;
+  margin: 0;
+  transform: scale(0.8); /* Escalar el tamaño del input sin afectar el borde */
+}
+
+input[type="checkbox"]:checked {
+  background-color: var(--color-blue-primario);
+  border-color: var(--color-blue-primario);
+}
+
+input[type="checkbox"] + .barra {
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked + .barra::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.barra {
+  width: 10px;
+  height: 100%;
+  transition: background-color 0.1s;
+  margin-right: 10px;
+  border-radius: 5px 0px 0px 5px;
+  -webkit-border-radius: 5px 0px 0px 5px;
+  -moz-border-radius: 5px 0px 0px 5px;
+}
+
+.barra-azul {
+  background-color: var(--color-blue-primario);
+  border-radius: 5px 0px 0px 5px;
+  -webkit-border-radius: 5px 0px 0px 5px;
+  -moz-border-radius: 5px 0px 0px 5px;
+}
+
+input[type="checkbox"] {
+  margin-left: 10px;
+}
+
+/* ------------------------ */
+
+.mid-box-methodPayment {
+  display: grid;
+  grid-template-columns: 0.4fr 0.3fr 2.7fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas: "leftzone-mid-box-methodPayment logo-mid-box-methodPayment centerzone-mid-box-methodPayment ";
+  height: 80px;
+}
+
+.leftzone-mid-box-methodPayment {
+  grid-area: leftzone-mid-box-methodPayment;
+  background-color: rgba(255, 0, 0, 0);
+}
+
+.centerzone-mid-box-methodPayment {
+  grid-area: centerzone-mid-box-methodPayment;
+  display: flex;
+  align-items: center;
+}
+
+.logo-mid-box-methodPayment {
+  grid-area: logo-mid-box-methodPayment;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 888px) {
+  /* Estilos aplicados cuando el ancho de la pantalla es igual o mayor a 300px */
+  /* Aquí puedes colocar las reglas de estilo que desees */
+  /* por ejemplo: */
+  .logo-mid-box-methodPayment {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
