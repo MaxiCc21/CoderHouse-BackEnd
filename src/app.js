@@ -8,6 +8,7 @@ const userRoutes = require("./routes/user.routes");
 const viewsRoutes = require("./routes/views.routes");
 const newUserRoutes = require("./routes/newUser.routes");
 const cookieRoutes = require("./routes/cookie.routes");
+const comprarRoutes = require("./routes/comprar.routes");
 const cokieParser = require("cookie-parser");
 const { uploader } = require("./utils/multer");
 const productHandle = new (require("./dao/MongoManager/ProductManager"))();
@@ -114,6 +115,8 @@ app.use("/views", viewsRoutes);
 app.use("/chat", chatRoutes);
 
 app.use("/cookie", cookieRoutes);
+
+app.use("/comprar", comprarRoutes);
 
 app.use((err, req, res, next) => {
   console.log(err);

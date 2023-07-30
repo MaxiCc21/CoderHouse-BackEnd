@@ -1,23 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const TicketSchema = new Schema({
-  id_user_to_ticket: Schema.Types.ObjectId,
-
-  username: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-  },
-
-  receiptNumber: {
-    type: String,
-    required: true,
-    unique: true,
-    default: "---",
-  },
+const TicketSchema = new mongoose.Schema({
   date: {
     type: Date,
     required: true,
@@ -64,7 +47,7 @@ const TicketSchema = new Schema({
     type: String,
     default: "---",
   },
-  shippingType: {
+  numeroTarjeta: {
     type: String,
     default: "---",
   },

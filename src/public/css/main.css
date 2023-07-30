@@ -353,7 +353,7 @@ template {
 .btn-blue-main {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #3483fa;
+  background-color: var(--color-blue-primario);
   color: #ffffff !important;
   text-align: center;
   cursor: pointer;
@@ -367,4 +367,19 @@ template {
 .btn-blue-main:hover {
   background-color: #2968c8;
   border-color: #2968c8;
+}
+
+:root {
+  --color-blue-primario: #3483fa;
+  --color-primario-button-hover: #2968c8;
+  --color-green-primary-light: #2fbc70;
+  --color-green-primary-dark: #1aad63;
+
+  --main-font-family: Proxima Nova, -apple-system, Helvetica Neue, Helvetica,
+    Roboto, Arial, sans-serif;
+  --main-backgournd-color-grey: #ededed;
+}
+
+* {
+  font-family: var(--main-font-family);
 }
