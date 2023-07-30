@@ -71,6 +71,19 @@ const TicketSchema = new Schema({
   isSend: {
     type: Boolean,
     default: false,
+    default: "---",
+  },
+  shippingDestination: {
+    type: String,
+    default: "---",
+  },
+  numeroTarjeta: {
+    type: String,
+    default: "---",
+  },
+  isSend: {
+    type: Boolean,
+    default: false,
   },
 });
 
