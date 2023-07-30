@@ -81,6 +81,10 @@ class TicketManager {
     };
   };
 
+  createNewTicket = async (data) => {
+    const generarNuevoTicket = await ticketModel.create(data);
+  };
+
   validationSend = async (data) => {
     if (data.isSend) {
       return true;

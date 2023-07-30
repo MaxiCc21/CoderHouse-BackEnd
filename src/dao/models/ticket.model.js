@@ -3,10 +3,20 @@ const { Schema, model } = require("mongoose");
 const TicketSchema = new Schema({
   id_user_to_ticket: Schema.Types.ObjectId,
 
+  username: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+
   receiptNumber: {
     type: String,
     required: true,
     unique: true,
+    default: "---",
   },
   date: {
     type: Date,
@@ -31,31 +41,31 @@ const TicketSchema = new Schema({
   ],
   subtotal: {
     type: Number,
-    required: true,
+    default: 0,
   },
   taxes: {
     type: Number,
-    required: true,
+    default: 0,
   },
   total: {
     type: Number,
-    required: true,
+    default: 0,
   },
   paymentMethod: {
     type: String,
     required: true,
+    default: "---",
   },
   cardNumber: {
     type: String,
+    default: "---",
   },
   shippingDestination: {
     type: String,
-    required: true,
     default: "---",
   },
   shippingType: {
     type: String,
-    required: true,
     default: "---",
   },
   isSend: {

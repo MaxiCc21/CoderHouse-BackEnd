@@ -171,14 +171,12 @@ router.get("/failLogin", (req, res) => {
 
 router.get("/register", registerGET);
 
-router.post(
-  "/register",
-  passport.authenticate("register", {
-    failureRedirect: "login",
-    successRedirect: "login",
-  }),
-  registerPOST
-);
+router.post("/register", passport.authenticate("register"), registerPOST);
+
+// {
+//   failureRedirect: "login",
+//   successRedirect: "login",
+// }
 
 router.get("/failregister", (req, res) => {
   console.log("ERRRRRRRRRRR");
