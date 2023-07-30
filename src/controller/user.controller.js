@@ -43,7 +43,7 @@ class UserController {
       email: data.email,
       address: data.address,
       isAdmin: data.isAdmin,
-      idTicket: 111111111,
+      idTicket: 1111111,
     };
 
     const token = generateToke(newUser);
