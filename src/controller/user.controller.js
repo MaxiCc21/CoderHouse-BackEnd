@@ -33,6 +33,7 @@ class UserController {
 
   loginPOST = async (req, res) => {
     console.log("/login");
+
     const data = req.user;
 
     const newUser = {
@@ -43,12 +44,20 @@ class UserController {
       email: data.email,
       address: data.address,
       isAdmin: data.isAdmin,
-      idTicket: 111111,
     };
 
+    const newTicketData = {
+      id_user_to_ticket: data._id,
+      username: data.username,
+      email: data.email,
+    };
     const token = generateToke(newUser);
+
     try {
       const crearCarrito = await cartService.createNewCart(data._id);
+      const createTicketToUser = await ticketService.createNewTicket(
+        newTicketData
+      );
       console.log(crearCarrito.statusMsj);
     } catch (err) {
       console.log(err);
@@ -74,15 +83,6 @@ class UserController {
   };
 
   registerPOST = async (req, res) => {
-    const dataForTicket = {
-      username: "Maxi",
-      email: "Comor",
-      numeroRecibo: 3213,
-    };
-
-    const createTicketToUser = await ticketService.createNewTicket(
-      dataForTicket
-    );
     res.send("/home");
   };
 }

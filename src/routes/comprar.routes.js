@@ -121,6 +121,7 @@ router.post(
   authorizaton("user"),
   async (req, res) => {
     const userID = req.user.sub;
+    const { username, email } = req.user;
 
     const metodoDePago = Object.keys(req.body)[0];
     const datosDeTarjeta = req.body[metodoDePago];
@@ -131,6 +132,17 @@ router.post(
       datosDeTarjeta
     );
     const compraRealizada = await ticketService.purchaseMade(userID);
+
+    const dataToNewTicket = {
+      id_user_to_ticket: userID,
+      username,
+      email,
+    };
+
+    const createNewTicket = await ticketService.createNewTicket(
+      dataToNewTicket
+    );
+    console.log(createNewTicket.statusMsj);
 
     res.redirect("/comprar/done");
   }
