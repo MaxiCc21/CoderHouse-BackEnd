@@ -7,6 +7,7 @@ const TicketSchema = new Schema({
     type: String,
     required: true,
   },
+
   email: {
     type: String,
     required: true,
@@ -14,8 +15,6 @@ const TicketSchema = new Schema({
 
   receiptNumber: {
     type: String,
-    required: true,
-    unique: true,
     default: "---",
   },
   date: {
@@ -74,10 +73,6 @@ const TicketSchema = new Schema({
     default: "---",
   },
   shippingDestination: {
-    type: String,
-    default: "---",
-  },
-  numeroTarjeta: {
     type: String,
     default: "---",
   },
