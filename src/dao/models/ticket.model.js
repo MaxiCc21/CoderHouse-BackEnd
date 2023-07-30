@@ -1,26 +1,39 @@
 const { Schema, model } = require("mongoose");
 
-const TicketSchema = new mongoose.Schema({
-  numeroRecibo: {
+const TicketSchema = new Schema({
+  id_user_to_ticket: Schema.Types.ObjectId,
+
+  username: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+
+  receiptNumber: {
     type: String,
     required: true,
     unique: true,
+    default: "---",
   },
-  fecha: {
+  date: {
     type: Date,
     required: true,
+    default: Date.now,
   },
-  detallesCompra: [
+  purchaseDetails: [
     {
-      producto: {
+      product: {
         type: String,
         required: true,
       },
-      cantidad: {
+      quantity: {
         type: Number,
         required: true,
       },
-      precioUnitario: {
+      unitPrice: {
         type: Number,
         required: true,
       },
@@ -28,22 +41,36 @@ const TicketSchema = new mongoose.Schema({
   ],
   subtotal: {
     type: Number,
-    required: true,
+    default: 0,
   },
-  impuestos: {
+  taxes: {
     type: Number,
-    required: true,
+    default: 0,
   },
   total: {
     type: Number,
-    required: true,
+    default: 0,
   },
-  metodoPago: {
+  paymentMethod: {
     type: String,
     required: true,
+    default: "---",
   },
-  numeroTarjeta: {
+  cardNumber: {
     type: String,
+    default: "---",
+  },
+  shippingDestination: {
+    type: String,
+    default: "---",
+  },
+  shippingType: {
+    type: String,
+    default: "---",
+  },
+  isSend: {
+    type: Boolean,
+    default: false,
   },
 });
 
