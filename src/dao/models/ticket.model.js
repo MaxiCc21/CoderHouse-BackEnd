@@ -13,10 +13,6 @@ const TicketSchema = new Schema({
     required: true,
   },
 
-  receiptNumber: {
-    type: String,
-    default: "---",
-  },
   date: {
     type: Date,
     required: true,
