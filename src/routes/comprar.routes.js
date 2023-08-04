@@ -1,6 +1,6 @@
 const { Router } = require("express");
-const { get } = require("mongoose");
-const { ticketService } = require("../service");
+const { get, now } = require("mongoose");
+const { ticketService, cartService } = require("../service");
 const { passportAuth } = require("../config/passportAuth");
 const { authorizaton } = require("../config/passportAuthorization");
 
@@ -20,7 +20,7 @@ router.get("/", passportAuth("jwt"), authorizaton("user"), (req, res) => {
 });
 
 router.post(
-  "/prueba",
+  "/",
   passportAuth("jwt"),
   authorizaton("user"),
   async (req, res) => {
@@ -121,7 +121,7 @@ router.post(
   authorizaton("user"),
   async (req, res) => {
     const userID = req.user.sub;
-    const { username, email } = req.user;
+    const data = req.user;
 
     const metodoDePago = Object.keys(req.body)[0];
     const datosDeTarjeta = req.body[metodoDePago];
@@ -133,18 +133,17 @@ router.post(
     );
     const compraRealizada = await ticketService.purchaseMade(userID);
 
-    const dataToNewTicket = {
+    const newTicketData = {
       id_user_to_ticket: userID,
-      username,
-      email,
+      username: data.username,
+      email: data.email,
     };
 
-    const createNewTicket = await ticketService.createNewTicket(
-      dataToNewTicket
-    );
-    console.log(createNewTicket.statusMsj);
+    const createNewTicket = await ticketService.createNewTicket(newTicketData);
 
-    res.redirect("/comprar/done");
+    const cleanCart = await cartService.cleanCart(userID);
+
+    res.redirect("/home");
   }
 );
 

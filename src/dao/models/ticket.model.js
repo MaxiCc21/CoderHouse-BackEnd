@@ -32,6 +32,10 @@ const TicketSchema = new Schema({
         type: Number,
         required: true,
       },
+      mainImg: {
+        type: String,
+        required: true,
+      },
     },
   ],
   subtotal: {
@@ -66,7 +70,6 @@ const TicketSchema = new Schema({
   isSend: {
     type: Boolean,
     default: false,
-    default: "---",
   },
   shippingDestination: {
     type: String,

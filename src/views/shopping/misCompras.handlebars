@@ -1,0 +1,33 @@
+<div class="mine-section-miscompras">
+  <div id="compras">
+    <h1>Compras</h1>
+  </div>
+
+  {{#each data}}
+    <div class="container-product-miscompras">
+      <div class="s1-product-miscompras">
+        <h2>{{toUpperCase this.date}}</h2>
+      </div>
+      <hr />
+      {{#each this.purchaseDetails}}
+        <div class="s2-product-miscompras">
+          <div class="s2-product-img-area"><img
+              src="{{this.mainImg}}"
+              alt="Imagen Del Producto"
+            /></div>
+          <div>
+            <h3 style="color: var( --color-green-primary-dark);">
+              Entragado
+            </h3>
+            <p>Llego el 12 de mayo</p>
+            <small>{{this.product}}</small>
+          </div>
+          <div></div>
+          <div></div></div>
+      {{/each}}
+    </div>
+  {{/each}}
+
+</div>
+
+<script src="/static/js/misCompras.js"></script>

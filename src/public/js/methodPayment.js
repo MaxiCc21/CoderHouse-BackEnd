@@ -44,18 +44,18 @@ mercadoPagoInput.addEventListener("change", function () {
 
 const $formShopping = document.getElementById("formShoppingWay");
 
-$formShopping.addEventListener("submit", (e) => {
-  const data = {
-    id: 1,
-  };
+// $formShopping.addEventListener("submit", (e) => {
+//   const data = {
+//     id: 1,
+//   };
 
-  fetch("/comprar/methodPayment", {
-    method: "post",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-});
+//   fetch("/comprar/methodPayment", {
+//     method: "post",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   });
+// });
 
 function myFuncion(thisInput) {
   const allinput = document.querySelectorAll("input");

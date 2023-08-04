@@ -36,9 +36,18 @@ objectConfig.connectDB();
 const app = express();
 // HandleBars
 const handlebars = require("express-handlebars");
+const exphbs = require("express-handlebars");
 app.engine("handlebars", handlebars.engine());
+
 app.set("views", __dirname + `/views`);
 app.set("view engine", "handlebars");
+
+// Definir un helper llamado "toUpperCase"
+const Handlebars = require("handlebars");
+const moment = require("moment");
+Handlebars.registerHelper("toUpperCase", function (date) {
+  return moment(date).locale("es").format("D MMMM YYYY"); // Aplicar el idioma español
+});
 // HandleBars
 
 app.use(express.json());
