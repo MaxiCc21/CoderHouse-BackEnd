@@ -8,6 +8,9 @@ const {
   registerGET,
   registerPOST,
 } = require("../controller/user.controller");
+const { passportAuth } = require("../config/passportAuth");
+const { authorizaton } = require("../config/passportAuthorization");
+const { ticketService } = require("../service");
 
 const handleUser = new (require("../dao/MongoManager/UserManager"))();
 
@@ -22,6 +25,28 @@ function idGenerator() {
 
 //   res.render("handleUser.handlebars", options);
 // });
+
+router.get(
+  "/miscompras",
+  passportAuth("jwt"),
+  authorizaton("user"),
+  async (req, res) => {
+    const jwtUser = req.user;
+    const foundSendTicket = await ticketService.getSendTicket(jwtUser.sub);
+
+    const options = {
+      style: "misCompras.css",
+      data: foundSendTicket.data,
+      usercookie: jwtUser,
+    };
+    console.log(foundSendTicket.data);
+    if (!foundSendTicket.ok) {
+      res.status(400).send(foundSendTicket.statusMsj);
+    } else {
+      res.render("shopping/misCompras", options);
+    }
+  }
+);
 
 router.get("/paginate", async (req, res) => {
   const { page = 1, limit = 5 } = req.query;

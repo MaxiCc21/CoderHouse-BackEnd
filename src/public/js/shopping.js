@@ -27,15 +27,11 @@ fetchInput.addEventListener("change", function () {
 
 const $formShopping = document.getElementById("formShoppingWay");
 
-$formShopping.addEventListener("submit", (e) => {
-  const data = {
-    id: 1,
-  };
-
-  fetch("/comprar/methodPayment", {
-    method: "post",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-});
+// $formShopping.addEventListener("submit", (e) => {
+//   fetch("/comprar", {
+//     method: "post",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   });
+// });
