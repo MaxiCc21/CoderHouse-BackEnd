@@ -46,22 +46,7 @@ class UserController {
       isAdmin: data.isAdmin,
     };
 
-    const newTicketData = {
-      id_user_to_ticket: data._id,
-      username: data.username,
-      email: data.email,
-    };
     const token = generateToke(newUser);
-
-    try {
-      const crearCarrito = await cartService.createNewCart(data._id);
-      const createTicketToUser = await ticketService.createNewTicket(
-        newTicketData
-      );
-      console.log(crearCarrito.statusMsj);
-    } catch (err) {
-      console.log(err);
-    }
 
     res
       .cookie("jwtCoder", token, {
@@ -83,6 +68,24 @@ class UserController {
   };
 
   registerPOST = async (req, res) => {
+    const data = req.user;
+
+    const newTicketData = {
+      id_user_to_ticket: data._id,
+      username: data.username,
+      email: data.email,
+    };
+
+    try {
+      const crearCarrito = await cartService.createNewCart(data._id);
+      const createTicketToUser = await ticketService.createNewTicket(
+        newTicketData
+      );
+      console.log(crearCarrito.statusMsj);
+      console.log(createTicketToUser.statusMsj);
+    } catch (err) {
+      console.log(err);
+    }
     res.send("/home");
   };
 }

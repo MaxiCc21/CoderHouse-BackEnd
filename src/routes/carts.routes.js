@@ -53,8 +53,9 @@ router.post(
 
     if (!addProductsTicket.ok) {
       res.status(400).send(addProductsTicket.statusMsj);
+    } else {
+      res.redirect("/comprar");
     }
-    res.redirect("/comprar");
   }
 );
 

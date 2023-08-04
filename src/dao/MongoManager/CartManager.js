@@ -67,6 +67,19 @@ class CartManager {
     }
   };
 
+  cleanCart = async (uid) => {
+    const cleanCart = await this.cartModel.findOneAndUpdate(
+      {
+        id_user_to_cart: uid,
+      },
+      {
+        $set: {
+          products: [],
+        },
+      }
+    );
+  };
+
   deleteItemToCart = async (uid, pid) => {
     pid = new ObjectId(pid);
     try {

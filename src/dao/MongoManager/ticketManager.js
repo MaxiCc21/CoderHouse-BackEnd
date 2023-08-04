@@ -11,6 +11,7 @@ function purchaseDetailsGenerate(products) {
       product: products[i].product.title,
       quantity: products[i].quantity,
       unitPrice: products[i].product.price,
+      mainImg: products[i].product.thumbnail,
     };
 
     arrayProducts.push(ticket);
@@ -44,6 +45,7 @@ function modDataProductToTicket(data) {
       product: producto.product.title,
       quantity: producto.quantity,
       unitPrice: producto.product.price,
+      mainImg: producto.product.thumbnail,
     };
     ArryData.unshift(data);
   });
@@ -64,7 +66,12 @@ function modDataProductToTicket(data) {
 }
 class TicketManager {
   getTicket = async (uid) => {
-    const found = await ticketModel.findOne({ id_user_to_ticket: uid }).lean();
+    const found = await ticketModel
+      .findOne({
+        id_user_to_ticket: uid,
+        isSend: false,
+      })
+      .lean();
     if (found) {
       return {
         status: "ok",
@@ -81,6 +88,30 @@ class TicketManager {
     };
   };
 
+  getSendTicket = async (userID) => {
+    const foundSendTicket = await ticketModel
+      .find({
+        id_user_to_ticket: userID,
+        isSend: true,
+      })
+      .lean();
+
+    if (!foundSendTicket) {
+      return {
+        status: "error",
+        statusMsj: "No se an encontrado los ticket",
+        ok: false,
+        data: undefined,
+      };
+    }
+    return {
+      status: "ok",
+      statusMsj: "Se an encotrado todos los ticket",
+      ok: true,
+      data: foundSendTicket,
+    };
+  };
+
   createNewTicket = async (data) => {
     const generarNuevoTicket = await ticketModel.create(data);
   };
@@ -93,116 +124,114 @@ class TicketManager {
   };
 
   editTicketShipment = async (userID, address, tipoDeEnvio) => {
-    const foundTicket = await this.getTicket(userID);
-    if (!foundTicket.ok) {
-      console.log("No se encontró el ticket.");
-      return foundTicket;
-    }
-
-    if (!foundTicket.isSend) {
-      const updateTicket = await ticketModel.findOneAndUpdate(
-        {
-          id_user_to_ticket: userID,
-          isSend: false,
-        },
-        {
-          $set: {
-            shippingDestination: address,
-            shippingType: tipoDeEnvio,
-          },
-        },
-        { new: true }
-      );
-      return {
-        status: "ok",
-        statusMsj: "Ticket Encontrado",
-        ok: true,
-        data: null,
-      };
-    }
-    return {
-      status: "error",
-      statusMsj: "El tiket ya fue enviado",
-      ok: false,
-      data: null,
-    };
-  };
-
-  editTicketProducts = async (userID, productsArray, ticketID) => {
-    ticketID = "649a0b54d584f1b08e5e2f1b";
-    const foundTicket = await this.getTicket(userID);
-    if (!foundTicket.ok) {
-      console.log("No se encontró el ticket.");
-      return foundTicket;
-    }
-
-    const ModProductData = modDataProductToTicket(productsArray);
-    if (!ModProductData.ok) {
-      return ModProductData;
-    }
-
-    const { subtotal, taxes, total } = calculatePricesGenerate(
-      ModProductData.data
-    );
-
-    const updateTicketpurchaseDetails = await ticketModel.findOneAndUpdate(
+    const updateTicket = await ticketModel.findOneAndUpdate(
       {
         id_user_to_ticket: userID,
+        isSend: false,
       },
       {
         $set: {
-          purchaseDetails: ModProductData.data,
-          subtotal,
-          taxes,
-          total,
+          shippingDestination: address,
+          shippingType: tipoDeEnvio,
         },
       },
       { new: true }
     );
 
-    if (!updateTicketpurchaseDetails) {
+    if (!updateTicket) {
       return {
         status: "error",
-        statusMsj: "Ha ocurrido un error inisperado",
+        statusMsj: "El tiket no fue encontrado",
+        ok: false,
+        data: null,
+      };
+    }
+    return {
+      status: "ok",
+      statusMsj: "Meto de envio modificado",
+      ok: true,
+      data: updateTicket,
+    };
+  };
+
+  // editTicketProducts = async (userID, productsArray, ticketID) => {
+  //   ticketID = "649a0b54d584f1b08e5e2f1b";
+  //   const foundTicket = await this.getTicket(userID);
+  //   if (!foundTicket.ok) {
+  //     console.log("No se encontró el ticket.");
+  //     return foundTicket;
+  //   }
+
+  //   const ModProductData = modDataProductToTicket(productsArray);
+  //   if (!ModProductData.ok) {
+  //     return ModProductData;
+  //   }
+
+  //   const { subtotal, taxes, total } = calculatePricesGenerate(
+  //     ModProductData.data
+  //   );
+
+  //   const updateTicketpurchaseDetails = await ticketModel.findOneAndUpdate(
+  //     {
+  //       id_user_to_ticket: userID,
+  //       isSend: false,
+  //     },
+  //     {
+  //       $set: {
+  //         purchaseDetails: ModProductData.data,
+  //         subtotal,
+  //         taxes,
+  //         total,
+  //       },
+  //     },
+  //     { new: true }
+  //   );
+
+  //   if (!updateTicketpurchaseDetails) {
+  //     return {
+  //       status: "error",
+  //       statusMsj: "Ha ocurrido un error inisperado",
+  //       ok: false,
+  //       data: undefined,
+  //     };
+  //   }
+  //   return {
+  //     status: "ok",
+  //     statusMsj: "Modificaciones realizadas al ticket con exito",
+  //     ok: true,
+  //     data: undefined,
+  //   };
+  // };
+
+  editTicketMethodPayment = async (userID, metodoDePago, datosDeTarjeta) => {
+    const updateTicket = await ticketModel.findOneAndUpdate(
+      {
+        id_user_to_ticket: userID,
+        isSend: false,
+      },
+      {
+        $set: {
+          paymentMethod: metodoDePago,
+          cardNumber: datosDeTarjeta,
+        },
+      },
+      { new: true }
+    );
+
+    if (!updateTicket) {
+      return {
+        status: "error",
+        statusMsj: "No se acontrado el ticket",
         ok: false,
         data: undefined,
       };
     }
     return {
       status: "ok",
-      statusMsj: "Modificaciones realizadas al ticket con exito",
+      statusMsj: "Metodo de pago editado",
       ok: true,
-      data: undefined,
+      data: updateTicket,
     };
-  };
-
-  editTicketMethodPayment = async (userID, metodoDePago, datosDeTarjeta) => {
-    const foundTicket = await this.getTicket(userID);
-    if (!foundTicket.ok) {
-      console.log("No se encontró el ticket.");
-      return foundTicket;
-    }
-    if (!foundTicket.isSend) {
-      const updateTicket = await ticketModel.findOneAndUpdate(
-        {
-          id_user_to_ticket: userID,
-        },
-        {
-          $set: {
-            paymentMethod: metodoDePago,
-            cardNumber: datosDeTarjeta,
-          },
-        },
-        { new: true }
-      );
-      return {
-        status: "ok",
-        statusMsj: "Ticket Encontrado",
-        ok: true,
-        data: null,
-      };
-    }
-    console.log(userID);
   };
 
   generateTicket = async (ticketData) => {
@@ -217,16 +246,16 @@ class TicketManager {
           nodata: true,
         };
       }
-      if (Object.keys(ticketData).length < 7) {
-        return {
-          status: "error",
-          statusMsj:
-            "No se proporcionó toda la información del ticket. Operación cancelada.",
-          ok: false,
-          data: null,
-          nodata: true,
-        };
-      }
+      // if (Object.keys(ticketData).length < 7) {
+      //   return {
+      //     status: "error",
+      //     statusMsj:
+      //       "No se proporcionó toda la información del ticket. Operación cancelada.",
+      //     ok: false,
+      //     data: null,
+      //     nodata: true,
+      //   };
+      // }
 
       const generateTicket = await ticketModel.create(ticketData);
       return {
@@ -265,13 +294,10 @@ class TicketManager {
         calculatePricesGenerate(purchaseDetails);
 
       const newTicket = {
-        receiptNumber: 123456789,
         purchaseDetails: purchaseDetails,
         subtotal,
         taxes,
         total,
-        paymentMethod: "credit card",
-        cardNumber: "**** **** **** 1234",
       };
 
       return {
@@ -310,6 +336,7 @@ class TicketManager {
     const purchaseMade = await ticketModel.findOneAndUpdate(
       {
         id_user_to_ticket: userID,
+        isSend: false,
       },
       {
         $set: {

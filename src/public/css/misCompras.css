@@ -1,0 +1,73 @@
+.texto-container {
+  position: relative;
+  display: inline-block;
+  max-width: 100px; /* Ajusta este valor según el ancho deseado para el contenedor */
+}
+
+#texto-completo {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  padding: 5px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  max-width: none; /* Permite que el texto fluya a lo largo */
+  white-space: normal; /* Permite que el texto se divida en líneas */
+}
+
+/* --------------------------------------------------------- */
+.mine-section-miscompras {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 50px;
+  background-color: var(--main-backgournd-color-grey);
+}
+
+#compras {
+  display: flex;
+  width: 80%;
+}
+.container-product-misCompras {
+  background-color: #fff;
+  display: flex;
+  padding: 10px;
+  flex-direction: column;
+  margin: 10px 0px 10px 0px;
+  width: 80%;
+  border-radius: 7px;
+}
+
+.container-product-miscompras hr {
+  width: 100%;
+}
+
+.s1-product-miscompras h2 {
+  margin: 0%;
+  padding: 0%;
+}
+
+.s2-product-miscompras {
+  display: flex;
+  align-items: center;
+}
+
+.s2-product-miscompras h3 {
+  margin: 0%;
+  padding: 0%;
+}
+.s2-product-miscompras p {
+  margin-bottom: 16px;
+  margin-top: 5px;
+}
+
+.s2-product-img-area {
+  margin-right: 20px;
+}
+.s2-product-img-area img {
+  width: 74px;
+  height: 74px;
+}
