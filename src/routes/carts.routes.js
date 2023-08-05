@@ -1,7 +1,7 @@
 const { Router, response, request } = require("express");
 const { passportAuth } = require("../config/passportAuth");
 const { authorizaton } = require("../config/passportAuthorization");
-const { cartGET } = require("../controller/cart.controller");
+const { cartGET, cartPOST } = require("../controller/cart.controller");
 const { cartService, ticketService } = require("../service");
 const router = Router();
 const cartHandle = new (require("../dao/MongoManager/CartManager"))();
@@ -34,29 +34,6 @@ router.get("/", passportAuth("jwt"), authorizaton("user"), cartGET);
 //!   res.send("Hola");
 //! });
 
-router.post(
-  "/",
-  passportAuth("jwt"),
-  authorizaton("user"),
-  async (req, res) => {
-    const jwtUser = req.user;
-    const { userID } = req.body;
-    const foundCart = await cartService.getItemToCart(userID);
-    if (!foundCart.ok) {
-      return res.status(400).send(foundCart.statusMsj);
-    }
-
-    const addProductsTicket = await ticketService.editTicketProducts(
-      jwtUser.sub,
-      foundCart.data
-    );
-
-    if (!addProductsTicket.ok) {
-      res.status(400).send(addProductsTicket.statusMsj);
-    } else {
-      res.redirect("/comprar");
-    }
-  }
-);
+router.post("/", passportAuth("jwt"), authorizaton("user"), cartPOST);
 
 module.exports = router;

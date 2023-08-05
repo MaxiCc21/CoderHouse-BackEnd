@@ -154,54 +154,54 @@ class TicketManager {
     };
   };
 
-  // editTicketProducts = async (userID, productsArray, ticketID) => {
-  //   ticketID = "649a0b54d584f1b08e5e2f1b";
-  //   const foundTicket = await this.getTicket(userID);
-  //   if (!foundTicket.ok) {
-  //     console.log("No se encontró el ticket.");
-  //     return foundTicket;
-  //   }
+  editTicketProducts = async (userID, productsArray, ticketID) => {
+    ticketID = "649a0b54d584f1b08e5e2f1b";
+    const foundTicket = await this.getTicket(userID);
+    if (!foundTicket.ok) {
+      console.log("No se encontró el ticket.");
+      return foundTicket;
+    }
 
-  //   const ModProductData = modDataProductToTicket(productsArray);
-  //   if (!ModProductData.ok) {
-  //     return ModProductData;
-  //   }
+    const ModProductData = modDataProductToTicket(productsArray);
+    if (!ModProductData.ok) {
+      return ModProductData;
+    }
 
-  //   const { subtotal, taxes, total } = calculatePricesGenerate(
-  //     ModProductData.data
-  //   );
+    const { subtotal, taxes, total } = calculatePricesGenerate(
+      ModProductData.data
+    );
 
-  //   const updateTicketpurchaseDetails = await ticketModel.findOneAndUpdate(
-  //     {
-  //       id_user_to_ticket: userID,
-  //       isSend: false,
-  //     },
-  //     {
-  //       $set: {
-  //         purchaseDetails: ModProductData.data,
-  //         subtotal,
-  //         taxes,
-  //         total,
-  //       },
-  //     },
-  //     { new: true }
-  //   );
+    const updateTicketpurchaseDetails = await ticketModel.findOneAndUpdate(
+      {
+        id_user_to_ticket: userID,
+        isSend: false,
+      },
+      {
+        $set: {
+          purchaseDetails: ModProductData.data,
+          subtotal,
+          taxes,
+          total,
+        },
+      },
+      { new: true }
+    );
 
-  //   if (!updateTicketpurchaseDetails) {
-  //     return {
-  //       status: "error",
-  //       statusMsj: "Ha ocurrido un error inisperado",
-  //       ok: false,
-  //       data: undefined,
-  //     };
-  //   }
-  //   return {
-  //     status: "ok",
-  //     statusMsj: "Modificaciones realizadas al ticket con exito",
-  //     ok: true,
-  //     data: undefined,
-  //   };
-  // };
+    if (!updateTicketpurchaseDetails) {
+      return {
+        status: "error",
+        statusMsj: "Ha ocurrido un error inisperado",
+        ok: false,
+        data: undefined,
+      };
+    }
+    return {
+      status: "ok",
+      statusMsj: "Modificaciones realizadas al ticket con exito",
+      ok: true,
+      data: undefined,
+    };
+  };
 
   editTicketMethodPayment = async (userID, metodoDePago, datosDeTarjeta) => {
     const updateTicket = await ticketModel.findOneAndUpdate(

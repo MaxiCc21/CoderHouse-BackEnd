@@ -1,4 +1,4 @@
-const { cartService } = require("../service");
+const { cartService, ticketService } = require("../service");
 
 class cartController {
   cartGET = async (req, res) => {
@@ -19,6 +19,25 @@ class cartController {
     };
 
     res.render("cart/cart.handlebars", options);
+  };
+  cartPOST = async (req, res) => {
+    const jwtUser = req.user;
+    const { userID } = req.body;
+    const foundCart = await cartService.getItemToCart(userID);
+    if (!foundCart.ok) {
+      return res.status(400).send(foundCart.statusMsj);
+    }
+
+    const addProductsTicket = await ticketService.editTicketProducts(
+      jwtUser.sub,
+      foundCart.data
+    );
+
+    if (!addProductsTicket.ok) {
+      res.status(400).send(addProductsTicket.statusMsj);
+    } else {
+      res.redirect("/comprar");
+    }
   };
 }
 
