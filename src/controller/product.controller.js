@@ -40,6 +40,26 @@ class ProductControler {
       }
     }
   };
+
+  showProductsByCategoryGET = async (req, res) => {
+    const jwtUser = req.user;
+    const categoria = req.params.pc;
+
+    const productCategory = await productService.getProductsByCategory(
+      categoria
+    );
+
+    const options = {
+      style: "home.css",
+      data: productCategory.data,
+      usercookie: jwtUser,
+    };
+    if (!productCategory.ok) {
+      res.status(400).send(productCategory.statusMsj);
+    } else {
+      res.render("products/showProductsByCategory", options);
+    }
+  };
 }
 
 module.exports = new ProductControler();

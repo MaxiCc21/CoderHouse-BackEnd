@@ -5,6 +5,7 @@ const { passportAuth } = require("../config/passportAuth");
 const {
   showSingleProductGET,
   showSingleProductPOST,
+  showProductsByCategoryGET,
 } = require("../controller/product.controller");
 const { productService } = require("../service");
 const router = Router();
@@ -68,22 +69,7 @@ router.get(
   "/categoria/:pc",
   passportAuth("jwt"),
   authorizaton("PUBLIC"),
-  async (req, res) => {
-    const jwtUser = req.user;
-    const categoria = req.params.pc;
-
-    const productCategory = await productService.getProductsByCategory(
-      categoria
-    );
-
-    const options = {
-      style: "home.css",
-      data: productCategory.data,
-      usercookie: jwtUser,
-    };
-
-    res.render("products/showProductsByCategory", options);
-  }
+  showProductsByCategoryGET
 );
 
 module.exports = router;

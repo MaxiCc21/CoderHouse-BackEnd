@@ -164,7 +164,7 @@ class HandleProducts {
         })
         .lean();
 
-      if (!foundProductsForCategory) {
+      if (foundProductsForCategory.length == 0) {
         return {
           status: "error",
           statusMsj: "No se an encotrado los productos",
@@ -174,7 +174,7 @@ class HandleProducts {
       }
       return {
         status: "ok",
-        statusMsj: "Se an encotrado los productos con categoria ${category}",
+        statusMsj: `Se an encotrado los productos con categoria ${category}`,
         ok: true,
         data: foundProductsForCategory,
       };
