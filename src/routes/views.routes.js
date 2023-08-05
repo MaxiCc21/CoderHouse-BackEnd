@@ -7,7 +7,11 @@ const passport = require("passport");
 const { generateToke } = require("../utils/jwt");
 const { passportAuth } = require("../config/passportAuth");
 const { authorizaton } = require("../config/passportAuthorization");
-const { loginGET, loginPOST } = require("../controller/user.controller");
+const {
+  loginGET,
+  loginPOST,
+  registerGET,
+} = require("../controller/user.controller");
 
 const handleUser = new (require("../dao/MongoManager/UserManager"))();
 const handleCart = new (require("../dao/MongoManager/CartManager"))();
@@ -42,34 +46,7 @@ router.get("/failLogin", (req, res) => {
 });
 
 // ----------------------------------------------------------
-router.get("/register", async (req, res) => {
-  let options = {
-    style: "userCrear.css",
-    title: "Mercado-Libre | Usuario",
-  };
-
-  res.render("users/userRegister.handlebars", options);
-});
-
-// router.post("/register", async (req, res) => {
-//   let data = {
-//     ...req.body,
-//     password: createHashhhh(req.body.password),
-//   };
-
-//   let myRes = await handleUser.createNewUser(data);
-//   console.log(myRes.statusMsj);
-
-//   res
-//     .cookie("username", data.username, {
-//       maxAge: 100000,
-//     })
-//     .cookie("isAdmin", data.isAdmin, {
-//       maxAge: 100000,
-//     })
-//     .redirect("/home");
-// });
-// module.exports = router;
+router.get("/register", registerGET);
 
 router.post(
   "/register",
@@ -79,7 +56,6 @@ router.post(
   }),
   function (req, res) {
     console.log(req.newUser);
-    console.log(req);
     res.redirect("/login");
   }
 );
