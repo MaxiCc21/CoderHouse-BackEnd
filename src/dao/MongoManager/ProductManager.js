@@ -155,6 +155,38 @@ class HandleProducts {
       console.log(err);
     }
   };
+
+  getProductsByCategory = async (category) => {
+    try {
+      const foundProductsForCategory = await this.productModel
+        .find({
+          "category.0": category,
+        })
+        .lean();
+
+      if (!foundProductsForCategory) {
+        return {
+          status: "error",
+          statusMsj: "No se an encotrado los productos",
+          ok: false,
+          data: undefined,
+        };
+      }
+      return {
+        status: "ok",
+        statusMsj: "Se an encotrado los productos con categoria ${category}",
+        ok: true,
+        data: foundProductsForCategory,
+      };
+    } catch (err) {
+      return {
+        status: "error",
+        statusMsj: "Ah ocurrido un error inesperado",
+        ok: false,
+        data: undefined,
+      };
+    }
+  };
 }
 
 module.exports = HandleProducts;

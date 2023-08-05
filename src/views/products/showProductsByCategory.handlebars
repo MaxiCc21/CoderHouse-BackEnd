@@ -1,0 +1,16 @@
+<div class="cart-container">
+  {{#each data}}
+    <a href="/products/{{this._id}}" class="link-product-home">
+      <div id="myDiv" class="cart">
+        <img src={{{this.thumbnail}}} alt="#" />
+        <div class="cart-info-area">
+          <p id="productPrice">${{this.price}}</p>
+          <p id="productTitle">{{this.title}}</p>
+        </div>
+      </div>
+    </a>
+  {{/each}}
+</div>
+
+<script src="/static/js/home.js"></script>
+<script src="/static/js/main.js"></script>

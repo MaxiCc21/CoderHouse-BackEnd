@@ -1,6 +1,9 @@
 /* Función para mostrar/ocultar el menú desplegable */
-function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
+function sessionDropdownFunction() {
+  document.getElementById("sessionDropdown").classList.toggle("show");
+}
+function categoryDropdownFunction() {
+  document.getElementById("categoryDropdown").classList.toggle("show");
 }
 
 /* Cierra el menú desplegable si el usuario hace clic fuera de él */
