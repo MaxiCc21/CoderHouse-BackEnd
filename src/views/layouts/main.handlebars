@@ -50,9 +50,15 @@
         </div>
         <div class="Nav-Bar">
           <ul class="my-ul">
-            <li>
-              <a href="#">Categoria</a>
-
+            <li class="dropdown">
+              <a onclick="categoryDropdownFunction()" class="dropbtn">
+                Categoria
+              </a>
+              <div id="categoryDropdown" class="dropdown-content">
+                <a href="/products/categoria/tecnologia">Tecnologia</a>
+                <a href="/products/categoria/ropa">Ropa</a>
+                <a href="/products/categoria/libros">Libros</a>
+              </div>
             </li>
             <li>
               <a href="#">Ofertas</a>
@@ -75,10 +81,10 @@
           <ul class="my-ul">
             {{#if usercookie}}
               <li class="dropdown">
-                <a onclick="myFunction()" class="dropbtn">
+                <a onclick="sessionDropdownFunction()" class="dropbtn">
                   <i class="fa-regular fa-user"></i>
                   {{usercookie.username}}</a>
-                <div id="myDropdown" class="dropdown-content">
+                <div id="sessionDropdown" class="dropdown-content">
                   <a href="#">Opción 1</a>
                   <a href="#">Opción 2</a>
                   <form id="dropdownForm" action="/home" method="post">

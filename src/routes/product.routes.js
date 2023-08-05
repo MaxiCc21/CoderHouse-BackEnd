@@ -6,6 +6,7 @@ const {
   showSingleProductGET,
   showSingleProductPOST,
 } = require("../controller/product.controller");
+const { productService } = require("../service");
 const router = Router();
 const handleProducts = new (require("../dao/MongoManager/ProductManager"))();
 const handleCart = new (require("../dao/MongoManager/CartManager"))();
@@ -62,5 +63,27 @@ router.put("/:pid", async (request, response) => {
   const res = await handleProducts.updateProduct(foundID, newData);
   response.send("Se agrego correctamente ");
 });
+
+router.get(
+  "/categoria/:pc",
+  passportAuth("jwt"),
+  authorizaton("PUBLIC"),
+  async (req, res) => {
+    const jwtUser = req.user;
+    const categoria = req.params.pc;
+
+    const productCategory = await productService.getProductsByCategory(
+      categoria
+    );
+
+    const options = {
+      style: "home.css",
+      data: productCategory.data,
+      usercookie: jwtUser,
+    };
+
+    res.render("products/showProductsByCategory", options);
+  }
+);
 
 module.exports = router;
