@@ -58,7 +58,7 @@ const initPassport = () => {
           console.log(userDB, "UserDb");
           console.log("Existe");
           if (userDB)
-            return done(err, false, { message: "Este usuario ya existe" });
+            return done(null, false, { message: "Este usuario ya existe" });
 
           let newUser = {
             ...req.body,

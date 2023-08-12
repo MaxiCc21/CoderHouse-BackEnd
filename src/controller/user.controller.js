@@ -68,7 +68,6 @@ class UserController {
   };
 
   registerPOST = async (req, res) => {
-    console.log(req.user);
     console.log(req);
 
     // const data = req.user;
@@ -90,6 +89,7 @@ class UserController {
     //   console.log(err);
     // }
     // res.send("/home");
+    res.send("hola");
   };
 }
 module.exports = new UserController();

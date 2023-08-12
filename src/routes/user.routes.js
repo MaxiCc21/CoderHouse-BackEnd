@@ -199,24 +199,24 @@ router.get("/register", registerGET);
 const registerPOSt = (req, res) => {
   // Acceder a los datos proporcionados por la estrategia de registro
   const user = req.user; // Usuario registrado
-  const message = req.flash("error")[0]; // Mensaje de la estrategia (usando flash)
-  console.log(user, message);
+  const message = req.message; // Mensaje de la estrategia (usando flash)
+  console.log(req);
+  console.log(message, "MESSAGE");
   console.log("entraaaaaaaaaaaaaaaaa");
   // Aquí puedes hacer lo que necesites con los datos
 
-  res.send("Hola");
-  // if (user) {
-  //   return res.status(200).json({ message: "Usuario creado", user: user });
-  // } else {
-  //   return res.status(400).json({ message: message });
-  // }
+  if (user) {
+    return res.status(200).json({ message: "Usuario creado", user: user });
+  } else {
+    return res.status(400).json({ message: "ERROORRRRRRRRRRRR" });
+  }
 };
 
 router.post(
   "/register",
   passport.authenticate("register", {
-    failureRedirect: "/products/6499039b6c134e0021ba4200", // Ruta en caso de fallo
-    //failureFlash: true, // Habilitar flash para mensajes de error
+    successRedirect: "/session/login",
+    failureFlash: true, // Habilitar flash para mensajes de error
   }),
   registerPOSt
 );
