@@ -196,7 +196,15 @@ router.get("/failLogin", (req, res) => {
 
 router.get("/register", registerGET);
 
-router.post("/register", passport.authenticate("register"), registerPOST);
+router.post(
+  "/register",
+  passport.authenticate("register", {
+    successRedirect: "/session/login", // Ruta en caso de éxito
+    failureRedirect: "/session/register", // Ruta en caso de fallo
+    failureFlash: true, // Habilitar flash para mensajes de error
+  }),
+  registerPOST
+);
 
 // {
 //   failureRedirect: "login",

@@ -88,6 +88,16 @@ if (RegisterForm) {
         password,
       };
 
+      // fetch("/session/register", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(data),
+      // });
+    });
+
+    if (validarDataTypeUser(data)) {
       fetch("/session/register", {
         method: "POST",
         headers: {
@@ -95,17 +105,7 @@ if (RegisterForm) {
         },
         body: JSON.stringify(data),
       });
-    });
-
-    // if (validarDataTypeUser(data)) {
-    // fetch("/views/register", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(data),
-    // });
-    // }
+    }
   });
 }
 

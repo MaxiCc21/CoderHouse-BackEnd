@@ -68,25 +68,28 @@ class UserController {
   };
 
   registerPOST = async (req, res) => {
-    const data = req.user;
+    console.log(req.user);
+    console.log(req);
 
-    const newTicketData = {
-      id_user_to_ticket: data._id,
-      username: data.username,
-      email: data.email,
-    };
+    // const data = req.user;
 
-    try {
-      const crearCarrito = await cartService.createNewCart(data._id);
-      const createTicketToUser = await ticketService.createNewTicket(
-        newTicketData
-      );
-      console.log(crearCarrito.statusMsj);
-      console.log(createTicketToUser.statusMsj);
-    } catch (err) {
-      console.log(err);
-    }
-    res.send("/home");
+    // const newTicketData = {
+    //   id_user_to_ticket: data._id,
+    //   username: data.username,
+    //   email: data.email,
+    // };
+
+    // try {
+    //   const crearCarrito = await cartService.createNewCart(data._id);
+    //   const createTicketToUser = await ticketService.createNewTicket(
+    //     newTicketData
+    //   );
+    //   console.log(crearCarrito.statusMsj);
+    //   console.log(createTicketToUser.statusMsj);
+    // } catch (err) {
+    //   console.log(err);
+    // }
+    // res.send("/home");
   };
 }
 module.exports = new UserController();

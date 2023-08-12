@@ -11,6 +11,11 @@
     </a>
   {{/each}}
 </div>
+<button id="popupButton">Click me for a popup</button>
 
+<script>
+  document.getElementById("popupButton").addEventListener("click", function() {
+  Swal.fire('Hello!', 'This is a SweetAlert popup.', 'success'); });
+</script>
 <script src="/static/js/home.js"></script>
 <script src="/static/js/main.js"></script>
