@@ -208,7 +208,7 @@ const registerPOSt = (req, res) => {
   if (user) {
     return res.status(200).json({ message: "Usuario creado", user: user });
   } else {
-    return res.status(400).json({ message: "ERROORRRRRRRRRRRR" });
+    return res.send("HOLla");
   }
 };
 
