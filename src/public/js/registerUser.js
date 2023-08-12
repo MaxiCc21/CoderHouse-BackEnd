@@ -67,7 +67,6 @@ function validarDataTypeUser(data) {
 const RegisterForm = document.getElementById("creteUser-form");
 
 RegisterForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
   const datosFormulario = new FormData(RegisterForm);
   const firstname = datosFormulario.get("firstname");
   const lastname = datosFormulario.get("lastname");

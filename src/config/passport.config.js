@@ -56,7 +56,7 @@ const initPassport = () => {
         try {
           let userDB = await userModel.findOne({ username: username });
           if (userDB)
-            return done(null, false, { message: "Este usuario ya existe" });
+            return done(err, false, { message: "Este usuario ya existe" });
 
           let newUser = {
             ...req.body,
