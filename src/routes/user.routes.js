@@ -196,9 +196,21 @@ router.get("/failLogin", (req, res) => {
 
 router.get("/register", registerGET);
 
+// router.post("/registro", (req, res, next) => {
+//   passport.authenticate("register", (err, user, info) => {
+//     if (err) {
+//       return res.status(500).json({ error: err });
+//     }
+//     if (!user) {
+//       return res.status(400).json({ message: info.message });
+//     }
+//     return res.status(200).json({ message: info.message, user: user });
+//   })(req, res, next);
+// });
+
 router.post("/register", passport.authenticate("register"), registerPOST);
 
-// {
+// { registerPOST
 //   failureRedirect: "login",
 //   successRedirect: "login",
 // }

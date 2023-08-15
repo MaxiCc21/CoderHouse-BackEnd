@@ -69,24 +69,33 @@ class UserController {
 
   registerPOST = async (req, res) => {
     const data = req.user;
-
-    const newTicketData = {
-      id_user_to_ticket: data._id,
-      username: data.username,
-      email: data.email,
-    };
+    const message = req.authInfo;
 
     try {
-      const crearCarrito = await cartService.createNewCart(data._id);
-      const createTicketToUser = await ticketService.createNewTicket(
-        newTicketData
-      );
-      console.log(crearCarrito.statusMsj);
-      console.log(createTicketToUser.statusMsj);
+      if (data) {
+        const newTicketData = {
+          id_user_to_ticket: data._id,
+          username: data.username,
+          email: data.email,
+        };
+
+        const crearCarrito = await cartService.createNewCart(data._id);
+        const createTicketToUser = await ticketService.createNewTicket(
+          newTicketData
+        );
+
+        // console.log(crearCarrito.statusMsj);
+        // console.log(createTicketToUser.statusMsj);
+
+        console.log(`Mensaje: ${message}`);
+        return res.status(200).redirect("/session/login");
+      } else {
+        console.log(`Mensaje: ${message}`);
+        return res.status(400).redirect("/session/register");
+      }
     } catch (err) {
       console.log(err);
     }
-    res.send("/home");
   };
 }
 module.exports = new UserController();
