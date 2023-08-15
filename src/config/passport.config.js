@@ -55,16 +55,20 @@ const initPassport = () => {
       async (req, username, password, done) => {
         try {
           let userDB = await userModel.findOne({ username: username });
-          if (userDB)
+          if (userDB) {
+            console.log("El usuario ya  existe");
             return done(null, false, { message: "Este usuario ya existe" });
-
+          } else {
+            console.log("No se repite el nombre de usuario");
+          }
+          console.log("Sigue creando el Usuario");
           let newUser = {
             ...req.body,
             password: createHash(password),
           };
           let result = await userModel.create(newUser);
 
-          return done(null, result, { message: "Usuario creado" });
+          return done(null, result, { message: "Se a creado el usuario" });
         } catch (err) {
           return done("Error al obtener el usuario");
         }

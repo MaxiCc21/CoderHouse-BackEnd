@@ -9,7 +9,9 @@ const viewsRoutes = require("./routes/views.routes");
 const newUserRoutes = require("./routes/newUser.routes");
 const cookieRoutes = require("./routes/cookie.routes");
 const comprarRoutes = require("./routes/comprar.routes");
+const pruebaRoutes = require("./routes/prueba.routes");
 const mailRoutes = require("./routes/mailing.routes");
+const mockingRoutes = require("./routes/mock.routes");
 const cokieParser = require("cookie-parser");
 const { uploader } = require("./utils/multer");
 const productHandle = new (require("./dao/MongoManager/ProductManager"))();
@@ -116,9 +118,11 @@ app.use("/api/carts", cartRoutes);
 
 app.use("/session", userRoutes);
 
-app.use("/prueba", NewUserRoutes.getRouter());
+app.use("/newuserRoutes", NewUserRoutes.getRouter());
 
 app.use("/home", homeRoutes);
+
+app.use("/prueba", pruebaRoutes);
 
 app.use("/views", viewsRoutes);
 
@@ -130,10 +134,15 @@ app.use("/comprar", comprarRoutes);
 
 app.use("/email", mailRoutes);
 
-app.use((err, req, res, next) => {
-  console.log(err);
-  res.status(500).send("Todo mal");
-});
+app.use("/mockingproducts", mockingRoutes);
+
+// app.use((err, req, res, next) => {
+//   console.log(err);
+//   res.status(500).send("Todo mal");
+// });
+const { errorHandler } = require("./middlewares/error.middleware");
+
+app.use(errorHandler);
 
 // Socket-----------------------------------------------------------------------------
 
