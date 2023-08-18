@@ -1,3 +1,4 @@
+const { logger } = require("../middlewares/logger");
 const { userService, cartService, ticketService } = require("../service");
 const { generateToke } = require("../utils/jwt");
 
@@ -35,6 +36,7 @@ class UserController {
     console.log("/login");
 
     const data = req.user;
+    const message = req.authInfo;
 
     const newUser = {
       sub: data._id,
@@ -87,14 +89,14 @@ class UserController {
         // console.log(crearCarrito.statusMsj);
         // console.log(createTicketToUser.statusMsj);
 
-        console.log(`Mensaje: ${message}`);
+        logger.info(`Mensaje: ${message}`);
         return res.status(200).redirect("/session/login");
       } else {
-        console.log(`Mensaje: ${message}`);
+        logger.warning(`Mensaje: ${message}`);
         return res.status(400).redirect("/session/register");
       }
     } catch (err) {
-      console.log(err);
+      logger.fatal(err);
     }
   };
 }

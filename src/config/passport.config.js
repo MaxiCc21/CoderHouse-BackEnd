@@ -12,10 +12,25 @@ const handleUser = new (require("../dao/MongoManager/UserManager"))();
 
 const passportJWT = require("passport-jwt");
 const { privateKey } = require("./objetConfig");
+const { logger } = require("../middlewares/logger");
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
 
 require("dotenv").config();
+
+function verificarCamposNoVacios(req) {
+  const { ...data } = req.body;
+
+  for (const key in data) {
+    if (data.hasOwnProperty(key)) {
+      if (data[key] === "") {
+        return false; // Un campo está vacío
+      }
+    }
+  }
+
+  return true; // Todos los campos están llenos
+}
 
 const LocalStrategy = local.Strategy;
 
@@ -54,14 +69,25 @@ const initPassport = () => {
       },
       async (req, username, password, done) => {
         try {
+          // const camposLlenos = verificarCamposNoVacios(req);
+
+          // if (!camposLlenos) {
+          //   logger.warning("Ah pasado datos en blanco");
+          //   return done(null, false, {
+          //     message: "Algunos de los datos esta vacio",
+          //   });
+          // }
+
           let userDB = await userModel.findOne({ username: username });
           if (userDB) {
-            console.log("El usuario ya  existe");
+            logger.error(
+              "En la ruta /session/register al crear el usuario, mensage: El usiaro ya existe"
+            );
             return done(null, false, { message: "Este usuario ya existe" });
           } else {
-            console.log("No se repite el nombre de usuario");
+            logger.error("No se repite el nombre de usuario");
           }
-          console.log("Sigue creando el Usuario");
+
           let newUser = {
             ...req.body,
             password: createHash(password),
@@ -83,6 +109,9 @@ const initPassport = () => {
         const loginRes = await handleUser.loginValidation(username, password);
 
         if (!loginRes.ok) {
+          logger.warning(
+            `Error en la ruta /login al validadr el usuario: ${loginRes.statusMsj}`
+          );
           return done(null, null, { message: loginRes.statusMsj });
         }
 

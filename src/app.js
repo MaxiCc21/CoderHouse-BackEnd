@@ -21,6 +21,11 @@ const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
 const FileStore = require("session-file-store");
 const { create } = require("connect-mongo");
 // const core = required("core");
+const { Server } = require("socket.io");
+const { errorHandler } = require("./middlewares/error.middleware");
+const { send } = require("process");
+const { cartService } = require("./service");
+const { addLogger } = require("./middlewares/logger");
 
 const NewUserRoutes = new newUserRoutes();
 
@@ -59,13 +64,7 @@ app.use("/static", express.static(__dirname + "/public"));
 
 app.use(express.urlencoded({ extended: true }));
 
-// app.use(
-//   session({
-//     secret: "s33sionC0d3",
-//     resave: true,
-//     saveUninitialized: true,
-//   })
-// );
+app.use(addLogger);
 
 const fileStore = FileStore(session);
 // app.use(
@@ -140,7 +139,6 @@ app.use("/mockingproducts", mockingRoutes);
 //   console.log(err);
 //   res.status(500).send("Todo mal");
 // });
-const { errorHandler } = require("./middlewares/error.middleware");
 
 app.use(errorHandler);
 
@@ -149,11 +147,6 @@ app.use(errorHandler);
 app.get("/realtimeproducts", (req, res) => {
   res.render("realTimeProducts", { style: "realTime.css" });
 });
-
-const { Server } = require("socket.io");
-
-const { send } = require("process");
-const { cartService } = require("./service");
 
 const httpServer = app.listen(8080);
 
