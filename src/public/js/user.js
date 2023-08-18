@@ -68,16 +68,6 @@ if (RegisterForm) {
       const password = datosFormulario.get("password");
       const fullname = `${firstname} ${lastname}`;
 
-      const dataForTicket = {
-        username: "Maxi",
-        email: "Comor",
-      };
-
-      const createTicketToUser = await ticketService.createNewTicket(
-        dataForTicket
-      );
-
-      console.log(createTicketToUser);
       const data = {
         firstname,
         lastname,
