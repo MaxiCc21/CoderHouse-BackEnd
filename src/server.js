@@ -148,11 +148,18 @@ app.get("/realtimeproducts", (req, res) => {
   res.render("realTimeProducts", { style: "realTime.css" });
 });
 
-const httpServer = app.listen(8080);
+const { Server: ServerIO } = require("socket.io");
+const { Server: ServerHTTP } = require("http");
 
-const socketServer = new Server(httpServer);
+const serverHTTP = ServerHTTP(app);
+const io = new ServerIO(serverHTTP);
 
-socketServer.on("connection", async (socket) => {
+const { send } = require("process");
+const { cartService } = require("./service");
+
+// const io = new Server(httpServer);
+
+io.on("connection", async (socket) => {
   socket.emit("message", "Se conectado un usuario");
   let data = await productHandle.getProducts();
 
@@ -202,3 +209,12 @@ socketServer.on("connection", async (socket) => {
 app.get("*", (req, res) => {
   res.status(404).send("Not found");
 });
+
+const PORT = 8080;
+
+exports.initServer = () => {
+  serverHTTP.listen(PORT, () => {
+    // logger.info(`Escuchando en el puerto: ${PORT}`);
+    console.log(`Escuchando en el puerto: ${PORT}`);
+  });
+};
