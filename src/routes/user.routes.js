@@ -186,7 +186,7 @@ router.get("/login", loginGET);
 
 router.post(
   "/login",
-  passport.authenticate("login", { failureRedirect: "/login" }),
+  passport.authenticate("login", { failureRedirect: "/session/login" }),
   loginPOST
 );
 
@@ -208,7 +208,11 @@ router.get("/register", registerGET);
 //   })(req, res, next);
 // });
 
-router.post("/register", passport.authenticate("register"), registerPOST);
+router.post(
+  "/register",
+  passport.authenticate("register", { failureRedirect: "/session/register" }),
+  registerPOST
+);
 
 // { registerPOST
 //   failureRedirect: "login",
