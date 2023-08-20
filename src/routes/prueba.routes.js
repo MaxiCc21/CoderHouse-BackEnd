@@ -4,7 +4,7 @@ const chatHandle = new (require("../dao/MongoManager/ChatManager"))();
 const faker = require("@faker-js/faker");
 const compression = require("express-compression");
 
-// router.use(compression());
+// router.use(compression(s));
 
 router.use(
   compression({
