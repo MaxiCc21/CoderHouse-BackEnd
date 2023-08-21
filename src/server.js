@@ -15,17 +15,14 @@ const mockingRoutes = require("./routes/mock.routes");
 const cokieParser = require("cookie-parser");
 const { uploader } = require("./utils/multer");
 const productHandle = new (require("./dao/MongoManager/ProductManager"))();
-const cartHandle = new (require("./dao/MongoManager/CartManager"))();
 const objectConfig = require("./config/objetConfig");
 const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
 const FileStore = require("session-file-store");
 const { create } = require("connect-mongo");
-// const core = required("core");
-const { Server } = require("socket.io");
 const { errorHandler } = require("./middlewares/error.middleware");
-const { send } = require("process");
 const { cartService } = require("./service");
 const { addLogger } = require("./middlewares/logger");
+const socketMessage = require("./utils/socketMessage.js");
 
 const NewUserRoutes = new newUserRoutes();
 
@@ -154,10 +151,9 @@ const { Server: ServerHTTP } = require("http");
 const serverHTTP = ServerHTTP(app);
 const io = new ServerIO(serverHTTP);
 
-const { send } = require("process");
-const { cartService } = require("./service");
-
 // const io = new Server(httpServer);
+
+// socketMessage(io);
 
 io.on("connection", async (socket) => {
   socket.emit("message", "Se conectado un usuario");
