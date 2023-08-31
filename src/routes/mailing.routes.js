@@ -8,6 +8,10 @@ const { loadProduct, logOutUser } = require("../controller/home.controller");
 const { sendMail } = require("../utils/sendmail");
 const { sendSms } = require("../utils/sendSMS");
 
+const handlebars = require("handlebars");
+const fs = require("fs");
+const path = require("path");
+
 const router = Router();
 
 router.get("/sms", (req, res) => {
@@ -25,9 +29,21 @@ const tranport = nodemailer.createTransport({
 });
 
 router.get("/", async (req, res) => {
+  // Lee y compila la plantilla Handlebars
+  const templateFilePath = path.join(
+    __dirname,
+    "templates",
+    "emailTemplate.hbs"
+  );
+  const templateSource = fs.readFileSync(templateFilePath, "utf-8");
+  const compiledTemplate = handlebars.compile(templateSource);
+
+  // Genera el contenido HTML utilizando la plantilla compilada
+  const htmlContent = compiledTemplate(templateData);
+
   const to = "maxi21498@gmail.com";
   const subject = "Correo de prueba";
-  const html = "<div><h1>Esto es un test</h1></div>";
+  const html = htmlContent;
   let resurl = await sendMail(to, subject, html);
 
   res.send("Email enviado");

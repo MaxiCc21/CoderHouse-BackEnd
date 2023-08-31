@@ -1,3 +1,4 @@
+const { logger } = require("../../middlewares/logger");
 const { isValidPassword } = require("../../utils/bcryptHas");
 const { userModel } = require("../models/user.model");
 
@@ -16,6 +17,31 @@ class UserManager {
       console.log(err.stateMsj);
     }
   };
+
+  getUserByEmail = async (email) => {
+    try {
+      let foundUser = await userModel.findOne({ email }).lean();
+
+      if (foundUser) {
+        return {
+          status: "ok",
+          statusMsj: "Se a validado la existencia del usuario",
+          ok: true,
+          data: foundUser,
+        };
+      }
+
+      return {
+        status: "error",
+        statusMsj: "No se a podido validar la existencia del usuario",
+        ok: false,
+        data: undefined,
+      };
+    } catch (err) {
+      logger.error(err);
+    }
+  };
+
   getAllUser = async () => {
     try {
       let users = await userModel.find().lean();

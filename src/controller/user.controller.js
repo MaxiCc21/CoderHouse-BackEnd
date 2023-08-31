@@ -1,6 +1,10 @@
 const { logger } = require("../middlewares/logger");
 const { userService, cartService, ticketService } = require("../service");
 const { generateToke } = require("../utils/jwt");
+const handlebars = require("handlebars");
+const fs = require("fs");
+const path = require("path");
+const { sendMail } = require("../utils/sendmail");
 
 class UserController {
   getPaginate = async (req, res) => {
@@ -97,6 +101,57 @@ class UserController {
       }
     } catch (err) {
       logger.fatal(err);
+    }
+  };
+
+  //* ------------Recover------------
+  recoverGET = async (req, res) => {
+    const options = {
+      style: "recoverPassword.css",
+      simpleNavBar: true,
+    };
+    res.render("users/recoverPassword", options);
+  };
+
+  recoverPOST = async (req, res) => {
+    let userEmail = req.body.email;
+
+    const foundEmail = await userService.getUserByEmail(userEmail);
+
+    if (foundEmail.ok) {
+      const { email, username } = foundEmail.data;
+
+      const templateFilePath = path.resolve(
+        __dirname,
+        "..",
+        "views",
+        "email",
+        "emailTemplate.handlebars"
+      );
+
+      const templateSource = fs.readFileSync(templateFilePath, "utf-8");
+      const compiledTemplate = handlebars.compile(templateSource);
+
+      const templateData = {
+        username: username,
+        useremail: email,
+      };
+
+      const htmlContent = compiledTemplate(templateData);
+
+      const to = email;
+      const subject = "Recuperacion de contraseña";
+      const html = htmlContent;
+      let resurl = await sendMail(to, subject, html);
+
+      res.cookie("emailToRecoverPassword", email, {
+        maxAge: 900000,
+        httpOnly: true,
+      });
+
+      res.send(foundEmail);
+    } else {
+      res.redirect("/session/recover-password");
     }
   };
 }
