@@ -5,6 +5,7 @@ const handlebars = require("handlebars");
 const fs = require("fs");
 const path = require("path");
 const { sendMail } = require("../utils/sendmail");
+const bcrypt = require("bcrypt");
 
 class UserController {
   getPaginate = async (req, res) => {
@@ -117,6 +118,7 @@ class UserController {
     let userEmail = req.body.email;
 
     const foundEmail = await userService.getUserByEmail(userEmail);
+    logger.info(foundEmail.statusMsj);
 
     if (foundEmail.ok) {
       const { email, username } = foundEmail.data;
@@ -152,6 +154,60 @@ class UserController {
       res.send(foundEmail);
     } else {
       res.redirect("/session/recover-password");
+    }
+  };
+
+  modifyGET = async (req, res) => {
+    const options = {
+      style: "modifyPassword.css",
+      userEmail: req.cookies.emailToRecoverPassword,
+    };
+    console.log("Status: ", req);
+    res.render("users/modifyPassword", options);
+  };
+
+  modifyPOST = async (req, res) => {
+    try {
+      const userEmail = req.cookies.emailToRecoverPassword;
+      const foundUser = await userService.getUserByEmail(userEmail);
+      const userProvidedPassword = req.body.newPassword;
+      const storedHashedPassword = foundUser.data.password;
+      const saltRounds = 10;
+      const options = {
+        style: "modifyPassword.css",
+        userEmail,
+        message: "Debe elegir una contraseña distinta",
+      };
+
+      const result = await bcrypt.compare(
+        userProvidedPassword,
+        storedHashedPassword
+      );
+
+      if (!result) {
+        // La contraseña es la misma
+        logger.error("La contraseña es idéntica");
+        return res.status(400).render("users/modifyPassword", options);
+      }
+
+      const newHashedPassword = await bcrypt.hash(
+        userProvidedPassword,
+        saltRounds
+      );
+
+      if (newHashedPassword) {
+        const updateUser = await userService.updateUserByEmail(
+          userEmail,
+          newHashedPassword
+        );
+        return res.send(updateUser.statusMsj);
+      } else {
+        return res.status(400).send(updateUser.statusMsj);
+      }
+    } catch (err) {
+      // Manejar otros errores aquí
+      logger.error(err);
+      return res.status(500).send("Error interno del servidor");
     }
   };
 }

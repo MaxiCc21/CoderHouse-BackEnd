@@ -9,6 +9,8 @@ const {
   registerPOST,
   recoverGET,
   recoverPOST,
+  modifyGET,
+  modifyPOST,
 } = require("../controller/user.controller");
 const { passportAuth } = require("../config/passportAuth");
 const { authorizaton } = require("../config/passportAuthorization");
@@ -228,5 +230,9 @@ router.get("/failregister", (req, res) => {
 router.get("/recover-password", recoverGET);
 
 router.post("/recover-password", recoverPOST);
+
+router.get("/modify-password", modifyGET);
+
+router.post("/modify-password", modifyPOST);
 
 module.exports = router;

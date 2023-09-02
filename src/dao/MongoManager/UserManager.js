@@ -90,6 +90,33 @@ class UserManager {
     }
   };
 
+  updateUserByEmail = async (email, newHashedPassword) => {
+    try {
+      const updateUser = await userModel.updateOne(
+        { email },
+        { password: newHashedPassword }
+      );
+
+      if (!updateUser) {
+        return {
+          status: "error",
+          statusMsj: "No se pudo modificar la contraseña",
+          ok: false,
+          data: undefined,
+        };
+      }
+
+      return {
+        status: "ok",
+        statusMsj: "Contraseña actualizda",
+        ok: true,
+        data: updateUser,
+      };
+    } catch (err) {
+      return err;
+    }
+  };
+
   loginValidation = async (identification, password) => {
     try {
       const found = await userModel.findOne({
