@@ -7,6 +7,10 @@ const {
   loginPOST,
   registerGET,
   registerPOST,
+  recoverGET,
+  recoverPOST,
+  modifyGET,
+  modifyPOST,
 } = require("../controller/user.controller");
 const { passportAuth } = require("../config/passportAuth");
 const { authorizaton } = require("../config/passportAuthorization");
@@ -179,7 +183,6 @@ router.get(
     res.redirect("/home");
   }
 );
-module.exports = router;
 
 // ---------------------------
 router.get("/login", loginGET);
@@ -223,3 +226,13 @@ router.get("/failregister", (req, res) => {
   console.log("ERRRRRRRRRRR");
   res.send({ status: "err", statusMsj: "Fallo autenticate" });
 });
+
+router.get("/recover-password", recoverGET);
+
+router.post("/recover-password", recoverPOST);
+
+router.get("/modify-password", modifyGET);
+
+router.post("/modify-password", modifyPOST);
+
+module.exports = router;

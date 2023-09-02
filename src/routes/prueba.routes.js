@@ -12,6 +12,10 @@ router.use(
   })
 );
 
+router.get("/hola", (req, res) => {
+  res.send("hola");
+});
+
 router.get("/simple", (req, res) => {
   let suma = 0;
 

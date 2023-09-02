@@ -1,5 +1,3 @@
-const jwt = require("jsonwebtoken");
-const { ticketService } = require("../../service");
 const nameRegex = /^[A-Za-zÁ-ú']{2,30}$/;
 const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -91,7 +89,7 @@ if (RegisterForm) {
     // fetch("/views/register", {
     //   method: "POST",
     //   headers: {
-    //     "Content-Type": "application/json",
+    //forgotPasswordButton/     "Content-Type": "application/json",
     //   },
     //   body: JSON.stringify(data),
     // });
@@ -102,25 +100,59 @@ if (RegisterForm) {
 // --------------------------------------------------
 //UserLogin
 
+const forgotPasswordButton = document.getElementById(
+  "userForgotPasswordButton"
+);
 const loginForm = document.getElementById("userLoginForm");
-if (loginForm) {
-  loginForm.addEventListener("submit", (e) => {
-    const datosFormulario = new FormData(loginForm);
-    const identification = datosFormulario.get("identification");
-    const password = datosFormulario.get("password");
+const userLoginButton = document.getElementById("userLoginButton");
 
-    const data = {
-      identification,
-      password,
-    };
-    const token = jwt.sign({ userId: "123456789" }, "secret_key");
+userLoginButton.addEventListener("click", function (e) {
+  const datosFormulario = new FormData(loginForm);
 
-    fetch("/session/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+  const identification = datosFormulario.get("identification");
+  const password = datosFormulario.get("password");
+
+  const data = {
+    identification,
+    password,
+  };
+
+  fetch("/session/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+});
+
+// if (loginForm) {
+//   loginForm.addEventListener("submit", (e) => {
+//     const datosFormulario = new FormData(loginForm);
+
+//     const identification = datosFormulario.get("identification");
+//     const password = datosFormulario.get("password");
+
+//     const data = {
+//       identification,
+//       password,
+//     };
+
+//     fetch("/session/login", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(data),
+//     });
+//   });
+// }
+
+if (forgotPasswordButton) {
+  forgotPasswordButton.addEventListener("click", function (e) {
+    // Redireccionar a una URL cuando se hace clic en el botón de Olvidaste tu contraseña
+    e.preventDefault();
+    console.log(forgotPasswordButton);
+    window.location.href = "recover-password";
   });
 }
