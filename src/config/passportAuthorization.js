@@ -7,7 +7,7 @@ const authorizaton = (role) => {
     if (!req.user) {
       return res.status(403).redirect("/session/login");
     }
-
+    console.log(`UserRol: ${req.user.role} RolesAuth: ${role}`);
     if (req.user.role !== role)
       return res
         .status(403)

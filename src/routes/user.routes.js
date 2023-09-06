@@ -235,4 +235,39 @@ router.get("/modify-password", modifyGET);
 
 router.post("/modify-password", modifyPOST);
 
+router.get("/premium", passportAuth("jwt"), (req, res) => {
+  const JWTuser = req.user;
+  console.log(JWTuser);
+  if (JWTuser.role === "premium") {
+    res.redirect("/publicar");
+  } else {
+    const options = {
+      style: "bePremium.css",
+      usercookie: JWTuser,
+    };
+
+    res.render("publicar/bePremium", options);
+  }
+});
+
+router.post(
+  "/premium",
+  passportAuth("jwt"),
+
+  async (req, res) => {
+    const JWTuser = req.user;
+
+    const updateStatusUser = await userService.changeStatus(
+      JWTuser.sub,
+      "premium"
+    );
+
+    if (updateStatusUser.ok) {
+      res.redirect("/publicar");
+    } else {
+      res.send(updateStatusUser.statusMsj);
+    }
+  }
+);
+
 module.exports = router;

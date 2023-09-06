@@ -47,7 +47,7 @@ class UserController {
       sub: data._id,
       username: data.username,
       fullname: data.fullname,
-      role: "user",
+      role: data.status,
       email: data.email,
       address: data.address,
       isAdmin: data.isAdmin,

@@ -1,0 +1,20 @@
+<section class="section-showMyProducts">
+  <div id="filters-section">
+    <div>
+      <h2>Filtros</h2>
+    </div>
+  </div>
+  <div id="products-section">
+    <h2>Cantidad de productos en venta ({{data.length}})</h2>
+    <div class="products-section-z1">
+      {{#each data}}
+        <a class="products-section-a" href="">
+          <div class="products-section-a">
+            <p>{{this.title}}</p>
+            <img src="{{this.thumbnail}}" alt="{{this.title}}" />
+          </div>
+        </a>
+      {{/each}}
+    </div>
+  </div>
+</section>

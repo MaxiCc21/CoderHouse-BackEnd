@@ -168,6 +168,30 @@ class UserManager {
       item_found,
     };
   };
+
+  changeStatus = async (uid, newStatus) => {
+    const foundAndUpdate = await userModel.updateOne(
+      { _id: uid },
+      { status: newStatus },
+      { new: true }
+    );
+
+    if (!foundAndUpdate) {
+      return {
+        status: "error",
+        statusMsj: "Ha ocurrido un error al buscar y acutualizar el usuario",
+        ok: false,
+        data: undefined,
+      };
+    }
+
+    return {
+      status: "ok",
+      statusMsj: "Usuario actualizado con exito",
+      ok: true,
+      data: foundAndUpdate,
+    };
+  };
 }
 
 module.exports = UserManager;
