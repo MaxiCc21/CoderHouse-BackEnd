@@ -187,6 +187,55 @@ class HandleProducts {
       };
     }
   };
+
+  getProductByUserID = async (ownerID) => {
+    try {
+      const allMyProducts = await this.productModel
+        .find({ "owner.ownerID": ownerID })
+        .lean();
+
+      if (!allMyProducts) {
+        return {
+          status: "error",
+          statusMsj: "No se an encotrado productos asociados a tu usuario",
+          ok: false,
+          data: undefined,
+        };
+      }
+
+      return {
+        status: "ok",
+        statusMsj: "Se an econtrado esto productos",
+        ok: true,
+        data: allMyProducts,
+      };
+    } catch (err) {
+      return { err };
+    }
+  };
+
+  createProduct = async (data) => {
+    try {
+      const createNewProduct = this.productModel.create(data);
+      if (!createNewProduct) {
+        return {
+          status: "error",
+          statusMsj: "Ha ocurrido un erro al crear un nuevo producto",
+          ok: false,
+          data: undefined,
+        };
+      }
+
+      return {
+        status: "ok",
+        statusMsj: "Producto creado con exito",
+        ok: true,
+        data: undefined,
+      };
+    } catch (err) {
+      return err;
+    }
+  };
 }
 
 module.exports = HandleProducts;

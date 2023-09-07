@@ -27,3 +27,5 @@ error: La contraseña es identica
 error: La contraseña es identica
 error: La contraseña es idéntica
 warning: Error en la ruta /login al validadr el usuario: La contraseña es incorrecta
+warning: Error en la ruta /login al validadr el usuario: No se a econtrado un usuario
+warning: Error en la ruta /login al validadr el usuario: No se a econtrado un usuario

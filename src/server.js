@@ -12,6 +12,7 @@ const comprarRoutes = require("./routes/comprar.routes");
 const pruebaRoutes = require("./routes/prueba.routes");
 const mailRoutes = require("./routes/mailing.routes");
 const mockingRoutes = require("./routes/mock.routes");
+const publicarRoutes = require("./routes/publicar.routes");
 const cokieParser = require("cookie-parser");
 const { uploader } = require("./utils/multer");
 const productHandle = new (require("./dao/MongoManager/ProductManager"))();
@@ -131,6 +132,8 @@ app.use("/comprar", comprarRoutes);
 app.use("/email", mailRoutes);
 
 app.use("/mockingproducts", mockingRoutes);
+
+app.use("/publicar", publicarRoutes);
 
 // app.use((err, req, res, next) => {
 //   console.log(err);
