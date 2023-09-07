@@ -1,0 +1,3 @@
+1. Agragar la posibilidad de poner on/off/pausa los productos(SocketIO)
+2. Revisar las las autorizaciones de las rutas
+3. Las vistas premium

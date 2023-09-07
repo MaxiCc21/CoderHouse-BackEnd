@@ -20,6 +20,11 @@ const ProductSchema = new Schema({
     },
   },
   createTime: { type: Date, default: Date.now },
+  estado: {
+    type: String,
+    enum: ["on", "off", "pausa"],
+    default: "on",
+  },
   rating: Number,
 });
 

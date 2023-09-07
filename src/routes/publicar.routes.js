@@ -5,21 +5,16 @@ const { userService, productService } = require("../service");
 
 const router = Router();
 
-router.get(
-  "/",
-  passportAuth("jwt"),
-  authorizaton("PUBLIC"),
-  async (req, res) => {
-    const JWTuser = req.user;
+router.get("/", passportAuth("jwt"), authorizaton("user"), async (req, res) => {
+  const JWTuser = req.user;
 
-    const options = {
-      style: "yourProduct.css",
-      usercookie: JWTuser,
-    };
+  const options = {
+    style: "yourProduct.css",
+    usercookie: JWTuser,
+  };
 
-    res.render("publicar/yourProduct", options);
-  }
-);
+  res.render("publicar/yourProduct", options);
+});
 
 router.get(
   "/myproducts",
@@ -36,7 +31,7 @@ router.get(
       data: myproducts.data,
       usercookie: JWTuser,
     };
-    console.log(myproducts.data);
+
     res.render("publicar/showMyProducts", options);
   }
 );
@@ -62,7 +57,6 @@ router.post(
   authorizaton("premium"),
   async (req, res) => {
     let dataNewProduct = req.body;
-    console.log(dataNewProduct);
 
     dataNewProduct = {
       ...dataNewProduct,
