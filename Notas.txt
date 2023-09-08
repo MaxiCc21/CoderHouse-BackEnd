@@ -1,3 +1,4 @@
 1. Agragar la posibilidad de poner on/off/pausa los productos(SocketIO)
 2. Revisar las las autorizaciones de las rutas
 3. Las vistas premium
+4. Modifique la forma de entregar los datos en el session con myReturn

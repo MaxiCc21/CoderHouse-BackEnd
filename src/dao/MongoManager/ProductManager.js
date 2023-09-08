@@ -1,83 +1,84 @@
 const fs = require("fs");
 const { productModel } = require("../models/product.model");
 const { ObjectId } = require("bson");
+const { tr } = require("@faker-js/faker");
 
 const IdGenerator = () => {
   return Date.now();
 };
 //
 
-class ProductManager {
-  constructor() {
-    this.path = "./db.json";
-    this.products = [];
-  }
+// class ProductManager {
+//   constructor() {
+//     this.path = "./db.json";
+//     this.products = [];
+//   }
 
-  getProducts = async () => {
-    try {
-      let myRes = await productModel.find().lean();
-      return myRes;
-    } catch (err) {
-      console.log(err.stateMsj);
-    }
-  };
+//   getProducts = async () => {
+//     try {
+//       let myRes = await productModel.find().lean();
+//       return myRes;
+//     } catch (err) {
+//       console.log(err.stateMsj);
+//     }
+//   };
 
-  getProductById = async (itemID) => {
-    console.log(itemID, "product");
-    try {
-      const found = await productModel.findOne({ _id: itemID }).lean();
-      return found;
-    } catch (err) {
-      console.log(err);
-    }
-  };
+//   getProductById = async (itemID) => {
+//     console.log(itemID, "product");
+//     try {
+//       const found = await productModel.findOne({ _id: itemID }).lean();
+//       return found;
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   };
 
-  addProduct = async (data) => {
-    let res = checkObjectKeys(data);
-    if (res.state === "error") {
-      return res.msgState;
-    } else {
-      let newItemCreated = {
-        id: IdGenerator(),
-        ...data,
-      };
-      let code = codeGenerator(newItemCreated);
+//   addProduct = async (data) => {
+//     let res = checkObjectKeys(data);
+//     if (res.state === "error") {
+//       return res.msgState;
+//     } else {
+//       let newItemCreated = {
+//         id: IdGenerator(),
+//         ...data,
+//       };
+//       let code = codeGenerator(newItemCreated);
 
-      newItemCreated = {
-        ...newItemCreated,
-        ...code,
-      };
-      let products = await this.getProducts();
-      // products = JSON.parse(products);
-      products.push(newItemCreated);
-      await fs.promises.writeFile(this.path, JSON.stringify(products), "utf-8");
-      return {
-        status: "ok",
-        statusMsj: "El Porducto fue agregado satisfactoriamente ",
-      };
-    }
-  };
+//       newItemCreated = {
+//         ...newItemCreated,
+//         ...code,
+//       };
+//       let products = await this.getProducts();
+//       // products = JSON.parse(products);
+//       products.push(newItemCreated);
+//       await fs.promises.writeFile(this.path, JSON.stringify(products), "utf-8");
+//       return {
+//         status: "ok",
+//         statusMsj: "El Porducto fue agregado satisfactoriamente ",
+//       };
+//     }
+//   };
 
-  updateProduct = async (id, data) => {
-    let products = await this.getProducts();
+//   updateProduct = async (id, data) => {
+//     let products = await this.getProducts();
 
-    let newData = products.map((el) =>
-      el.id === Number(id) ? { ...el, ...data } : el
-    );
+//     let newData = products.map((el) =>
+//       el.id === Number(id) ? { ...el, ...data } : el
+//     );
 
-    await fs.promises.writeFile(this.path, JSON.stringify(newData), "utf-8");
-  };
+//     await fs.promises.writeFile(this.path, JSON.stringify(newData), "utf-8");
+//   };
 
-  deleteProduct = async (idToDelete) => {
-    try {
-      const user = await productModel.findByIdAndRemove(idToDelete);
-    } catch (err) {
-      return err;
-    }
-  };
-}
+//   deleteProduct = async (idToDelete) => {
+//     try {
+//       const user = await productModel.findByIdAndRemove(idToDelete);
+//     } catch (err) {
+//       return err;
+//     }
+//   };
+// }
 
-module.exports = ProductManager;
+// module.exports = ProductManager;
 
 const checkObjectKeys = (obj) => {
   if (
@@ -138,7 +139,7 @@ class HandleProducts {
     this.productModel = productModel;
   }
 
-  getProducts = async () => {
+  getAllProducts = async () => {
     try {
       let myRes = await this.productModel.find().lean();
       return myRes;
@@ -148,8 +149,9 @@ class HandleProducts {
   };
 
   getProductById = async (itemID) => {
+    d;
     try {
-      const found = await this.productModel.find({ _id: itemID }).lean();
+      const found = await this.productModel.findOne({ _id: itemID }).lean();
       return found;
     } catch (err) {
       console.log(err);
@@ -231,6 +233,66 @@ class HandleProducts {
         statusMsj: "Producto creado con exito",
         ok: true,
         data: undefined,
+      };
+    } catch (err) {
+      return err;
+    }
+  };
+
+  deleteProductByID = async (productID) => {
+    try {
+      const deleteProduct = await this.productModel.findByIdAndRemove({
+        _id: productID,
+      });
+      console.log(deleteProduct);
+      if (!deleteProduct) {
+        return {
+          status: 404,
+          statusMsj: "No a sido posible eliminar el producto",
+          ok: false,
+          data: undefined,
+        };
+      }
+
+      return {
+        status: 204,
+        statusMsj: "Producto eliminado con exito",
+        ok: true,
+        data: undefined,
+      };
+    } catch (err) {
+      return {
+        status: 500,
+        statusMsj: err,
+        ok: false,
+        data: undefined,
+      };
+    }
+  };
+
+  updateProduct = async (pid, newData) => {
+    try {
+      console.log(newData);
+      const updateProduct = await this.productModel.findOneAndUpdate(
+        {
+          _id: pid,
+        },
+        { $set: newData }
+      );
+
+      if (!updateProduct) {
+        return {
+          status: 404,
+          statusMsj: "No ah sido posible actualizar el producto",
+          ok: false,
+          data: undefined,
+        };
+      }
+      return {
+        status: 200,
+        statusMsj: "Producto actualizado correctamente",
+        ok: true,
+        data: updateProduct,
       };
     } catch (err) {
       return err;

@@ -1,0 +1,313 @@
+paths:
+  /products:
+    get:
+      summary: Obtiene todos los productos
+      tags:
+        - Product
+      responses:
+        "201":
+          description: Los productos fueron obtenidos correctamente
+        "400":
+          description: Solicitud inválida
+        "500":
+          description: Error interno del servidor, usualmente generado por una query defectuosa
+
+/products/{pid}:
+  get:
+    summary: Obtiene un producto por su ID
+    tags:
+      - Product
+    parameters:
+      - name: pid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: ID del producto que se desea obtener
+    responses:
+      "200":
+        description: Producto obtenido correctamente
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: 200
+                statusMsj:
+                  type: string
+                  example: "Se ha encontrado el producto"
+                ok:
+                  type: boolean
+                  example: true
+                data:
+                  $ref: "#/components/schemas/Product"
+            example:
+              status: "ok"
+              statusMsj: "Se ha encontrado el producto"
+              ok: true
+              data:
+                title: Título del producto
+                description: Descripción del producto 1
+                price: 19.99
+                thumbnail: https://example.com/thumbnail.jpg
+                category: ["Electrónica", "Computadoras"]
+                marca: MarcaXYZ
+                stock: 100
+                owner: { ownerID: "12345", ownerUsername: "propietarop123" }
+                createTime: "2023-09-07T12:00:00Z"
+                estado: "on"
+                rating: 4.5
+
+      "404":
+        description: Producto no encontrado
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: 404
+                statusMsj:
+                  type: string
+                  example: "No se ha encontrado el producto"
+                ok:
+                  type: boolean
+                  example: false
+                data:
+                  type: undefined
+                  example: undefined
+            example:
+              status: 404
+              statusMsj: "No se ha encontrado el producto"
+              ok: false
+              data: undefined
+
+      "500":
+        description: Error interno del servidor
+
+  put:
+    summary: Actualiza un producto por su ID
+    tags:
+      - Product
+    parameters:
+      - name: pid
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID del producto que se desea actualizar
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/requestBodies/UpdateProductBody"
+    responses:
+      "200":
+        description: Producto actualizado correctamente
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: 200
+                statusMsj:
+                  type: string
+                  example: "Producto eliminado correctamente"
+                ok:
+                  type: boolean
+                  example: true
+                data:
+                  $ref: "#/components/schemas/Product"
+            example:
+              status: 200
+              statusMsj: "Producto eliminado correctamente"
+              ok: true
+              data:
+                title: Título del producto
+                description: Descripción del producto 1
+                price: 19.99
+                thumbnail: https://example.com/thumbnail.jpg
+                category: ["Electrónica", "Computadoras"]
+                marca: MarcaXYZ
+                stock: 100
+                owner: { ownerID: "12345", ownerUsername: "propietarop123" }
+                createTime: "2023-09-07T12:00:00Z"
+                estado: "on"
+                rating: 4.5
+
+      "404":
+        description: Producto no encontrado
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: 404
+                statusMsj:
+                  type: string
+                  example: "No ah sido posible actualizar el producto"
+                ok:
+                  type: boolean
+                  example: false
+                data:
+                  type: undefined
+                  example: undefined
+            example:
+              status: 404
+              statusMsj: "No ah sido posible actualizar el producto"
+              ok: false
+              data: undefined
+
+      "500":
+        description: Error interno del servidor
+
+  delete:
+    summary: Elimina un producto por su ID
+    tags:
+      - Product
+    parameters:
+      - name: pid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: ID del producto que se desea eliminar
+    responses:
+      "204":
+        description: Producto eliminado correctamente
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: 204
+                statusMsj:
+                  type: string
+                  example: "Producto eliminado correctamente"
+                ok:
+                  type: boolean
+                  example: true
+                data:
+                  type: undefined
+                  example: undefined
+            example:
+              status: 204
+              statusMsj: "Producto eliminado correctamente"
+              ok: true
+              data: undefined
+
+      "404":
+        description: Producto no encontrado
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: 404
+                statusMsj:
+                  type: string
+                  example: "Ha ocurrido un error al eliminar el producto"
+                ok:
+                  type: boolean
+                  example: false
+                data:
+                  type: undefined
+                  example: undefined
+            example:
+              status: 404
+              statusMsj: "Ha ocurrido un error al eliminar el producto"
+              ok: false
+              data: undefined
+
+      "500":
+        description: Error interno del servidor
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Título del producto
+          example: "Producto 1"
+        description:
+          type: string
+          description: Descripción del producto
+          example: "Descripción del producto 1"
+        price:
+          type: number
+          description: Precio del producto
+          example: 19.99
+        thumbnail:
+          type: string
+          description: URL de la imagen en miniatura
+          example: "https://example.com/thumbnail.jpg"
+        category:
+          type: array
+          items:
+            type: string
+          description: Categorías del producto
+          example: ["Electrónica", "Computadoras"]
+        marca:
+          type: string
+          description: Marca del producto
+          example: "MarcaXYZ"
+        stock:
+          type: integer
+          description: Cantidad en stock
+          example: 100
+        owner:
+          type: object
+          properties:
+            ownerID:
+              type: string
+              description: ID del propietario
+              example: "12345"
+            ownerUsername:
+              type: string
+              description: Nombre de usuario del propietario
+              example: "propietario123"
+        createTime:
+          type: string
+          format: date-time
+          description: Fecha y hora de creación
+          example: "2023-09-07T12:00:00Z"
+        estado:
+          type: string
+          enum:
+            - "on"
+            - "off"
+            - "pausa"
+          description: Estado del producto
+          example: "on"
+        rating:
+          type: number
+          description: Calificación del producto
+          example: 4.5
+
+  requestBodies:
+    UpdateProductBody:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Titulo del producto
+          example: Campera
+
+        description:
+          type: string
+          description: Descripcion del producto
+          example: Muy buena

@@ -12,11 +12,26 @@ class ProductControler {
       });
     }
     const jwtUser = req.user ? req.user : false;
-    const options = {};
-    options.style = "productShow.css";
-    options.product = product[0];
-    options.usercookie = jwtUser ? jwtUser : null;
+    const options = {
+      style: "productShow.css",
+      data: product,
+      usercookie: jwtUser,
+    };
+
     res.render("products/product_show.handlebars", options);
+  };
+  APIshowSingleProductGET = async (req, res) => {
+    const pid = req.params.pid;
+
+    const product = await productService.getProductById(pid);
+
+    if (!product) {
+      res.status(401).send({
+        error: `No se a econtrado nungun producto con id(${pid})`,
+      });
+    }
+
+    res.status(200).send(product);
   };
 
   showSingleProductPOST = async (req, res) => {

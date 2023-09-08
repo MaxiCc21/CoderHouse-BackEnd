@@ -24,6 +24,11 @@ const { errorHandler } = require("./middlewares/error.middleware");
 const { cartService } = require("./service");
 const { addLogger } = require("./middlewares/logger");
 const socketMessage = require("./utils/socketMessage.js");
+//---------------Swagger--------------
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUiExpress = require("swagger-ui-express");
+
+//---------------Swagger--------------
 
 const NewUserRoutes = new newUserRoutes();
 
@@ -64,6 +69,24 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(addLogger);
 
+//---------------Swagger--------------
+
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: "3.0.1",
+    info: {
+      title: "Documentacion de Mercado Libre",
+      description: "Esta el la documentacion de Mercado Libre",
+    },
+  },
+  apis: [`${__dirname}/docs/**/*.yaml`],
+};
+
+const specs = swaggerJsDoc(swaggerOptions);
+app.use("/docs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
+
+//---------------Swagger--------------
+
 const fileStore = FileStore(session);
 // app.use(
 //   session({
@@ -103,6 +126,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // cors
+
 app.use(cors());
 
 app.post("/single", uploader.single("myFile"), (res, req) => {
@@ -150,6 +174,7 @@ app.get("/realtimeproducts", (req, res) => {
 
 const { Server: ServerIO } = require("socket.io");
 const { Server: ServerHTTP } = require("http");
+const { dirname } = require("path");
 
 const serverHTTP = ServerHTTP(app);
 const io = new ServerIO(serverHTTP);
