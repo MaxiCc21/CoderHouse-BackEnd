@@ -38,7 +38,7 @@ class ProductControler {
     console.log("#POST /Agregar al carrito");
     const { pid } = req.params;
     const foundProduct = await productService.getProductById(pid);
-
+    console.log(foundProduct);
     if (!foundProduct) {
       res.send({ status: "error", statusMsg: "No se a econtrado un producto" });
     } else {
@@ -47,8 +47,8 @@ class ProductControler {
         res.send("comprar");
       } else if (req.body.action === "carrito") {
         let cid = req.user.sub;
-        let pid = foundProduct[0]._id;
-        let body = foundProduct[0];
+        let pid = foundProduct._id;
+        let body = foundProduct;
         const itemAdd = await cartService.addItem(cid, pid, body);
         console.log(itemAdd.statusMsj);
         res.send({ Message: itemAdd.statusMsj, cid, pid, body });

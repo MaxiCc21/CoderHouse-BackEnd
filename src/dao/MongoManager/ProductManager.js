@@ -149,7 +149,6 @@ class HandleProducts {
   };
 
   getProductById = async (itemID) => {
-    d;
     try {
       const found = await this.productModel.findOne({ _id: itemID }).lean();
       return found;

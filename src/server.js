@@ -185,7 +185,7 @@ const io = new ServerIO(serverHTTP);
 
 io.on("connection", async (socket) => {
   socket.emit("message", "Se conectado un usuario");
-  let data = await productHandle.getProducts();
+  let data = await productHandle.getAllProducts();
 
   socket.emit("show-All-Products", data);
 

@@ -42,8 +42,6 @@ router.get("/", async (req, res) => {
   res.send(options.data);
 });
 
-router.get("/:uid", getUserByIDGET);
-
 router.get(
   "/miscompras",
   passportAuth("jwt"),
@@ -256,5 +254,7 @@ router.post(
     }
   }
 );
+
+router.get("/:uid", getUserByIDGET);
 
 module.exports = router;
