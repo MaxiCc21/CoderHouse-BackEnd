@@ -135,7 +135,7 @@ app.post("/single", uploader.single("myFile"), (res, req) => {
 
 app.use("/products", productRoutes);
 
-app.use("/api/carts", cartRoutes);
+app.use("/api/cart", cartRoutes);
 
 app.use("/session", userRoutes);
 
