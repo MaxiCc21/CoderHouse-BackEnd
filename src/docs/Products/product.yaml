@@ -12,6 +12,68 @@ paths:
         "500":
           description: Error interno del servidor, usualmente generado por una query defectuosa
 
+    post:
+      summary: Crea un nuevo producto
+      tags:
+        - Product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/CreateProductBody"
+      responses:
+        "201":
+          description: Producto creado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 201
+                  statusMsj:
+                    type: string
+                    example: "Se ha creado el producto con exito"
+                  ok:
+                    type: boolean
+                    example: true
+                  data: undefined
+
+              example:
+                status: 201
+                statusMsj: "Se ha creado el producto con exito"
+                ok: true
+                data: undefined
+
+        "400":
+          description: Solicitud inválida
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 400
+                  statusMsj:
+                    type: string
+                    example: "Se ha producido un erro al crear el usuario"
+                  ok:
+                    type: boolean
+                    example: false
+                  data: undefined
+
+              example:
+                status: 400
+                statusMsj: "Se ha producido un erro al crear el usuario"
+                ok: false
+                data: undefined
+
+        "500":
+          description: Error interno del servidor
+
 /products/{pid}:
   get:
     summary: Obtiene un producto por su ID
@@ -239,6 +301,10 @@ components:
     Product:
       type: object
       properties:
+        _id:
+          type: string
+          description: Es autogenerado de mongo
+          example: ObjectId('asd65f13as3df13sda')
         title:
           type: string
           description: Título del producto
@@ -311,3 +377,56 @@ components:
           type: string
           description: Descripcion del producto
           example: Muy buena
+
+    CreateProductBody:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Título del producto
+          example: Campera
+
+        description:
+          type: string
+          description: Descripción del producto
+          example: Muy buena
+
+        price:
+          type: number
+          description: Precio del producto
+          example: 1234.0
+
+        thumbnail:
+          type: string
+          description: URL de la imagen en miniatura
+          example: "https://acdn.mitiendanube.com/stores/001/966/536/products/plantilla-regular-fit-negro-web_mesa-de-trabajo-11-563658c9ab867cb4bf16632607231508-1024-1024.jpg"
+
+        category:
+          type: array
+          items:
+            type: string
+          description: Categorías del producto
+          example: ["ropa"]
+
+        marca:
+          type: string
+          description: Marca del producto
+          example: nike
+
+        stock:
+          type: integer
+          description: Cantidad en stock
+          example: 43
+
+        owner:
+          type: object
+          properties:
+            ownerID:
+              type: string
+              description: ID del propietario
+              example: "64db067e5b2c98779f93a94f"
+
+            ownerUsername:
+              type: string
+              description: Nombre de usuario del propietario
+              example: "fanta"

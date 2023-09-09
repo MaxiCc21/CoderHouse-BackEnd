@@ -298,6 +298,30 @@ class HandleProducts {
       return err;
     }
   };
+
+  addProduct = async (data) => {
+    try {
+      const createNewProduct = await this.productModel.create(data);
+
+      if (!createNewProduct) {
+        return {
+          status: 400,
+          statusMsj: "No ha sido posible actualizar el producto",
+          ok: false,
+          data: undefined,
+        };
+      }
+
+      return {
+        status: 201,
+        statusMsj: "Se ha creado el  producto exitosamente",
+        ok: true,
+        data: undefined,
+      };
+    } catch (err) {
+      return err;
+    }
+  };
 }
 
 module.exports = HandleProducts;

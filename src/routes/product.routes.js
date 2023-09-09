@@ -44,16 +44,12 @@ router.delete("/:pid", async (req, res) => {
   res.status(deleteProduct.status).send(deleteProduct);
 });
 
-router.post("/", async (request, response) => {
-  const newProduct = request.body;
+router.post("/", async (req, res) => {
+  const newProduct = req.body;
+  console.log(newProduct);
+  let agregarProducto = await handleProducts.addProduct(newProduct);
 
-  let res = await handleProducts.addProduct(newProduct);
-  console.log(res, "rs");
-
-  if (res.status) {
-  }
-
-  response.send(res);
+  res.status(agregarProducto.status).send(agregarProducto);
 });
 
 router.get(
@@ -76,6 +72,18 @@ router.put("/:pid", async (request, response) => {
   const newData = request.body;
   const updateProduct = await handleProducts.updateProduct(pid, newData);
   response.status(updateProduct.status).send(updateProduct);
+});
+
+router.post("/", async (request, response) => {
+  const newProduct = request.body;
+
+  let res = await handleProducts.addProduct(newProduct);
+  console.log(res, "rs");
+
+  if (res.status) {
+  }
+
+  response.send(res);
 });
 
 module.exports = router;
