@@ -1,0 +1,61 @@
+paths:
+  /api/cart:
+    get:
+      summary: Obtiene datos protegidos
+      tags:
+        - Cart
+      security:
+        - BearerAuth: [] # Utiliza el esquema de autenticación Bearer Token
+      responses:
+        "200":
+          description: Datos obtenidos correctamente
+        "400":
+          description: No fue posible encontrar el carrito
+        "500":
+          desciption: Ocurrio un error inesperado
+      description: >
+        Esta operación requiere autenticación mediante un token JWT.
+        El objeto `req.user` contiene información del usuario autenticado.
+        Asegúrate de incluir un token válido en el encabezado de autorización (Bearer Token).
+
+components:
+  schemas:
+    Cart:
+      type: object
+      properties:
+        id_user_to_cart:
+          type: string
+          description: ID del usuario al que pertenece el carrito
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              product:
+                type: object
+                properties:
+                  # Aquí puedes definir las propiedades del producto en el carrito, como title, price, etc.
+                  title:
+                    type: string
+                    description: Título del producto
+                  price:
+                    type: number
+                    description: Precio del producto
+                  # ... otras propiedades del producto
+                example:
+                  title: "Producto en el carrito"
+                  price: 19.99
+              quantity:
+                type: integer
+                description: Cantidad del producto en el carrito
+      example:
+        id_user_to_cart: "64db067e5b2c98779f93a94f"
+        products:
+          - product:
+              title: "Producto 1"
+              price: 19.99
+            quantity: 2
+          - product:
+              title: "Producto 2"
+              price: 29.99
+            quantity: 1

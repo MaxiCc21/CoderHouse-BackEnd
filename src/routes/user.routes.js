@@ -11,6 +11,8 @@ const {
   recoverPOST,
   modifyGET,
   modifyPOST,
+  getUserByID,
+  getUserByIDGET,
 } = require("../controller/user.controller");
 const { passportAuth } = require("../config/passportAuth");
 const { authorizaton } = require("../config/passportAuthorization");
@@ -29,6 +31,16 @@ function idGenerator() {
 
 //   res.render("handleUser.handlebars", options);
 // });
+
+router.get("/", async (req, res) => {
+  let data = await handleUser.getAllUser();
+  let options = {
+    style: "user_Ingresar.css",
+    data,
+  };
+
+  res.send(options.data);
+});
 
 router.get(
   "/miscompras",
@@ -69,16 +81,6 @@ router.get("/paginate", async (req, res) => {
   };
 
   res.render("showUser_paginate.handlebars", options);
-});
-
-router.get("/", async (req, res) => {
-  let data = await handleUser.getAllUser();
-  let options = {
-    style: "user_Ingresar.css",
-    data,
-  };
-
-  res.send(options.data);
 });
 
 router.get("/create-user", async (req, res) => {
@@ -199,28 +201,11 @@ router.get("/failLogin", (req, res) => {
 
 router.get("/register", registerGET);
 
-// router.post("/registro", (req, res, next) => {
-//   passport.authenticate("register", (err, user, info) => {
-//     if (err) {
-//       return res.status(500).json({ error: err });
-//     }
-//     if (!user) {
-//       return res.status(400).json({ message: info.message });
-//     }
-//     return res.status(200).json({ message: info.message, user: user });
-//   })(req, res, next);
-// });
-
 router.post(
   "/register",
   passport.authenticate("register", { failureRedirect: "/session/register" }),
   registerPOST
 );
-
-// { registerPOST
-//   failureRedirect: "login",
-//   successRedirect: "login",
-// }
 
 router.get("/failregister", (req, res) => {
   console.log("ERRRRRRRRRRR");
@@ -269,5 +254,7 @@ router.post(
     }
   }
 );
+
+router.get("/:uid", getUserByIDGET);
 
 module.exports = router;

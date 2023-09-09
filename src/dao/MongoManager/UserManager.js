@@ -52,13 +52,27 @@ class UserManager {
   };
 
   getUserByID = async (idToFind) => {
-    let users = await this.getAllUser();
-    const found = users.find(({ id }) => id === idToFind);
-    found
-      ? found
-      : console.error(`No se a encontrado un producto con el id (${idToFind})`);
+    try {
+      const foundUser = await userModel.findById(idToFind);
 
-    return found;
+      if (!foundUser) {
+        return {
+          status: "error",
+          statusMsj: "No se a encontrado ningun usuario con dicho ID",
+          ok: false,
+          data: undefined,
+        };
+      }
+
+      return {
+        status: "ok",
+        statusMsj: "Se a encontrado un usuario",
+        ok: true,
+        data: foundUser,
+      };
+    } catch (err) {
+      return err;
+    }
   };
 
   createNewUser = async (data) => {

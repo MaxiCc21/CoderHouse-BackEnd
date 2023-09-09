@@ -6,8 +6,20 @@ const fs = require("fs");
 const path = require("path");
 const { sendMail } = require("../utils/sendmail");
 const bcrypt = require("bcrypt");
+const { tr } = require("@faker-js/faker");
 
 class UserController {
+  getUserByIDGET = async (req, res) => {
+    let { uid } = req.params;
+    const foundUser = await userService.getUserByID(uid);
+
+    if (foundUser) {
+      res.status(201).send(foundUser);
+    } else {
+      res.status(400).send(foundUser);
+    }
+  };
+
   getPaginate = async (req, res) => {
     const { page = 1, limit = 5 } = req.query;
     let data = await userService.getAllUserPaginate(page, limit);
