@@ -4,7 +4,8 @@
   "description": "",
   "main": "ProductManager.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "oldtest": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha test/User.test.js",
     "start:dev": "nodemon app.js",
     "start": "node app.js"
   },
@@ -43,6 +44,8 @@
     "winston": "^3.10.0"
   },
   "devDependencies": {
-    "@faker-js/faker": "^8.0.2"
+    "@faker-js/faker": "^8.0.2",
+    "chai": "^4.3.8",
+    "mocha": "^10.2.0"
   }
 }
