@@ -261,12 +261,13 @@ io.on("connection", async (socket) => {
 app.get("*", (req, res) => {
   res.status(404).send("Not found");
 });
+const httpServer = app.listen(8080);
 
-const PORT = 8080;
+// const PORT = 8080;
 
-exports.initServer = () => {
-  serverHTTP.listen(PORT, () => {
-    // logger.info(`Escuchando en el puerto: ${PORT}`);
-    console.log(`Escuchando en el puerto: ${PORT}`);
-  });
-};
+// exports.initServer = () => {
+//   serverHTTP.listen(PORT, () => {
+//     // logger.info(`Escuchando en el puerto: ${PORT}`);
+//     console.log(`Escuchando en el puerto: ${PORT}`);
+//   });
+// };
