@@ -1,0 +1,24 @@
+<section>
+  <div>
+    <form id="bePremoumForm" action="/publicar/bePremium" method="post">
+      <h2>Hola {{usercookie.username}} </h2>
+      <p>Para poder vender en Mercado Libre necesitamos que aceptes ser un
+        usuario premium</p>
+      <input
+        type="checkbox"
+        id="checkboxAceptConditionsBePremium"
+        name="checkboxBePremium"
+      />
+      <label for="checkboxBePremium">Acepto los terminos y condiciones</label><br
+      />
+
+      <button
+        type="submit"
+        id="buttonAceptConditionsBePremium"
+        disabled="true"
+      >aceptar</button>
+    </form>
+  </div>
+</section>
+
+<script src="/static/js/bePremium.js"></script>

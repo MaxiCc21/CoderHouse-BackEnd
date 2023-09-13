@@ -1,0 +1,28 @@
+.section-showMyProducts {
+  background-color: red;
+  min-height: 400px;
+  display: flex;
+}
+
+#products-section {
+  width: 100%;
+}
+
+#products-section img {
+  width: 60px;
+  height: 60px;
+}
+
+.products-section-z1 {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.products-section-a {
+  background-color: aqua;
+  padding: 5px;
+}
+
+.products-section-a {
+  color: black !important;
+}

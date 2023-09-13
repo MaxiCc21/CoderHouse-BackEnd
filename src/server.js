@@ -12,15 +12,23 @@ const comprarRoutes = require("./routes/comprar.routes");
 const pruebaRoutes = require("./routes/prueba.routes");
 const mailRoutes = require("./routes/mailing.routes");
 const mockingRoutes = require("./routes/mock.routes");
+const publicarRoutes = require("./routes/publicar.routes");
 const cokieParser = require("cookie-parser");
 const { uploader } = require("./utils/multer");
 const productHandle = new (require("./dao/MongoManager/ProductManager"))();
-const cartHandle = new (require("./dao/MongoManager/CartManager"))();
 const objectConfig = require("./config/objetConfig");
 const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
 const FileStore = require("session-file-store");
 const { create } = require("connect-mongo");
-// const core = required("core");
+const { errorHandler } = require("./middlewares/error.middleware");
+const { cartService } = require("./service");
+const { addLogger } = require("./middlewares/logger");
+const socketMessage = require("./utils/socketMessage.js");
+//---------------Swagger--------------
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUiExpress = require("swagger-ui-express");
+
+//---------------Swagger--------------
 
 const NewUserRoutes = new newUserRoutes();
 
@@ -59,13 +67,25 @@ app.use("/static", express.static(__dirname + "/public"));
 
 app.use(express.urlencoded({ extended: true }));
 
-// app.use(
-//   session({
-//     secret: "s33sionC0d3",
-//     resave: true,
-//     saveUninitialized: true,
-//   })
-// );
+app.use(addLogger);
+
+//---------------Swagger--------------
+
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: "3.0.1",
+    info: {
+      title: "Documentacion de Mercado Libre",
+      description: "Esta el la documentacion de Mercado Libre",
+    },
+  },
+  apis: [`${__dirname}/docs/**/*.yaml`],
+};
+
+const specs = swaggerJsDoc(swaggerOptions);
+app.use("/docs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
+
+//---------------Swagger--------------
 
 const fileStore = FileStore(session);
 // app.use(
@@ -106,6 +126,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // cors
+
 app.use(cors());
 
 app.post("/single", uploader.single("myFile"), (res, req) => {
@@ -114,7 +135,7 @@ app.post("/single", uploader.single("myFile"), (res, req) => {
 
 app.use("/products", productRoutes);
 
-app.use("/api/carts", cartRoutes);
+app.use("/api/cart", cartRoutes);
 
 app.use("/session", userRoutes);
 
@@ -136,11 +157,12 @@ app.use("/email", mailRoutes);
 
 app.use("/mockingproducts", mockingRoutes);
 
+app.use("/publicar", publicarRoutes);
+
 // app.use((err, req, res, next) => {
 //   console.log(err);
 //   res.status(500).send("Todo mal");
 // });
-const { errorHandler } = require("./middlewares/error.middleware");
 
 app.use(errorHandler);
 
@@ -150,18 +172,20 @@ app.get("/realtimeproducts", (req, res) => {
   res.render("realTimeProducts", { style: "realTime.css" });
 });
 
-const { Server } = require("socket.io");
+const { Server: ServerIO } = require("socket.io");
+const { Server: ServerHTTP } = require("http");
+const { dirname } = require("path");
 
-const { send } = require("process");
-const { cartService } = require("./service");
+const serverHTTP = ServerHTTP(app);
+const io = new ServerIO(serverHTTP);
 
-const httpServer = app.listen(8080);
+// const io = new Server(httpServer);
 
-const socketServer = new Server(httpServer);
+// socketMessage(io);
 
-socketServer.on("connection", async (socket) => {
+io.on("connection", async (socket) => {
   socket.emit("message", "Se conectado un usuario");
-  let data = await productHandle.getProducts();
+  let data = await productHandle.getAllProducts();
 
   socket.emit("show-All-Products", data);
 
@@ -209,3 +233,12 @@ socketServer.on("connection", async (socket) => {
 app.get("*", (req, res) => {
   res.status(404).send("Not found");
 });
+
+const PORT = 8080;
+
+exports.initServer = () => {
+  serverHTTP.listen(PORT, () => {
+    // logger.info(`Escuchando en el puerto: ${PORT}`);
+    console.log(`Escuchando en el puerto: ${PORT}`);
+  });
+};

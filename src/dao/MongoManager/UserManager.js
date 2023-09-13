@@ -1,3 +1,4 @@
+const { logger } = require("../../middlewares/logger");
 const { isValidPassword } = require("../../utils/bcryptHas");
 const { userModel } = require("../models/user.model");
 
@@ -16,6 +17,31 @@ class UserManager {
       console.log(err.stateMsj);
     }
   };
+
+  getUserByEmail = async (email) => {
+    try {
+      let foundUser = await userModel.findOne({ email }).lean();
+
+      if (foundUser) {
+        return {
+          status: "ok",
+          statusMsj: "Se a validado la existencia del usuario",
+          ok: true,
+          data: foundUser,
+        };
+      }
+
+      return {
+        status: "error",
+        statusMsj: "No se a podido validar la existencia del usuario",
+        ok: false,
+        data: undefined,
+      };
+    } catch (err) {
+      logger.error(err);
+    }
+  };
+
   getAllUser = async () => {
     try {
       let users = await userModel.find().lean();
@@ -26,13 +52,27 @@ class UserManager {
   };
 
   getUserByID = async (idToFind) => {
-    let users = await this.getAllUser();
-    const found = users.find(({ id }) => id === idToFind);
-    found
-      ? found
-      : console.error(`No se a encontrado un producto con el id (${idToFind})`);
+    try {
+      const foundUser = await userModel.findById(idToFind);
 
-    return found;
+      if (!foundUser) {
+        return {
+          status: "error",
+          statusMsj: "No se a encontrado ningun usuario con dicho ID",
+          ok: false,
+          data: undefined,
+        };
+      }
+
+      return {
+        status: "ok",
+        statusMsj: "Se a encontrado un usuario",
+        ok: true,
+        data: foundUser,
+      };
+    } catch (err) {
+      return err;
+    }
   };
 
   createNewUser = async (data) => {
@@ -59,6 +99,33 @@ class UserManager {
   updateUser = async (pid, bodyData) => {
     try {
       await userModel.updateOne({ _id: pid }, bodyData);
+    } catch (err) {
+      return err;
+    }
+  };
+
+  updateUserByEmail = async (email, newHashedPassword) => {
+    try {
+      const updateUser = await userModel.updateOne(
+        { email },
+        { password: newHashedPassword }
+      );
+
+      if (!updateUser) {
+        return {
+          status: "error",
+          statusMsj: "No se pudo modificar la contraseña",
+          ok: false,
+          data: undefined,
+        };
+      }
+
+      return {
+        status: "ok",
+        statusMsj: "Contraseña actualizda",
+        ok: true,
+        data: updateUser,
+      };
     } catch (err) {
       return err;
     }
@@ -113,6 +180,30 @@ class UserManager {
       stateMsj: "Usuario encotrado",
       ok: true,
       item_found,
+    };
+  };
+
+  changeStatus = async (uid, newStatus) => {
+    const foundAndUpdate = await userModel.updateOne(
+      { _id: uid },
+      { status: newStatus },
+      { new: true }
+    );
+
+    if (!foundAndUpdate) {
+      return {
+        status: "error",
+        statusMsj: "Ha ocurrido un error al buscar y acutualizar el usuario",
+        ok: false,
+        data: undefined,
+      };
+    }
+
+    return {
+      status: "ok",
+      statusMsj: "Usuario actualizado con exito",
+      ok: true,
+      data: foundAndUpdate,
     };
   };
 }

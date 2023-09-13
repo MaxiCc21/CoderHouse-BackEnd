@@ -1,7 +1,7 @@
 <div class="showProduct">
   <input
     type="number"
-    value="{{product.rating}}"
+    value="{{data.rating}}"
     id="ratingProductValue"
     hidden="true"
   />
@@ -39,12 +39,12 @@
         />
       </div>
       <div class="z2-mid-productShow"><img
-          src="{{product.thumbnail}}"
-          alt="{{product.thumbnail}}"
+          src="{{data.thumbnail}}"
+          alt="{{data.thumbnail}}"
         /></div>
       <div class="z3-mid-productShow">
         <div class="z3-mid-productShow-title">
-          <h2>{{product.title}}</h2>
+          <h2>{{data.title}}</h2>
         </div>
         <div class="z3-mid-productShow-rating">
           <div class="rating">
@@ -62,7 +62,7 @@
           <div id="ratingValue"></div>
         </div>
         <div class="z3-mid-productShow-price">
-          <span>${{product.price}}</span>
+          <span>${{data.price}}</span>
         </div>
 
       </div>
@@ -85,18 +85,18 @@
         </div>
         <div class="z4-mid-productShow-info-stock">
           <span>Stock disponible</span><br />
-          <span>Cantidad: {{product.stock}}</span>
+          <span>Cantidad: {{data.stock}}</span>
         </div>
 
         <div class="z4-mid-productShow-button-area">
           <form
             id="showProduct-form"
-            action="/products/{{product._id}}"
+            action="/products/{{data._id}}"
             method="post"
           >
             <input
               type="text"
-              value="{{product._id}}"
+              value="{{data._id}}"
               hidden="true"
               name="productID"
             />

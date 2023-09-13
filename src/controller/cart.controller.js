@@ -9,8 +9,7 @@ class cartController {
     if (!productDataUser.ok) {
       res.status(400).send("Algo salio mal al cargar los productos");
     }
-    console.log(productDataUser.data);
-    console.log(productDataUser.statusMsj);
+
     const options = {
       title: "Carrito de compras",
       style: "cart.css",

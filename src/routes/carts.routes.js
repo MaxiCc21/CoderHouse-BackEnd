@@ -6,7 +6,7 @@ const { cartService, ticketService } = require("../service");
 const router = Router();
 const cartHandle = new (require("../dao/MongoManager/CartManager"))();
 
-router.get("/", passportAuth("jwt"), authorizaton("user"), cartGET);
+router.get("/", passportAuth("jwt"), authorizaton("user", "premium"), cartGET);
 
 //? router.post("/", async (request, response) => {
 //?   let res = await cartHandle.createNewCart();
@@ -34,6 +34,11 @@ router.get("/", passportAuth("jwt"), authorizaton("user"), cartGET);
 //!   res.send("Hola");
 //! });
 
-router.post("/", passportAuth("jwt"), authorizaton("user"), cartPOST);
+router.post(
+  "/",
+  passportAuth("jwt"),
+  authorizaton("user", "premium"),
+  cartPOST
+);
 
 module.exports = router;

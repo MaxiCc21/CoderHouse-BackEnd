@@ -12,13 +12,19 @@ const userSchema = new Schema({
     type: String,
     unique: true,
   },
-  // email: {
-  //   type: String,
-  //   required: true,
-  // },
-  email: String,
+  email: {
+    type: String,
+    required: true,
+  },
+  status: {
+    type: String,
+    default: "user",
+  },
   password: String,
-  isAdmin: Boolean,
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
   address: String,
   lastUpdate: { type: Date, default: Date.now },
 });
