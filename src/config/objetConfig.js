@@ -1,9 +1,6 @@
 const { MongoSingleton } = require("../utils/singleton");
 require("dotenv").config();
 
-let url =
-  "mongodb+srv://maxi21498:Morethanwords21@cluster0.2z3gkua.mongodb.net/MercadoLibre";
-
 module.exports = {
   privateKey: process.env.PRIVATE_KEY_CODER,
   gmail_user_app: process.env.GMAIL_USER_APP,
