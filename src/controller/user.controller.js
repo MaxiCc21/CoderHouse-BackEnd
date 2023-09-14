@@ -21,9 +21,9 @@ class UserController {
   };
 
   getPaginate = async (req, res) => {
-    const { page = 1, limit = 5 } = req.query;
-    let data = await userService.getAllUserPaginate(page, limit);
-    console.log(data);
+    const JWTuser = req.user;
+    const page = req.query.page || 1;
+    let data = await userService.getAllUserPaginate(page, 6);
     const { docs, hasPrevPage, hasNextPage, prevPage, nextPage } = data;
     let options = {
       style: "showUser_paginate.css",
@@ -34,6 +34,7 @@ class UserController {
       prevPage,
       nextPage,
       disabled: "disabled",
+      usercookie: JWTuser,
     };
 
     res.render("showUser_paginate.handlebars", options);

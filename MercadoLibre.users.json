@@ -1,0 +1,325 @@
+[
+  {
+    "_id": {
+      "$oid": "648026aafb3aa41890c650e5"
+    },
+    "firstname": "Maxi",
+    "lastname": "Condori",
+    "fullname": "Maxi Condori",
+    "username": "MaxiCc",
+    "email": "maxi21498@gmail.com",
+    "password": "$2b$10$JxEv1RZwz80B/Ezg/wWF8.nulCp5DoVYzhLbH0zGB6rCaVhen3ymG",
+    "isAdmin": false,
+    "adress": "Dados 214",
+
+    "lastUpdate": {
+      "$date": "2023-06-07T06:41:46.176Z"
+    },
+    "__v": 0,
+    "online": "on"
+  },
+  {
+    "_id": {
+      "$oid": "6480d96d37d80202621281c1"
+    },
+    "firstname": "Admin",
+    "lastname": "Admin",
+    "fullname": "Admin",
+    "username": "Admin01",
+    "email": "adminCoder@coder.com",
+    "password": "adminCod3r123",
+    "isAdmin": true,
+    "adress": "Dados 214",
+    "lastUpdate": {
+      "$date": "2023-06-07T06:41:46.176Z"
+    },
+    "__v": 0,
+    "online": "on"
+  },
+  {
+    "_id": {
+      "$oid": "6480d99b859530de21834b2c"
+    },
+    "firstname": "Marco",
+    "lastname": "Acosta",
+    "fullname": "Marco Acosta",
+    "username": "MarkCosta",
+    "email": "pasda213@gmail.com",
+    "password": "Hola123",
+    "isAdmin": false,
+    "adress": "asdasd 2131",
+    "lastUpdate": {
+      "$date": "2023-06-07T19:25:15.861Z"
+    },
+    "__v": 0,
+    "online": "on"
+  },
+  {
+    "_id": {
+      "$oid": "64817caf38e98527a680aaab"
+    },
+    "firstname": "asdasd",
+    "lastname": "asdasd",
+    "username": "asdasdasd",
+    "email": "asdas@gmail.com",
+    "password": "Hola1234",
+    "lastUpdate": {
+      "$date": "2023-06-08T07:01:03.140Z"
+    },
+    "__v": 0,
+    "online": "on"
+  },
+  {
+    "_id": {
+      "$oid": "6482afc2e827b3f9ae65fbfd"
+    },
+    "firstname": "Jane",
+    "lastname": "Smith",
+    "fullname": "Jane Smith",
+    "username": "janesmith",
+    "email": "janesmith@example.com",
+    "password": "$2b$10$CKQ8OGzV/8DkBEmJ4.i2mOCSwaOs89PMUJjbjUbl/3W/4xSNmQ0hm",
+    "isAdmin": false,
+    "lastUpdate": {
+      "$date": "2023-06-09T04:51:14.293Z"
+    },
+    "__v": 0,
+    "online": "on"
+  },
+  {
+    "_id": {
+      "$oid": "6482b14be827b3f9ae65fbff"
+    },
+    "firstname": "Michael",
+    "lastname": "Johnson",
+    "fullname": "Michael Johnson",
+    "username": "michaelj",
+    "email": "michaelj@example.com",
+    "password": "$2b$10$BPIfy/.BYO2Zqslwj7cut.kKjW0lks7y7qfuTdrp3RqhqndT7Dlpa",
+    "isAdmin": false,
+    "lastUpdate": {
+      "$date": "2023-06-09T04:57:47.104Z"
+    },
+    "__v": 0,
+    "online": "on"
+  },
+  {
+    "_id": {
+      "$oid": "6482b153e827b3f9ae65fc01"
+    },
+    "firstname": "Sarah",
+    "lastname": "Johnson",
+    "fullname": "Sarah Johnson",
+    "username": "sarahj",
+    "email": "sarahj@example.com",
+    "password": "$2b$10$g85WMMvILD1cDTYBFvPYFer1mlqtZPOZRfEKU8wZ6pHWSKDNMWxJK",
+    "isAdmin": false,
+    "lastUpdate": {
+      "$date": "2023-06-09T04:57:55.877Z"
+    },
+    "__v": 0,
+    "online": "on"
+  },
+  {
+    "_id": {
+      "$oid": "6482b15ce827b3f9ae65fc03"
+    },
+    "firstname": "David",
+    "lastname": "Brown",
+    "fullname": "David Brown",
+    "username": "davidb",
+    "email": "davidb@example.com",
+    "password": "$2b$10$RZUUrxlKgD4bkB7znU8tZ.JfcaonHaP5HY7LYcOD1BH1L/fsNIyda",
+    "isAdmin": false,
+    "lastUpdate": {
+      "$date": "2023-06-09T04:58:04.940Z"
+    },
+    "__v": 0,
+    "online": "on"
+  },
+  {
+    "_id": {
+      "$oid": "6482cb592a51a67b9671f640"
+    },
+    "firstname": "Jackson",
+    "lastname": "Johnson",
+    "fullname": "Jackson Johnson",
+    "username": "jacksonj",
+    "email": "jacksonj@example.com",
+    "password": "$2b$10$wEGpc5/ZaeVzlkW8WkOocOHLu7oL.f/9zNifhxjtlQkj4MWSBNuNi",
+    "isAdmin": false,
+    "lastUpdate": {
+      "$date": "2023-06-09T06:48:57.122Z"
+    },
+    "__v": 0,
+    "online": "on",
+    "role": "user",
+    "status": "premium"
+  },
+  {
+    "_id": {
+      "$oid": "6486b442f681fed2e7f760f1"
+    },
+    "firstname": "Ava",
+    "lastname": "Garcia",
+    "username": "avag",
+    "email": "avag@example.com\"",
+    "password": "$2b$10$ueb5CRolC5evc7zlZUGWYu2Kf59V1TpW6KArIzY7Usw2Ddxgd1ESm",
+    "lastUpdate": {
+      "$date": "2023-06-12T05:59:30.341Z"
+    },
+    "__v": 0,
+    "online": "on"
+  },
+  {
+    "_id": {
+      "$oid": "6498fe95739102139e720fbf"
+    },
+    "firstname": "Anibal",
+    "lastname": "asdasd",
+    "username": "anibalp",
+    "email": "asdasd@gmail.com",
+    "password": "$2b$10$CiIMOYdCQ0XV7xRT7FBuhemkR4r0aNkz6AgAElWXnrn4d6ajn8uHW",
+    "address": "Av. Santa fe 1902",
+    "lastUpdate": {
+      "$date": "2023-06-26T02:57:25.758Z"
+    },
+    "__v": 0,
+    "online": "on"
+  },
+  {
+    "_id": {
+      "$oid": "64cc4232a9027c900f2e0d70"
+    },
+    "firstname": "asdfasdf",
+    "lastname": "asdfdsaf",
+    "username": "maritapo",
+    "email": "jagac79828@weizixu.com",
+    "password": "$2b$10$TLmxolLxjpb1j.f3WuyT.Op8D6NDy42l2MfGU1C4QiY.jRm2FPI.q",
+    "address": "asdfsdaf",
+    "lastUpdate": {
+      "$date": "2023-08-04T00:11:30.398Z"
+    },
+    "__v": 0,
+    "online": "on"
+  },
+  {
+    "_id": {
+      "$oid": "64d6d58510e9f6df067bff97"
+    },
+    "firstname": "Antonio",
+    "lastname": "Cura",
+    "username": "AntoCura",
+    "email": "bisayi7786@weishu8.com",
+    "password": "$2b$10$mi87N13Ww/XtSCLbHDKvCOPeXFO/t2PRtTb0Wxa6xjC22JvLTpJrC",
+    "address": "",
+    "lastUpdate": {
+      "$date": "2023-08-12T00:42:45.713Z"
+    },
+    "__v": 0,
+    "online": "on"
+  },
+  {
+    "_id": {
+      "$oid": "64d8113822683f82ef779dcb"
+    },
+    "firstname": "Ariel",
+    "lastname": "Nodrid",
+    "fullname": "Ariel Nodrid",
+    "username": "xeliom",
+    "email": "bisayi7786@weishu8.com",
+    "password": "$2b$10$WWPPsfX3KNexRcdPF92TOuRuPFj9qJATgMH/YqavpJqCfSTDcyN0G",
+    "address": "asdfsadf",
+    "lastUpdate": {
+      "$date": "2023-08-12T23:09:44.943Z"
+    },
+    "__v": 0,
+    "online": "on"
+  },
+  {
+    "_id": {
+      "$oid": "64db067e5b2c98779f93a94f"
+    },
+    "firstname": "sdafasdf",
+    "lastname": "asdfsdf",
+    "username": "fanta",
+    "email": "bisayi7786@weishu8.com",
+    "password": "$2b$10$354M/t1GwANQe9fIBpcBROMQJAQsEjJ6MjaSthIWrxzGWiJHG60ry",
+    "address": "sdafsadf",
+    "lastUpdate": {
+      "$date": "2023-08-15T05:00:46.154Z"
+    },
+    "__v": 0,
+    "online": "on",
+    "status": "premium"
+  },
+  {
+    "_id": {
+      "$oid": "64fa96703980a6b6436ad723"
+    },
+    "firstname": "Juan",
+    "lastname": "Perez",
+    "username": "JuanP",
+    "email": "juanp@gmail.com",
+    "status": "user",
+    "password": "$2b$10$xOOvH1fc7camSObbFPaoZ.L0ZtENgzUFnXSYEiG8htOE8cSfWfF/6",
+    "isAdmin": false,
+    "address": "su casa 123",
+    "lastUpdate": {
+      "$date": "2023-09-08T03:35:12.538Z"
+    },
+    "__v": 0,
+    "online": "on"
+  },
+  {
+    "_id": {
+      "$oid": "64fcdfe07c6f34b1ce9a10ef"
+    },
+    "email": "prueba@gmail.com",
+    "status": "user",
+    "password": "pass1234",
+    "isAdmin": false,
+    "address": "su casa 123",
+    "lastUpdate": {
+      "$date": "2023-09-09T21:13:04.906Z"
+    },
+    "__v": 0,
+    "online": "on"
+  },
+  {
+    "_id": {
+      "$oid": "64fe349ac9d010c0ba6ceffe"
+    },
+    "firstname": "Ariel",
+    "lastname": "Curea",
+    "username": "matata21",
+    "email": "sadhg@gmail.com",
+    "status": "user",
+    "password": "$2b$10$QaZbzS37auwo7SsE7XOjJu0CukTiGMLNar6.ce7ByVafWX2tHEEku",
+    "isAdmin": false,
+    "address": "su casa 1234",
+    "lastUpdate": {
+      "$date": "2023-09-10T21:26:50.582Z"
+    },
+    "__v": 0,
+    "online": "on"
+  },
+  {
+    "_id": {
+      "$oid": "65020fc9ec3c24eaf1ad5f91"
+    },
+    "firstname": "admin",
+    "lastname": "admin",
+    "username": "admin",
+    "email": "tahinid177@twugg.com",
+    "status": "admin",
+    "password": "$2b$10$11Yix9Mp92KiBU38GnUHX.PxszYK8yYczVmL/n2SpXOWdK3ooMLHi",
+    "isAdmin": true,
+    "address": "asdfasdf",
+    "lastUpdate": {
+      "$date": "2023-09-13T19:38:49.826Z"
+    },
+    "__v": 0,
+    "online": "on"
+  }
+]
