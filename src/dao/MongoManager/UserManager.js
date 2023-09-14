@@ -53,11 +53,11 @@ class UserManager {
 
   getUserByID = async (idToFind) => {
     try {
-      const foundUser = await userModel.findById(idToFind);
+      const foundUser = await userModel.findById(idToFind).lean();
 
       if (!foundUser) {
         return {
-          status: "error",
+          status: 404,
           statusMsj: "No se a encontrado ningun usuario con dicho ID",
           ok: false,
           data: undefined,
@@ -65,7 +65,7 @@ class UserManager {
       }
 
       return {
-        status: "ok",
+        status: 200,
         statusMsj: "Se a encontrado un usuario",
         ok: true,
         data: foundUser,

@@ -1,0 +1,39 @@
+.adminhome-section {
+  background-color: aqua;
+  height: 70%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.adminhome-main-box {
+  background-color: red;
+  height: 80%;
+  width: 90%;
+}
+
+.adminhome-features-box {
+  display: flex;
+  flex-direction: column;
+  height: 70%;
+}
+
+.adminhome-features-box-user {
+  padding: 10px 0px 60px 0px;
+}
+.adminhome-features-box-user span {
+  padding: 0px 0px 0px 10px;
+}
+.adminhome-features-box-user a {
+  padding: 5px 10px 0px 20px;
+}
+.adminhome-features-box-product {
+  padding: 10px 0px 60px 0px;
+}
+.adminhome-features-box-product span {
+  padding: 0px 0px 0px 10px;
+}
+.adminhome-features-box-product a {
+  padding: 5px 10px 0px 20px;
+}

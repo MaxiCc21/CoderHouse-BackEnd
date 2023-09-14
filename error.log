@@ -50,3 +50,8 @@ error: En la ruta /session/register al crear el usuario, mensage: El usiaro ya e
 error: En la ruta /session/register al crear el usuario, mensage: El usiaro ya existe
 error: En la ruta /session/register al crear el usuario, mensage: El usiaro ya existe
 error: En la ruta /session/register al crear el usuario, mensage: El usiaro ya existe
+warning: Error en la ruta /login al validadr el usuario: La contraseña es incorrecta
+warning: Error en la ruta /login al validadr el usuario: La contraseña es incorrecta
+warning: Error en la ruta /login al validadr el usuario: La contraseña es incorrecta
+error: No se repite el nombre de usuario
+warning: Error en la ruta /login al validadr el usuario: No se a econtrado un usuario

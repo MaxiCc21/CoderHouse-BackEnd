@@ -3,17 +3,24 @@ const { productService } = require("../service");
 class UserController {
   loadProduct = async (req, res) => {
     console.log("/Home");
-    let listProducts = await productService.getAllProducts();
-    console.log(typeof listProducts);
-    const jwtUser = req.user ? req.user : false;
-    console.log(jwtUser);
-    let testUser = {
-      products: listProducts,
-      style: "home.css",
-      usercookie: jwtUser,
-    };
+    const JWTuser = req.user ? req.user : false;
+    console.log(JWTuser);
+    if (JWTuser.role === "admin") {
+      let options = {
+        style: "adminHome.css",
+        usercookie: JWTuser,
+      };
+      res.render("admin/home.admin.handlebars", options);
+    } else {
+      let listProducts = await productService.getAllProducts();
+      let options = {
+        products: listProducts,
+        style: "home.css",
+        usercookie: JWTuser,
+      };
 
-    res.render("home.handlebars", testUser);
+      res.render("home.handlebars", options);
+    }
   };
 
   logOutUser = (req, res) => {
