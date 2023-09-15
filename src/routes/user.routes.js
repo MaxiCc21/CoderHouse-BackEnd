@@ -270,9 +270,6 @@ router.get(
     if (!userToEdit.ok) {
       res.status(userToEdit.status).send(userToEdit.statusMsj);
     } else {
-      console.log(userToEdit.data);
-      console.log(userToEdit.data.online);
-      console.log(typeof userToEdit.data.online);
       const options = {
         style: "userEditAdmin.css",
         usercookie: JWTuser,
@@ -283,6 +280,17 @@ router.get(
     }
   }
 );
+
+router.post("/admin/userEdit/:uid", async (req, res) => {
+  const { newOnlineStatus } = req.body;
+  const { uid } = req.params;
+  const editUserStatus = await userService.updateUserStatus(
+    uid,
+    newOnlineStatus
+  );
+  console.log(editUserStatus);
+  res.status(editUserStatus.status).json(editUserStatus);
+});
 
 router.get("/admin/createNewUsers", (req, res) => {
   res.send("admin/createNewUsers");

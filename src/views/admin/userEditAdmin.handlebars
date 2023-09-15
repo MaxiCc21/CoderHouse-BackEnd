@@ -4,22 +4,20 @@
     <div class="userEditAdmin-features-box">
       <div class="userEditAdmin-form-box">
         <h2>{{data.fullname}}: </h2>
-        <form action="" method="post">
-
-       {{#if data.online === 'on'}}
-            <h2>ONNNNNNNNNNNNNNNNNNNNN</h2>
-            {{/if}}
-
-          {{!-- <label for="online">Estado en línea:</label>
+        <form  id="userEditAdminForm" >
+          <label for="online">Estado en línea:</label>
             <select name="online" id="online">
-                <option value="on" {{data.online == 'on' ? 'selected' : ''}}>En línea</option>
-                <option value="off" {{data.online == 'off' ? 'selected' : ''}}>Desconectado</option>
-                <option value="pause" {{data.online == 'pause' ? 'selected' : ''}}>Pausado</option>
-            </select> --}}
-          <label for="isAdmin">¿Es administrador?</label>
-          <input type="checkbox" name="isAdmin" id="isAdmin" {{data.isAdmin}} />
+              <option value="on" {{#eq data.online 'on'}}selected{{/eq}}>En línea</option>
+              <option value="pause" {{#eq data.online 'pause'}}selected{{/eq}}>Pausado</option>
+              <option value="off" {{#eq data.online 'off'}}selected{{/eq}}>Desconectado</option>
+            </select><br>
+          {{!-- <label for="isAdmin">¿Es administrador?</label>
+          <input type="checkbox" name="isAdmin" id="isAdmin" {{data.isAdmin}} /> <br> --}}
+          <input type="submit" value="Guardar" /> <br>
+          {{!-- <input type="text" name="onlineStatus" id="onlineStatus" value="{{data.online}}"> --}}
+          <input type="text" name="userID" id="userID" data-user-id="{{data._id}}" readonly hidden>
 
-          <input type="submit" value="Guardar" />
+
         </form>
       </div>
       <div class="userEditAdmin-img-box">
@@ -28,3 +26,6 @@
     </div>
   </div>
 </section>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/static/js/userEditAdmin.js"></script>
