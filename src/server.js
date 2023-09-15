@@ -22,7 +22,7 @@ const FileStore = require("session-file-store");
 const { create } = require("connect-mongo");
 const { errorHandler } = require("./middlewares/error.middleware");
 const { cartService } = require("./service");
-const { addLogger } = require("./middlewares/logger");
+const { addLogger, logger } = require("./middlewares/logger");
 const socketMessage = require("./utils/socketMessage.js");
 //---------------Swagger--------------
 const swaggerJsDoc = require("swagger-jsdoc");
@@ -255,7 +255,6 @@ const PORT = 8080;
 
 exports.initServer = () => {
   serverHTTP.listen(PORT, () => {
-    // logger.info(`Escuchando en el puerto: ${PORT}`);
-    console.log(`Escuchando en el puerto: ${PORT}`);
+    logger.info(`Escuchando en el puerto: ${PORT}`);
   });
 };
