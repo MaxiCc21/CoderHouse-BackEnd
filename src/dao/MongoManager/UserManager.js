@@ -1,3 +1,4 @@
+const { tr } = require("@faker-js/faker");
 const { logger } = require("../../middlewares/logger");
 const { isValidPassword } = require("../../utils/bcryptHas");
 const { userModel } = require("../models/user.model");
@@ -101,6 +102,40 @@ class UserManager {
       await userModel.updateOne({ _id: pid }, bodyData);
     } catch (err) {
       return err;
+    }
+  };
+
+  updateUserStatus = async (uid, newOnlineStatus) => {
+    try {
+      const updateUserStatus = await userModel.findOneAndUpdate(
+        { _id: uid },
+        { online: newOnlineStatus },
+        { new: true }
+      );
+      console.log(updateUserStatus);
+      if (!updateUserStatus) {
+        return {
+          status: 404,
+          statusMsj: "No se a encotrado un ususario con ese id",
+          ok: false,
+          data: undefined,
+        };
+      }
+
+      return {
+        status: 200,
+        statusMsj: "Cambio realizado con exito",
+        ok: true,
+        data: updateUserStatus,
+      };
+    } catch (err) {
+      return {
+        status: 504,
+        statusMsj: "Ocurrio un error inesperado: ",
+        err,
+        ok: false,
+        data: undefined,
+      };
     }
   };
 

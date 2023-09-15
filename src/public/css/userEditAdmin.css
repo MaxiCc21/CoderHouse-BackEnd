@@ -35,3 +35,13 @@
   background-color: rgb(69, 58, 229);
   width: 60%;
 }
+
+.swal-on-color {
+  color: rgb(60, 158, 33);
+}
+.swal-pause-color {
+  color: rgb(158, 83, 33);
+}
+.swal-off-color {
+  color: rgb(158, 33, 33);
+}
