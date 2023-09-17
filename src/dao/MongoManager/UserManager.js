@@ -14,9 +14,7 @@ class UserManager {
     try {
       const users = await userModel.paginate({}, { page, limit, lean: true });
       return users;
-    } catch (err) {
-      console.log(err.stateMsj);
-    }
+    } catch (err) {}
   };
 
   getUserByEmail = async (email) => {
@@ -47,9 +45,7 @@ class UserManager {
     try {
       let users = await userModel.find().lean();
       return users;
-    } catch (err) {
-      console.log(err.stateMsj);
-    }
+    } catch (err) {}
   };
 
   getUserByID = async (idToFind) => {
@@ -76,20 +72,64 @@ class UserManager {
     }
   };
 
-  createNewUser = async (data) => {
-    try {
-      let create = await userModel.create(data);
+  createNewUser = async (data, isAdmin = false) => {
+    let newUserData = data;
+    let createUserMessage = "Usuario creado con exito";
+
+    const existingUser = await userModel.findOne({
+      username: newUserData.username,
+      email: newUserData.email,
+    });
+
+    if (existingUser) {
       return {
-        status: "ok",
-        statusMsj: "Se agrego un usuario correctamente ",
+        status: 400,
+        statusMsj: "El usuario ya existe.",
+        ok: false,
+        data: undefined,
+      };
+    }
+
+    try {
+      if (isAdmin) {
+        newUserData = {
+          ...newUserData,
+          isAdmin: true,
+          status: "admin",
+        };
+
+        createUserMessage = "Usuario Admin creado con exito";
+      }
+
+      const createNewUser = await userModel.create({ username: "maxi" });
+
+      if (!createNewUser) {
+        return {
+          status: 400,
+          statusMsj: "No ha sido posible crear el usuario.",
+          ok: false,
+          data: undefined,
+        };
+      }
+
+      return {
+        status: 201,
+        statusMsj: createUserMessage,
+        ok: true,
+        data: undefined,
       };
     } catch (err) {
-      return false;
+      return {
+        status: 500,
+        statusMsj: "Error inesperado : ",
+        err,
+        ok: false,
+        data: undefined,
+      };
     }
   };
 
   deletUser = async (idToDelete) => {
-    console.log(idToDelete);
     try {
       const user = await userModel.findByIdAndRemove(1);
     } catch (err) {
@@ -112,7 +152,7 @@ class UserManager {
         { online: newOnlineStatus },
         { new: true }
       );
-      console.log(updateUserStatus);
+
       if (!updateUserStatus) {
         return {
           status: 404,

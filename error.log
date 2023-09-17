@@ -1,0 +1,11 @@
+warning: Error en la ruta /login al validadr el usuario: No se a econtrado un usuario
+warning: Error en la ruta /login al validadr el usuario: No se a econtrado un usuario
+warning: Error en la ruta /login al validadr el usuario: No se a econtrado un usuario
+warning: Error en la ruta /login al validadr el usuario: No se a econtrado un usuario
+warning: Error en la ruta /login al validadr el usuario: No se a econtrado un usuario
+warning: Error en la ruta /login al validadr el usuario: No se a econtrado un usuario
+warning: Error en la ruta /login al validadr el usuario: No se a econtrado un usuario
+warning: Error en la ruta /login al validadr el usuario: No se a econtrado un usuario
+warning: Error en la ruta /login al validadr el usuario: No se a econtrado un usuario
+warning: Error en la ruta /login al validadr el usuario: No se a econtrado un usuario
+error: undefined {"_message":"users validation failed","errors":{"address":{"kind":"required","message":"Path `address` is required.","name":"ValidatorError","path":"address","properties":{"message":"Path `address` is required.","path":"address","type":"required"}},"email":{"kind":"required","message":"Path `email` is required.","name":"ValidatorError","path":"email","properties":{"message":"Path `email` is required.","path":"email","type":"required"}},"firstname":{"kind":"required","message":"Path `firstname` is required.","name":"ValidatorError","path":"firstname","properties":{"message":"Path `firstname` is required.","path":"firstname","type":"required"}},"lastname":{"kind":"required","message":"Path `lastname` is required.","name":"ValidatorError","path":"lastname","properties":{"message":"Path `lastname` is required.","path":"lastname","type":"required"}},"password":{"kind":"required","message":"Path `password` is required.","name":"ValidatorError","path":"password","properties":{"message":"Path `password` is required.","path":"password","type":"required"}}}}

@@ -7,6 +7,7 @@ const path = require("path");
 const { sendMail } = require("../utils/sendmail");
 const bcrypt = require("bcrypt");
 const { tr } = require("@faker-js/faker");
+const { options } = require("../routes/user.routes");
 
 class UserController {
   getUserByIDGET = async (req, res) => {
@@ -51,8 +52,6 @@ class UserController {
   };
 
   loginPOST = async (req, res) => {
-    console.log("/login");
-
     const data = req.user;
     const message = req.authInfo;
 
@@ -103,9 +102,6 @@ class UserController {
         const createTicketToUser = await ticketService.createNewTicket(
           newTicketData
         );
-
-        // console.log(crearCarrito.statusMsj);
-        // console.log(createTicketToUser.statusMsj);
 
         logger.info(`Mensaje: ${message}`);
         return res.status(200).redirect("/session/login");
@@ -175,7 +171,6 @@ class UserController {
       style: "modifyPassword.css",
       userEmail: req.cookies.emailToRecoverPassword,
     };
-    console.log("Status: ", req);
     res.render("users/modifyPassword", options);
   };
 
@@ -223,5 +218,72 @@ class UserController {
       return res.status(500).send("Error interno del servidor");
     }
   };
+
+  // ----------------- Admin -----------------
+  adminUserEditGET = async (req, res) => {
+    const JWTuser = req.user;
+    let { uid } = req.params;
+    const userToEdit = await userService.getUserByID(uid);
+
+    if (!userToEdit.ok) {
+      res.status(userToEdit.status).send(userToEdit.statusMsj);
+    } else {
+      const options = {
+        style: "userEditAdmin.css",
+        usercookie: JWTuser,
+        data: userToEdit.data,
+      };
+
+      res.status(userToEdit.status).render("admin/userEditAdmin", options);
+    }
+  };
+
+  adminUserEditPOST = async (req, res) => {
+    const { newOnlineStatus } = req.body;
+    const { uid } = req.params;
+    const editUserStatus = await userService.updateUserStatus(
+      uid,
+      newOnlineStatus
+    );
+
+    res.status(editUserStatus.status).json(editUserStatus);
+  };
+
+  adminUserCreateNewUserGET = (req, res) => {
+    const JWTUser = req.user;
+
+    const options = {
+      style: "createNewUserAdmin.css",
+      usercookie: JWTUser,
+    };
+
+    res.render("admin/createNewUserAdmin", options);
+  };
+
+  adminUserCreateNewUserPOST = async (req, res) => {
+    try {
+      const dataNewUser = req.body;
+
+      const createNewAdmin = await userService.createNewUser(dataNewUser, true);
+
+      // if (createNewAdmin.status === 500) {
+      //   logger.error(createNewAdmin.err);
+      // }
+
+      if (createNewAdmin.status > 399) {
+        res
+          .status(createNewAdmin.status)
+          .json({ error: createNewAdmin.statusMsj });
+      } else {
+        res.status(201).json(createNewAdmin);
+      }
+    } catch (err) {
+      return res
+        .status(500)
+        .json({ error: "Error interno del servidor: " + err.message });
+    }
+  };
+
+  // ----------------- Admin -----------------
 }
 module.exports = new UserController();
