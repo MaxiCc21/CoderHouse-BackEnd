@@ -14,6 +14,12 @@ const {
   getUserByID,
   getUserByIDGET,
   getPaginate,
+  adminUserEdit,
+  adminUserEditGET,
+  adminUserEditPOST,
+  adminUserCreateNewUser,
+  adminUserCreateNewUserGET,
+  adminUserCreateNewUserPOST,
 } = require("../controller/user.controller");
 const { passportAuth } = require("../config/passportAuth");
 const { authorizaton } = require("../config/passportAuthorization");
@@ -260,41 +266,29 @@ router.post(
 
 router.get(
   "/admin/userEdit/:uid",
-  passportAuth("jwt"),
-  authorizaton("admin"),
-  async (req, res) => {
-    const JWTuser = req.user;
-    let { uid } = req.params;
-    const userToEdit = await userService.getUserByID(uid);
-    console.log("funca??", userToEdit);
-    if (!userToEdit.ok) {
-      res.status(userToEdit.status).send(userToEdit.statusMsj);
-    } else {
-      const options = {
-        style: "userEditAdmin.css",
-        usercookie: JWTuser,
-        data: userToEdit.data,
-      };
 
-      res.status(userToEdit.status).render("admin/userEditAdmin", options);
-    }
-  }
+  adminUserEditGET
 );
 
-router.post("/admin/userEdit/:uid", async (req, res) => {
-  const { newOnlineStatus } = req.body;
-  const { uid } = req.params;
-  const editUserStatus = await userService.updateUserStatus(
-    uid,
-    newOnlineStatus
-  );
-  console.log(editUserStatus);
-  res.status(editUserStatus.status).json(editUserStatus);
-});
+router.post(
+  "/admin/userEdit/:uid",
+  passportAuth("jwt"),
+  authorizaton("admin"),
+  adminUserEditPOST
+);
 
-router.get("/admin/createNewUsers", (req, res) => {
-  res.send("admin/createNewUsers");
-});
+router.get(
+  "/admin/createNewUser",
+  passportAuth("jwt"),
+  authorizaton("admin"),
+  adminUserCreateNewUserGET
+);
+router.post(
+  "/admin/createNewUser",
+  passportAuth("jwt"),
+  authorizaton("admin"),
+  adminUserCreateNewUserPOST
+);
 
 router.get(
   "/admin/users?:limit",
