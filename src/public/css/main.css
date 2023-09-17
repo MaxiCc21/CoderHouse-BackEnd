@@ -378,6 +378,14 @@ template {
   --main-font-family: Proxima Nova, -apple-system, Helvetica Neue, Helvetica,
     Roboto, Arial, sans-serif;
   --main-backgournd-color-grey: #ededed;
+
+  /* Statasus color */
+
+  --on-status-color: rgb(82, 223, 43);
+  --pause-status-color: rgb(237, 136, 20);
+  --off-status-color: rgb(255, 27, 27);
+
+  /* Statasus color */
 }
 
 * {

@@ -266,7 +266,7 @@ router.get(
     const JWTuser = req.user;
     let { uid } = req.params;
     const userToEdit = await userService.getUserByID(uid);
-
+    console.log("funca??", userToEdit);
     if (!userToEdit.ok) {
       res.status(userToEdit.status).send(userToEdit.statusMsj);
     } else {

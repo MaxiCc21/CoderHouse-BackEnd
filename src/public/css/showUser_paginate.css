@@ -5,14 +5,46 @@
   margin-bottom: 40px;
 }
 
+.online-status-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.use-data-paginate {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.online-status-box {
+  width: 20px;
+  height: 20px;
+
+  border-radius: 4px;
+  border: none;
+}
+
+.status-on {
+  background-color: var(--on-status-color);
+}
+.status-pause {
+  background-color: var(--pause-status-color);
+}
+.status-off {
+  background-color: var(--off-status-color);
+}
+
 .user-box {
-  background-color: aqua;
+  background-color: var(--main-backgournd-color-grey);
   width: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 10px;
   color: #000000 !important;
+  border-radius: 7px;
+  padding: 10px;
 }
 .button-section {
   display: flex;

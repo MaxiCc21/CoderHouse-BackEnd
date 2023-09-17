@@ -3,8 +3,14 @@
     {{#each users}}
       <a href="/session/admin/userEdit/{{this._id}}">
         <div class="user-box">
-          <h1>{{this.username}}</h1>
-          <span>{{this.email}}</span>
+          <div class="online-status-container">
+            <div class="online-status-box status-{{this.online}}"></div>
+          </div>
+          <div class="use-data-paginate">
+            <h1>{{this.username}}</h1>
+            <span>{{this.email}}</span>
+          </div>
+
         </div>
       </a>
 
