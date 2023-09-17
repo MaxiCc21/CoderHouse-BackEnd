@@ -1,0 +1,30 @@
+<section class="userEditAdmin-section">
+  <div class="userEditAdmin-main-box">
+    <h1>{{data.username}}</h1>
+    <div class="userEditAdmin-features-box">
+      <div class="userEditAdmin-form-box">
+        <form  id="userEditAdminForm" >
+          <label for="online">Estado en línea:</label>
+            <select name="online" id="online">
+              <option value="on" {{#eq data.online 'on'}}selected{{/eq}}>En línea</option>
+              <option value="pause" {{#eq data.online 'pause'}}selected{{/eq}}>Pausado</option>
+              <option value="off" {{#eq data.online 'off'}}selected{{/eq}}>Desconectado</option>
+            </select><br>
+          {{!-- <label for="isAdmin">¿Es administrador?</label>
+          <input type="checkbox" name="isAdmin" id="isAdmin" {{data.isAdmin}} /> <br> --}}
+          <input type="submit" value="Guardar" /> <br>
+          {{!-- <input type="text" name="onlineStatus" id="onlineStatus" value="{{data.online}}"> --}}
+          <input type="text" name="userID" id="userID" data-user-id="{{data._id}}" readonly hidden>
+
+
+        </form>
+      </div>
+      <div class="userEditAdmin-img-box">
+        <div>img<img src="" alt="" /></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/static/js/userEditAdmin.js"></script>

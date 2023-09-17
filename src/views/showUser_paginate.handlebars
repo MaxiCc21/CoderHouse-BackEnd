@@ -1,32 +1,41 @@
 <div>
   <section class="user-section">
     {{#each users}}
-      <div class="user-box">
-        <h1>{{this.username}}</h1>
-        <span>{{this.email}}</span>
-      </div>
+      <a href="/session/admin/userEdit/{{this._id}}">
+        <div class="user-box">
+          <div class="online-status-container">
+            <div class="online-status-box status-{{this.online}}"></div>
+          </div>
+          <div class="use-data-paginate">
+            <h1>{{this.username}}</h1>
+            <span>{{this.email}}</span>
+          </div>
+
+        </div>
+      </a>
+
     {{/each}}
   </section>
   <hr />
   <div class="button-section">
     {{#unless hasPrevPage}}
       <a
-        href="/handleUser/paginate?page={{prevPage}}"
+        href="/session/admin/users?page={{prevPage}}"
         class="btn {{disabled}}"
       >-</a>
     {{else}}
-      <a href="/handleUser/paginate?page={{prevPage}}" class="btn">-</a>
+      <a href="/session/admin/users?page={{prevPage}}" class="btn">-</a>
     {{/unless}}
 
     <span>Pagina {{page}} de 4 </span>
 
     {{#unless hasNextPage}}
       <a
-        href="/handleUser/paginate?page={{nextPage}}"
+        href="/session/admin/users?page={{nextPage}}"
         class="btn {{disabled}}"
       >+</a>
     {{else}}
-      <a href="/handleUser/paginate?page={{nextPage}}" class="btn">+</a>
+      <a href="/session/admin/users?page={{nextPage}}" class="btn">+</a>
     {{/unless}}
   </div>
   <hr />

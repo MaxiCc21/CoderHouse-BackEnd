@@ -22,7 +22,7 @@ const FileStore = require("session-file-store");
 const { create } = require("connect-mongo");
 const { errorHandler } = require("./middlewares/error.middleware");
 const { cartService } = require("./service");
-const { addLogger } = require("./middlewares/logger");
+const { addLogger, logger } = require("./middlewares/logger");
 const socketMessage = require("./utils/socketMessage.js");
 //---------------Swagger--------------
 const swaggerJsDoc = require("swagger-jsdoc");
@@ -52,12 +52,29 @@ app.engine("handlebars", handlebars.engine());
 app.set("views", __dirname + `/views`);
 app.set("view engine", "handlebars");
 
-// Definir un helper llamado "toUpperCase"
+// Definir un helper
 const Handlebars = require("handlebars");
 const moment = require("moment");
-Handlebars.registerHelper("toUpperCase", function (date) {
-  return moment(date).locale("es").format("D MMMM YYYY"); // Aplicar el idioma español
-});
+
+const helpers = {
+  toUpperCase: function (date) {
+    return moment(date).locale("es").format("D MMMM YYYY");
+  },
+  isString: function (value) {
+    return typeof value === "string";
+  },
+  eq: function (value1, value2, options) {
+    return value1 === value2 ? options.fn(this) : options.inverse(this);
+  },
+};
+
+for (const helperName in helpers) {
+  Handlebars.registerHelper(helperName, helpers[helperName]);
+}
+
+// Handlebars.registerHelper("toUpperCase", function (date) {
+//   return moment(date).locale("es").format("D MMMM YYYY");
+// });
 // HandleBars
 
 app.use(express.json());
@@ -159,12 +176,12 @@ app.use("/mockingproducts", mockingRoutes);
 
 app.use("/publicar", publicarRoutes);
 
-// app.use((err, req, res, next) => {
-//   console.log(err);
-//   res.status(500).send("Todo mal");
-// });
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(500).send("Todo mal");
+});
 
-app.use(errorHandler);
+// app.use(errorHandler);
 
 // Socket-----------------------------------------------------------------------------
 
@@ -238,7 +255,6 @@ const PORT = 8080;
 
 exports.initServer = () => {
   serverHTTP.listen(PORT, () => {
-    // logger.info(`Escuchando en el puerto: ${PORT}`);
-    console.log(`Escuchando en el puerto: ${PORT}`);
+    logger.info(`Escuchando en el puerto: ${PORT}`);
   });
 };

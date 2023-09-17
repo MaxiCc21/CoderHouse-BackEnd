@@ -27,6 +27,11 @@ const userSchema = new Schema({
   },
   address: String,
   lastUpdate: { type: Date, default: Date.now },
+  online: {
+    type: String,
+    default: "on",
+    enum: ["on", "off", "pause"],
+  },
 });
 
 userSchema.plugin(mongoosePaginate);

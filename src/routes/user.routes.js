@@ -13,10 +13,11 @@ const {
   modifyPOST,
   getUserByID,
   getUserByIDGET,
+  getPaginate,
 } = require("../controller/user.controller");
 const { passportAuth } = require("../config/passportAuth");
 const { authorizaton } = require("../config/passportAuthorization");
-const { ticketService } = require("../service");
+const { ticketService, userService } = require("../service");
 
 const handleUser = new (require("../dao/MongoManager/UserManager"))();
 
@@ -255,6 +256,54 @@ router.post(
   }
 );
 
-router.get("/:uid", getUserByIDGET);
+// --------------Admin Routes-------------
 
+router.get(
+  "/admin/userEdit/:uid",
+  passportAuth("jwt"),
+  authorizaton("admin"),
+  async (req, res) => {
+    const JWTuser = req.user;
+    let { uid } = req.params;
+    const userToEdit = await userService.getUserByID(uid);
+    console.log("funca??", userToEdit);
+    if (!userToEdit.ok) {
+      res.status(userToEdit.status).send(userToEdit.statusMsj);
+    } else {
+      const options = {
+        style: "userEditAdmin.css",
+        usercookie: JWTuser,
+        data: userToEdit.data,
+      };
+
+      res.status(userToEdit.status).render("admin/userEditAdmin", options);
+    }
+  }
+);
+
+router.post("/admin/userEdit/:uid", async (req, res) => {
+  const { newOnlineStatus } = req.body;
+  const { uid } = req.params;
+  const editUserStatus = await userService.updateUserStatus(
+    uid,
+    newOnlineStatus
+  );
+  console.log(editUserStatus);
+  res.status(editUserStatus.status).json(editUserStatus);
+});
+
+router.get("/admin/createNewUsers", (req, res) => {
+  res.send("admin/createNewUsers");
+});
+
+router.get(
+  "/admin/users?:limit",
+  passportAuth("jwt"),
+  authorizaton("admin"),
+  getPaginate
+);
+
+// --------------Admin Routes-------------
+
+router.get("/:uid", getUserByIDGET);
 module.exports = router;
