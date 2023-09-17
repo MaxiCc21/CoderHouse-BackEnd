@@ -23,7 +23,6 @@ form.addEventListener("submit", (e) => {
       const requestBody = {
         newOnlineStatus: onLine,
       };
-      console.log("funcions");
       fetch(`/session/admin/userEdit/${userID}`, {
         method: "post",
         headers: {
@@ -31,12 +30,9 @@ form.addEventListener("submit", (e) => {
         },
         body: JSON.stringify(requestBody),
       }).then(async (response) => {
-        console.log(response);
         const responseData = await response.json();
-        console.log(responseData);
         if (responseData.ok) {
           window.location.href = "/session/admin/users?page=1";
-          console.log("La solicitud fue exitosa");
         } else {
           console.log("La solicitud no fue exitosa");
         }

@@ -37,11 +37,11 @@
 }
 
 .swal-on-color {
-  color: rgb(60, 158, 33);
+  color: var(--on-status-color);
 }
 .swal-pause-color {
-  color: rgb(158, 83, 33);
+  color: var(--pause-status-color);
 }
 .swal-off-color {
-  color: rgb(158, 33, 33);
+  color: var(--off-status-color);
 }
