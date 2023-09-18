@@ -160,8 +160,6 @@ app.use("/newuserRoutes", NewUserRoutes.getRouter());
 
 app.use("/home", homeRoutes);
 
-app.use("/prueba", pruebaRoutes);
-
 app.use("/views", viewsRoutes);
 
 app.use("/chat", chatRoutes);

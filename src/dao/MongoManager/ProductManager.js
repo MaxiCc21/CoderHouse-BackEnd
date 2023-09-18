@@ -321,6 +321,16 @@ class HandleProducts {
       return err;
     }
   };
+
+  getProductPaginator = async (page, limit) => {
+    try {
+      const product = await this.productModel.paginate(
+        {},
+        { page, limit, lean: true }
+      );
+      return product;
+    } catch (err) {}
+  };
 }
 
 module.exports = HandleProducts;
