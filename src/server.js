@@ -46,7 +46,7 @@ objectConfig.connectDB();
 const app = express();
 // HandleBars
 const handlebars = require("express-handlebars");
-const exphbs = require("express-handlebars");
+
 app.engine("handlebars", handlebars.engine());
 
 app.set("views", __dirname + `/views`);
