@@ -3,8 +3,10 @@ const { passportAuth } = require("../config/passportAuth");
 const { authorizaton } = require("../config/passportAuthorization");
 const { cartGET, cartPOST } = require("../controller/cart.controller");
 const { cartService, ticketService } = require("../service");
-const router = Router();
+const mercadopago = require("../config/mercadopago"); // Asegúrate de que la ruta sea correcta
+
 const cartHandle = new (require("../dao/MongoManager/CartManager"))();
+const router = Router();
 
 router.get("/", passportAuth("jwt"), authorizaton("user", "premium"), cartGET);
 
@@ -33,6 +35,32 @@ router.get("/", passportAuth("jwt"), authorizaton("user", "premium"), cartGET);
 //!   console.log(found);
 //!   res.send("Hola");
 //! });
+
+router.get("/mpmethod", (req, res) => {
+  res.render("mp");
+});
+
+router.post("/mpmethod", (req, res) => {
+  console.log("??????????????????");
+  const preference = {
+    items: [
+      {
+        title: "Producto de prueba",
+        unit_price: 1000,
+        quantity: 1,
+      },
+    ],
+  };
+  mercadopago.preferences
+    .create(preference)
+    .then((response) => {
+      res.redirect(response.body.init_point);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Algo sali mal");
+    });
+});
 
 router.post(
   "/",
