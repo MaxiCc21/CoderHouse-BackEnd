@@ -3,7 +3,6 @@ const { passportAuth } = require("../config/passportAuth");
 const { authorizaton } = require("../config/passportAuthorization");
 const { cartGET, cartPOST } = require("../controller/cart.controller");
 const { cartService, ticketService } = require("../service");
-const mercadopago = require("../config/mercadopago"); // Asegúrate de que la ruta sea correcta
 
 const cartHandle = new (require("../dao/MongoManager/CartManager"))();
 const router = Router();
@@ -35,19 +34,31 @@ router.get("/", passportAuth("jwt"), authorizaton("user", "premium"), cartGET);
 //!   console.log(found);
 //!   res.send("Hola");
 //! });
+//---------------------- Mercado Pago ----------------------
+const mercadopago = require("mercadopago");
+require("dotenv").config();
 
-router.get("/mpmethod", (req, res) => {
+mercadopago.configure({
+  access_token: process.env.PROD_ACCESS_TOKEN,
+});
+
+router.get("/shopmethomp", (req, res) => {
   res.render("mp");
 });
 
-router.post("/mpmethod", (req, res) => {
-  console.log("??????????????????");
+router.post("/shopmethomp", (req, res) => {
   const preference = {
     items: [
       {
-        title: "Producto de prueba",
-        unit_price: 1000,
-        quantity: 1,
+        title: "Camiseta de fútbol",
+        description: "Camiseta oficial del equipo",
+        unit_price: 2500, // 25 pesos argentinos
+        quantity: 2, // Se están vendiendo 2 camisetas
+        currency_id: "ARS", // Moneda argentina
+        picture_url: "https://example.com/camiseta.jpg",
+        category_id: "ropa",
+        id: "123456",
+        external_reference: "producto-123",
       },
     ],
   };
@@ -62,6 +73,7 @@ router.post("/mpmethod", (req, res) => {
     });
 });
 
+//---------------------- Mercado Pago ----------------------
 router.post(
   "/",
   passportAuth("jwt"),

@@ -1,10 +1,8 @@
-// config/mercadopago.js
-
 const mercadopago = require("mercadopago");
 require("dotenv").config();
 
 mercadopago.configure({
-  access_token: process.env.USER_PRUEBA_ACCESS_TOKE,
+  access_token: process.env.PROD_ACCESS_TOKEN,
 });
 
 module.exports = mercadopago;
