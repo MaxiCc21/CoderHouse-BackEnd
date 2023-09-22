@@ -1,5 +1,10 @@
 node_modules/
 .txt
-# .env
+
+
 MisErrore.txt
 Notas.txt
+
+.env
+/test
+
