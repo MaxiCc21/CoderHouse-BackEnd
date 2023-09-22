@@ -1,5 +1,3 @@
-const d = document;
-
 /* Función para mostrar/ocultar el menú desplegable */
 function sessionDropdownFunction() {
   document.getElementById("sessionDropdown").classList.toggle("show");
