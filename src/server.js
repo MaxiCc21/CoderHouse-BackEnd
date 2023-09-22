@@ -24,6 +24,7 @@ const { errorHandler } = require("./middlewares/error.middleware");
 const { cartService } = require("./service");
 const { addLogger, logger } = require("./middlewares/logger");
 const socketMessage = require("./utils/socketMessage.js");
+
 //---------------Swagger--------------
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUiExpress = require("swagger-ui-express");
@@ -159,8 +160,6 @@ app.use("/session", userRoutes);
 app.use("/newuserRoutes", NewUserRoutes.getRouter());
 
 app.use("/home", homeRoutes);
-
-app.use("/prueba", pruebaRoutes);
 
 app.use("/views", viewsRoutes);
 

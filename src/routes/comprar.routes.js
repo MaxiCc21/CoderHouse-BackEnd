@@ -3,68 +3,19 @@ const { get, now } = require("mongoose");
 const { ticketService, cartService } = require("../service");
 const { passportAuth } = require("../config/passportAuth");
 const { authorizaton } = require("../config/passportAuthorization");
+const {
+  shopingGET,
+  shoppingPOST,
+  methodPaymentGET,
+  methodPaymentPOST,
+  methodMercadoPagoGET,
+} = require("../controller/comprar.controller");
 
 const router = Router();
 
-router.get("/", passportAuth("jwt"), authorizaton("user"), (req, res) => {
-  const jwtUser = req.user;
-  console.log(jwtUser);
-  const options = {
-    title: "Comprar producto",
-    style: "shopping.css",
+router.get("/", passportAuth("jwt"), authorizaton("user"), shopingGET);
 
-    usercookie: jwtUser,
-  };
-
-  res.render("shopping/shopping", options);
-});
-
-router.post(
-  "/",
-  passportAuth("jwt"),
-  authorizaton("user"),
-  async (req, res) => {
-    const userID = req.user.sub;
-    const { address, ...shippingType } = req.body;
-    let tipoDeEnvio;
-    if (Object.keys(shippingType)[0] == "sendInput") {
-      tipoDeEnvio = "Envio a domicilio";
-    } else {
-      tipoDeEnvio = "Retirar en local";
-    }
-    // const found = await ticketService.validationSend("6498fe95739102139e720fbf");
-    const ticketEdited = await ticketService.editTicketShipment(
-      userID,
-      address,
-      tipoDeEnvio
-    );
-    console.log(ticketEdited.statusMsj);
-    if (ticketEdited.ok) {
-      res.redirect("/comprar/methodPayment");
-    } else {
-      res.status(400).send(ticketEdited.statusMsj);
-    }
-  }
-);
-
-// router.post("/", async (req, res) => {
-//   const uid = "6498fe95739102139e720fbf";
-//   console.log("/Comprar #POST");
-
-//   const dataTicketGenerated = await ticketService.generateDataToTicket(uid);
-
-//   if (!dataTicketGenerated.ok) {
-//     res.status(412).send(dataTicketGenerated.statusMsj);
-//   }
-
-//   const dataTicket = dataTicketGenerated.data;
-//   const ticketCreate = await ticketService.generateTicket(dataTicket);
-
-//   if (!ticketCreate.ok) {
-//     res.send(ticketCreate);
-//   }
-//   res.send(ticketCreate);
-// });
+router.post("/", passportAuth("jwt"), authorizaton("user"), shoppingPOST);
 
 router.get("/done", (req, res) => {
   const htmlResponse = `
@@ -82,73 +33,25 @@ router.get("/done", (req, res) => {
   res.render("done.handlebars");
 });
 
-// router.get(
-//   "/shipment",
-//   passportAuth("jwt"),
-//   authorizaton("user"),
-//   (req, res) => {
-//     const jwtUser = req.user;
-//     console.log(jwtUser);
-//     const options = {
-//       title: "Comprar producto",
-//       style: "shopping.css",
+router.get(
+  "/methodPayment",
+  passportAuth("jwt"),
+  authorizaton("user"),
+  methodPaymentGET
+);
 
-//       usercookie: jwtUser,
-//     };
-
-//     res.render("shopping/shopping", options);
-//   }
-// );
-
-// // router.post("/methodPayment", (req, res) => {
-// //   const shippingWay = req.body;
-
-// //   res.redirect("/comprar/prueba?dato=" + shippingWay);
-// // });
-router.get("/methodPayment", (req, res) => {
-  console.log(req.body, "BODYYY");
-  const options = {
-    style: "methodPayment.css",
-    data: req.body,
-  };
-
-  res.render("shopping/methodPayment", options);
-});
+router.post(
+  "/methodPaymentMP",
+  passportAuth("jwt"),
+  authorizaton("user"),
+  methodMercadoPagoGET
+);
 
 router.post(
   "/methodPayment",
   passportAuth("jwt"),
   authorizaton("user"),
-  async (req, res) => {
-    const userID = req.user.sub;
-    const data = req.user;
-
-    const metodoDePago = Object.keys(req.body)[0];
-    const datosDeTarjeta = req.body[metodoDePago];
-
-    const ticketEdit = await ticketService.editTicketMethodPayment(
-      userID,
-      metodoDePago,
-      datosDeTarjeta
-    );
-    const compraRealizada = await ticketService.purchaseMade(userID);
-
-    const newTicketData = {
-      id_user_to_ticket: userID,
-      username: data.username,
-      email: data.email,
-    };
-
-    const createNewTicket = await ticketService.createNewTicket(newTicketData);
-
-    const cleanCart = await cartService.cleanCart(userID);
-
-    res.redirect("/home");
-  }
+  methodPaymentPOST
 );
-
-// router.get("/methodPayment", (req, res) => {
-//   res.redirect("/comprar/shipment");
-// });
 
 module.exports = router;

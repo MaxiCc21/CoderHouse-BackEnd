@@ -7,14 +7,14 @@ const {
   showSingleProductPOST,
   showProductsByCategoryGET,
   APIshowSingleProductGET,
+  getProductPaginator,
+  getProductPaginatorGET,
 } = require("../controller/product.controller");
 const { productService } = require("../service");
 const router = Router();
-const handleProducts = new (require("../dao/MongoManager/ProductManager"))();
-const handleCart = new (require("../dao/MongoManager/CartManager"))();
 
 router.get("/", async (request, response) => {
-  let res = await handleProducts.getAllProducts();
+  let res = await productService.getAllProducts();
   let { limit } = request.query;
   if (limit) {
     res = res.slice(0, limit);
@@ -39,7 +39,7 @@ router.post(
 router.delete("/:pid", async (req, res) => {
   let { pid } = req.params;
 
-  let deleteProduct = await handleProducts.deleteProductByID(pid);
+  let deleteProduct = await productService.deleteProductByID(pid);
   console.log(deleteProduct);
   res.status(deleteProduct.status).send(deleteProduct);
 });
@@ -47,7 +47,7 @@ router.delete("/:pid", async (req, res) => {
 router.post("/", async (req, res) => {
   const newProduct = req.body;
   console.log(newProduct);
-  let agregarProducto = await handleProducts.addProduct(newProduct);
+  let agregarProducto = await productService.addProduct(newProduct);
 
   res.status(agregarProducto.status).send(agregarProducto);
 });
@@ -70,14 +70,14 @@ router.get(
 router.put("/:pid", async (request, response) => {
   const { pid } = request.params;
   const newData = request.body;
-  const updateProduct = await handleProducts.updateProduct(pid, newData);
+  const updateProduct = await productService.updateProduct(pid, newData);
   response.status(updateProduct.status).send(updateProduct);
 });
 
 router.post("/", async (request, response) => {
   const newProduct = request.body;
 
-  let res = await handleProducts.addProduct(newProduct);
+  let res = await productService.addProduct(newProduct);
   console.log(res, "rs");
 
   if (res.status) {
@@ -85,5 +85,12 @@ router.post("/", async (request, response) => {
 
   response.send(res);
 });
+
+router.get(
+  "/products/admin/gggg?page=1",
+  passportAuth("jwt"),
+  authorizaton("admin"),
+  getProductPaginatorGET
+);
 
 module.exports = router;

@@ -1,4 +1,6 @@
+const { options } = require("../routes/product.routes");
 const { productService, cartService } = require("../service");
+const mercadopago = require("../config/mercadopago");
 
 class ProductControler {
   showSingleProductGET = async (req, res) => {
@@ -38,13 +40,33 @@ class ProductControler {
     console.log("#POST /Agregar al carrito");
     const { pid } = req.params;
     const foundProduct = await productService.getProductById(pid);
-    console.log(foundProduct);
     if (!foundProduct) {
       res.send({ status: "error", statusMsg: "No se a econtrado un producto" });
     } else {
       if (req.body.action === "comprar") {
-        console.log("comprar");
-        res.send("comprar");
+        const preference = {
+          items: [
+            {
+              title: foundProduct.title,
+              description: foundProduct.description,
+              unit_price: foundProduct.price,
+              quantity: 1,
+              currency_id: "ARS",
+              picture_url: foundProduct.thumbnail,
+              category_id: foundProduct.category[0],
+              id: foundProduct._id,
+            },
+          ],
+        };
+        mercadopago.preferences
+          .create(preference)
+          .then((response) => {
+            res.redirect(response.body.init_point);
+          })
+          .catch((err) => {
+            console.error(err);
+            res.status(500).send("Algo sali mal");
+          });
       } else if (req.body.action === "carrito") {
         let cid = req.user.sub;
         let pid = foundProduct._id;
@@ -73,6 +95,30 @@ class ProductControler {
       res.status(400).send(productCategory.statusMsj);
     } else {
       res.render("products/showProductsByCategory", options);
+    }
+  };
+
+  getProductPaginatorGET = async (req, res) => {
+    try {
+      const JWTuser = req.user;
+      const page = req.query.page || 1;
+      const products = await productService.getProductPaginator(page, 5);
+      console.log(products);
+      // const { docs, hasPrevPage, hasNextPage, prevPage, nextPage } = products;
+      // let options = {
+      //   style: "productPaginateAdmin.css",
+      //   users: docs,
+      //   page,
+      //   hasPrevPage,
+      //   hasNextPage,
+      //   prevPage,
+      //   nextPage,
+      //   disabled: "disabled",
+      //   usercookie: JWTuser,
+      // };
+      res.render("admin/productPaginateAdmin");
+    } catch (err) {
+      console.log(err);
     }
   };
 }
