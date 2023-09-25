@@ -1,6 +1,12 @@
 const { options } = require("../routes/product.routes");
 const { productService, cartService } = require("../service");
-const mercadopago = require("../config/mercadopago");
+
+const mercadopago = require("mercadopago");
+require("dotenv").config();
+
+mercadopago.configure({
+  access_token: process.env.PROD_ACCESS_TOKEN,
+});
 
 class ProductControler {
   showSingleProductGET = async (req, res) => {
@@ -47,14 +53,10 @@ class ProductControler {
         const preference = {
           items: [
             {
-              title: foundProduct.title,
-              description: foundProduct.description,
-              unit_price: foundProduct.price,
+              title: "Test",
               quantity: 1,
               currency_id: "ARS",
-              picture_url: foundProduct.thumbnail,
-              category_id: foundProduct.category[0],
-              id: foundProduct._id,
+              unit_price: 10.5,
             },
           ],
         };
