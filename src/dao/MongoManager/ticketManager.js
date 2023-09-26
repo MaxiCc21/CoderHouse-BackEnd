@@ -246,16 +246,6 @@ class TicketManager {
           nodata: true,
         };
       }
-      // if (Object.keys(ticketData).length < 7) {
-      //   return {
-      //     status: "error",
-      //     statusMsj:
-      //       "No se proporcionó toda la información del ticket. Operación cancelada.",
-      //     ok: false,
-      //     data: null,
-      //     nodata: true,
-      //   };
-      // }
 
       const generateTicket = await ticketModel.create(ticketData);
       return {
