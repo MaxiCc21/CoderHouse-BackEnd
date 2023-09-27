@@ -75,6 +75,10 @@ const TicketSchema = new Schema({
     type: String,
     default: "---",
   },
+  merchantOrder: {
+    type: String,
+    default: "---",
+  },
   isSend: {
     type: Boolean,
     default: false,
