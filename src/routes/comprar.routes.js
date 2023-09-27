@@ -1,6 +1,4 @@
 const { Router } = require("express");
-const { get, now } = require("mongoose");
-const { ticketService, cartService } = require("../service");
 const { passportAuth } = require("../config/passportAuth");
 const { authorizaton } = require("../config/passportAuthorization");
 const {
@@ -9,6 +7,7 @@ const {
   methodPaymentGET,
   methodPaymentPOST,
   methodMercadoPagoGET,
+  MercadoPagoResponseGET,
 } = require("../controller/comprar.controller");
 
 const router = Router();
@@ -32,6 +31,13 @@ router.get("/done", (req, res) => {
   // res.send(htmlResponse);
   res.render("done.handlebars");
 });
+
+router.get(
+  "/mercadopago-response/:pid",
+  passportAuth("jwt"),
+  authorizaton("user"),
+  MercadoPagoResponseGET
+);
 
 router.get(
   "/methodPayment",

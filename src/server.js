@@ -16,7 +16,7 @@ const publicarRoutes = require("./routes/publicar.routes");
 const cokieParser = require("cookie-parser");
 const { uploader } = require("./utils/multer");
 const productHandle = new (require("./dao/MongoManager/ProductManager"))();
-const objectConfig = require("./config/objetConfig");
+const objectConfig = require("./config/config");
 const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
 const FileStore = require("session-file-store");
 const { create } = require("connect-mongo");
@@ -25,11 +25,18 @@ const { cartService } = require("./service");
 const { addLogger, logger } = require("./middlewares/logger");
 const socketMessage = require("./utils/socketMessage.js");
 
+const commander = require("./process/comander");
+const { mode } = commander.opts();
+require("dotenv").config({
+  path: mode === "production" ? "./.env.production" : "./.env.development",
+});
+
 //---------------Swagger--------------
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUiExpress = require("swagger-ui-express");
 
 //---------------Swagger--------------
+console.log(process.argv);
 
 const NewUserRoutes = new newUserRoutes();
 
@@ -119,17 +126,24 @@ const fileStore = FileStore(session);
 //   })
 // );
 
+// app.use(
+//   session({
+//     store: create({
+//       mongoUrl: "mongodb://localhost:27017/MercadoLibre",
+//       mongoOptions: {
+//         useNewUrlParser: true,
+//         useUnifiedTopology: true,
+//       },
+//       ttl: 15,
+//     }),
+//     secret: "s33sionC0d3",
+//     resave: false,
+//     saveUninitialized: false,
+//   })
+// );
+
 app.use(
   session({
-    store: create({
-      mongoUrl:
-        "mongodb+srv://maxi21498:Morethanwords21@cluster0.2z3gkua.mongodb.net/MercadoLibre",
-      mongoOptions: {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      },
-      ttl: 15,
-    }),
     secret: "s33sionC0d3",
     resave: false,
     saveUninitialized: false,
@@ -250,10 +264,11 @@ app.get("*", (req, res) => {
   res.status(404).send("Not found");
 });
 
-const PORT = 8080;
+let PORT = process.env.PORT;
 
 exports.initServer = () => {
   serverHTTP.listen(PORT, () => {
     logger.info(`Escuchando en el puerto: ${PORT}`);
+    logger.info(`Base de datos: ${process.env.MONGO_URL_DB}`);
   });
 };

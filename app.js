@@ -4,12 +4,12 @@ const { cpus } = require("os");
 const cluster = require("cluster");
 const { logger } = require("./src/middlewares/logger");
 
-logger.info(cluster.isPrimary);
-const numeroDeProcesadores = cpus().length;
-logger.info(
-  "cantidad de hilos de ejecucion de mi procesador",
-  numeroDeProcesadores
-);
+// logger.info(cluster.isPrimary);
+// const numeroDeProcesadores = cpus().length;
+// logger.info(
+//   "cantidad de hilos de ejecucion de mi procesador",
+//   numeroDeProcesadores
+// );
 
 // if (cluster.isPrimary) {
 //   logger.info("Proceso primario generado proceso trabajador");

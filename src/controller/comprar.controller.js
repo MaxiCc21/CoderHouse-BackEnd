@@ -1,5 +1,4 @@
-const { get } = require("mongoose");
-const { ticketService } = require("../service");
+const { ticketService, productService } = require("../service");
 const mercadopago = require("../config/mercadopago");
 
 class ComprarController {
@@ -12,6 +11,38 @@ class ComprarController {
     };
 
     res.render("shopping/shopping", options);
+  };
+
+  MercadoPagoResponseGET = async (req, res) => {
+    const { pid } = req.params;
+    const JWTuser = req.user;
+    if (req.query.status === "approved") {
+      const foundProduct = await productService.getProductById(pid);
+
+      const newTicketData = {
+        id_user_to_ticket: JWTuser.sub,
+        username: JWTuser.username,
+        email: JWTuser.email,
+        isSend: true,
+        total: foundProduct.price,
+        paymentMethod: "Mercado Pago",
+        merchantOrder: req.query.merchant_order_id,
+        purchaseDetails: [
+          {
+            product: foundProduct.title,
+            quantity: 1,
+            unitPrice: foundProduct.price,
+            mainImg: foundProduct.thumbnail,
+          },
+        ],
+      };
+
+      const createTicket = await ticketService.createNewTicket(newTicketData);
+    } else {
+      console.log("Algo salio mal");
+    }
+
+    res.redirect("/home");
   };
 
   shoppingPOST = async (req, res) => {
