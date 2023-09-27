@@ -12,5 +12,10 @@ Notas.txt
 
 config.yaml
 
-/test
 
+error.log
+request.log
+
+
+testPerformance.json
+testResult.html
