@@ -57,6 +57,12 @@ class ProductControler {
               id: foundProduct._id,
             },
           ],
+          back_urls: {
+            success: "http://localhost:8080/home",
+            failure: "http://localhost:8080/home",
+            pending: "http://localhost:8080/home",
+          },
+          auto_return: "approved",
         };
         mercadopago.preferences
           .create(preference)
