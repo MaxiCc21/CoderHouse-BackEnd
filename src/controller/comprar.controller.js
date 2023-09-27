@@ -1,4 +1,3 @@
-const { get } = require("mongoose");
 const { ticketService, productService } = require("../service");
 const mercadopago = require("../config/mercadopago");
 
