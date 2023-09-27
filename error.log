@@ -13,3 +13,4 @@ warning: Error en la ruta /login al validadr el usuario: No se a econtrado un us
 warning: Error en la ruta /login al validadr el usuario: undefined
 warning: Error en la ruta /login al validadr el usuario: undefined
 error: No se repite el nombre de usuario
+warning: Error en la ruta /login al validadr el usuario: No se a econtrado un usuario

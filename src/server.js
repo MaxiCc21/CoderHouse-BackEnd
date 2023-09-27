@@ -15,7 +15,7 @@ const mockingRoutes = require("./routes/mock.routes");
 const publicarRoutes = require("./routes/publicar.routes");
 const cokieParser = require("cookie-parser");
 const { uploader } = require("./utils/multer");
-// const productHandle = new (require("./dao/MongoManager/ProductManager"))();
+const productHandle = new (require("./dao/MongoManager/ProductManager"))();
 const objectConfig = require("./config/config");
 const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
 const FileStore = require("session-file-store");
@@ -213,52 +213,52 @@ const io = new ServerIO(serverHTTP);
 
 // socketMessage(io);
 
-// io.on("connection", async (socket) => {
-//   socket.emit("message", "Se conectado un usuario");
-//   let data = await productHandle.getAllProducts();
+io.on("connection", async (socket) => {
+  socket.emit("message", "Se conectado un usuario");
+  let data = await productHandle.getAllProducts();
 
-//   socket.emit("show-All-Products", data);
+  socket.emit("show-All-Products", data);
 
-//   socket.on("addProduct", async (data) => {
-//     let res = await productHandle.addProduct(data);
-//   });
+  socket.on("addProduct", async (data) => {
+    let res = await productHandle.addProduct(data);
+  });
 
-//   socket.on("eliminar-producto", async (dataID) => {
-//     let res = await productHandle.deleteProduct(dataID);
-//     console.log(res.statusMsj);
-//   });
+  socket.on("eliminar-producto", async (dataID) => {
+    let res = await productHandle.deleteProduct(dataID);
+    console.log(res.statusMsj);
+  });
 
-//   let messages = await messagesHandle.getMessages();
-//   socket.emit("send-all-messages", messages);
+  let messages = await messagesHandle.getMessages();
+  socket.emit("send-all-messages", messages);
 
-//   socket.on("new-message", async (data) => {
-//     let res = await messagesHandle.addMessages(data);
-//     console.log(res);
-//     socket.emit("send-all-messages", messages);
-//   });
-//   //------------------CART------------------------------
-//   socket.on("cartDeleteItem", async ($userIdInput, $productIdInput) => {
-//     let res = await cartService.deleteItemToCart($userIdInput, $productIdInput);
-//     console.log(res.statusMsj);
-//     if (res.ok) {
-//       socket.emit("okModCart", "Todo ok ");
-//     }
-//   });
-//   socket.on("cartAddItem", async ($userIdInput, $productIdInput) => {
-//     let res = await cartService.addItemToCart($userIdInput, $productIdInput);
-//     console.log(res.statusMsj);
-//     if (res.ok) {
-//       socket.emit("okModCart", "Todo ok ");
-//     }
-//   });
-//   socket.on("cartDeleteProduct", async (userIdInput, productIdInput) => {
-//     let res = await cartService.DeleteProduct(userIdInput, productIdInput);
-//     console.log(res.statusMsj);
-//     if (res.ok) {
-//       socket.emit("okModCart", "Todo ok ");
-//     }
-//   });
-// });
+  socket.on("new-message", async (data) => {
+    let res = await messagesHandle.addMessages(data);
+    console.log(res);
+    socket.emit("send-all-messages", messages);
+  });
+  //------------------CART------------------------------
+  socket.on("cartDeleteItem", async ($userIdInput, $productIdInput) => {
+    let res = await cartService.deleteItemToCart($userIdInput, $productIdInput);
+    console.log(res.statusMsj);
+    if (res.ok) {
+      socket.emit("okModCart", "Todo ok ");
+    }
+  });
+  socket.on("cartAddItem", async ($userIdInput, $productIdInput) => {
+    let res = await cartService.addItemToCart($userIdInput, $productIdInput);
+    console.log(res.statusMsj);
+    if (res.ok) {
+      socket.emit("okModCart", "Todo ok ");
+    }
+  });
+  socket.on("cartDeleteProduct", async (userIdInput, productIdInput) => {
+    let res = await cartService.DeleteProduct(userIdInput, productIdInput);
+    console.log(res.statusMsj);
+    if (res.ok) {
+      socket.emit("okModCart", "Todo ok ");
+    }
+  });
+});
 
 app.get("*", (req, res) => {
   res.status(404).send("Not found");
