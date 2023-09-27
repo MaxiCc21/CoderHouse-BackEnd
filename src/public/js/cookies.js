@@ -6,7 +6,6 @@ formulario.addEventListener("submit", (e) => {
   const data = {};
 
   datosFormulario.forEach((value, key) => (data[key] = value));
-  console.log(data);
 
   fetch("/cookie/", {
     method: "POST",

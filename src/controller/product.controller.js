@@ -1,3 +1,4 @@
+const { logger } = require("../middlewares/logger");
 const { options } = require("../routes/product.routes");
 const {
   productService,
@@ -49,7 +50,6 @@ class ProductControler {
   };
 
   showSingleProductPOST = async (req, res) => {
-    console.log("#POST /Agregar al carrito");
     const { pid } = req.params;
     const JWTuser = req.user;
     let preferenceId; // Declarar aquí la variable
@@ -112,14 +112,14 @@ class ProductControler {
 
         const response = await mercadopago.preferences.create(preference);
         const preferenceId = response.body.id;
-        console.log("Preference ID:", preferenceId);
+
         res.redirect(response.body.init_point);
       } else if (req.body.action === "carrito") {
         let cid = req.user.sub;
         let pid = foundProduct._id;
         let body = foundProduct;
         const itemAdd = await cartService.addItem(cid, pid, body);
-        console.log(itemAdd.statusMsj);
+
         res.send({ Message: itemAdd.statusMsj, cid, pid, body });
       }
     }
@@ -150,7 +150,7 @@ class ProductControler {
       const JWTuser = req.user;
       const page = req.query.page || 1;
       const products = await productService.getProductPaginator(page, 5);
-      console.log(products);
+
       // const { docs, hasPrevPage, hasNextPage, prevPage, nextPage } = products;
       // let options = {
       //   style: "productPaginateAdmin.css",
@@ -165,7 +165,7 @@ class ProductControler {
       // };
       res.render("admin/productPaginateAdmin");
     } catch (err) {
-      console.log(err);
+      logger.error(err);
     }
   };
 }

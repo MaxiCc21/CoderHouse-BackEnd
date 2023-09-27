@@ -42,7 +42,6 @@ function validarDataTypeUser(data) {
 
     return true;
   } catch (err) {
-    console.log(err.msg);
     Swal.fire({
       icon: "error",
       title: "Oops...",
@@ -152,7 +151,7 @@ if (forgotPasswordButton) {
   forgotPasswordButton.addEventListener("click", function (e) {
     // Redireccionar a una URL cuando se hace clic en el botón de Olvidaste tu contraseña
     e.preventDefault();
-    console.log(forgotPasswordButton);
+
     window.location.href = "recover-password";
   });
 }

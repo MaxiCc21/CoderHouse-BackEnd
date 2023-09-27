@@ -1,8 +1,9 @@
+const { logger } = require("../middlewares/logger");
 const { cartService, ticketService } = require("../service");
 
 class cartController {
   cartGET = async (req, res) => {
-    console.log("/api/carts");
+    logger.info("/api/carts");
     const jwtUser = req.user;
 
     const productDataUser = await cartService.getItemToCart(jwtUser.sub);

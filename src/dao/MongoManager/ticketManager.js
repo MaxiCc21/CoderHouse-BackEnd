@@ -157,7 +157,7 @@ class TicketManager {
   editTicketProducts = async (userID, productsArray) => {
     const foundTicket = await this.getTicket(userID);
     if (!foundTicket.ok) {
-      console.log("No se encontró el ticket.");
+      logger.error("No se encontró el ticket.");
       return foundTicket;
     }
 
@@ -334,7 +334,7 @@ class TicketManager {
       },
       { new: true }
     );
-    console.log(purchaseMade);
+
     if (!purchaseMade) {
       return {
         status: "error",

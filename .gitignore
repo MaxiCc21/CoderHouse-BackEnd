@@ -1,4 +1,10 @@
 node_modules/
-testPerformance.json
-.env*
+*.txt
+
+
+MisErrore.txt
+Notas.txt
+
+.env
+/test
 

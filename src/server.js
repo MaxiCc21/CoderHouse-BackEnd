@@ -36,8 +36,6 @@ const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUiExpress = require("swagger-ui-express");
 
 //---------------Swagger--------------
-console.log(process.argv);
-
 const NewUserRoutes = new newUserRoutes();
 
 const cors = require("cors");
@@ -190,7 +188,7 @@ app.use("/mockingproducts", mockingRoutes);
 app.use("/publicar", publicarRoutes);
 
 app.use((err, req, res, next) => {
-  console.log(err);
+  logger.error(err);
   res.status(500).send("Todo mal");
 });
 
@@ -225,7 +223,6 @@ io.on("connection", async (socket) => {
 
   socket.on("eliminar-producto", async (dataID) => {
     let res = await productHandle.deleteProduct(dataID);
-    console.log(res.statusMsj);
   });
 
   let messages = await messagesHandle.getMessages();
@@ -233,27 +230,27 @@ io.on("connection", async (socket) => {
 
   socket.on("new-message", async (data) => {
     let res = await messagesHandle.addMessages(data);
-    console.log(res);
+
     socket.emit("send-all-messages", messages);
   });
   //------------------CART------------------------------
   socket.on("cartDeleteItem", async ($userIdInput, $productIdInput) => {
     let res = await cartService.deleteItemToCart($userIdInput, $productIdInput);
-    console.log(res.statusMsj);
+
     if (res.ok) {
       socket.emit("okModCart", "Todo ok ");
     }
   });
   socket.on("cartAddItem", async ($userIdInput, $productIdInput) => {
     let res = await cartService.addItemToCart($userIdInput, $productIdInput);
-    console.log(res.statusMsj);
+
     if (res.ok) {
       socket.emit("okModCart", "Todo ok ");
     }
   });
   socket.on("cartDeleteProduct", async (userIdInput, productIdInput) => {
     let res = await cartService.DeleteProduct(userIdInput, productIdInput);
-    console.log(res.statusMsj);
+
     if (res.ok) {
       socket.emit("okModCart", "Todo ok ");
     }

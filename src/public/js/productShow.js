@@ -2,12 +2,7 @@ const $form = document.getElementById("showProduct-form");
 const formulario = new FormData($form);
 const productID = formulario.get("productID");
 
-formulario.forEach((element) => {
-  console.log(element);
-});
-
 $form.addEventListener("submit", (e) => {
-  console.log(productID);
   fetch(`/products/${productID}`, {
     method: "POST",
     headers: {
