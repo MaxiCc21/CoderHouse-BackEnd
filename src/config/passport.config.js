@@ -175,12 +175,41 @@ const initPassportGithub = () => {
           }
           return done(null, user);
         } catch (err) {
+          console.log(err);
           done(err);
         }
       }
     )
   );
 };
+
+// const initPassportGithub = () => {
+//   passport.use(
+//     "loginGithub",
+//     new GithubStrategy(
+//       {
+//         clientID: process.env.GITHUB_CLIENT_ID,
+//         clientSecret: process.env.GITHUB_CLIENT_SECRET,
+//         callbackURL: process.env.GITHUB_CALLBACK_URL,
+//       },
+//       async (accessToken, refreshToken, profile, done) => {
+//         console.log(profile);
+//         try {
+//           const found = await handleUser.loginValidationGithub(
+//             profile._json.email
+//           );
+//           if (!found.ok) {
+//             return done(null, false, { message: found.stateMsj });
+//           }
+//           return done(null, found.item_found, { message: found.stateMsj });
+//         } catch (err) {
+//           console.log(err);
+//           done(err);
+//         }
+//       }
+//     )
+//   );
+// };
 
 module.exports = {
   initPassport,

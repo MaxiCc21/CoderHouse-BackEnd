@@ -1,7 +1,13 @@
 const { MongoSingleton } = require("../utils/singleton");
-require("dotenv").config();
-
+const dotenv = require("dotenv");
+const commander = require("../process/comander");
+const { mode } = commander.opts();
+dotenv.config({
+  //Dependiendo los argumentos que le pasemos a la ejecucion/proceso nos ejecutara un entorno u otro, recordar el valor por defecto que se le otorgó a la configuración.
+  path: mode === "production" ? "./.env.production" : "./.env.development",
+});
 module.exports = {
+  PROD_ACCESS_TOKEN: process.env.PROD_ACCESS_TOKEN,
   privateKey: process.env.PRIVATE_KEY_CODER,
   gmail_user_app: process.env.GMAIL_USER_APP,
   gmail_pass_app: process.env.GMAIL_PASS_APP,

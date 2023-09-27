@@ -1,5 +1,10 @@
 const mercadopago = require("mercadopago");
-require("dotenv").config();
+
+const { PROD_ACCESS_TOKEN: ll } = require("../config/config");
+
+console.log(PROD_ACCESS_TOKEN);
+console.log(ll, "llllllllllllll");
+console.log("NO ENTRS??");
 
 mercadopago.configure({
   access_token: process.env.PROD_ACCESS_TOKEN,

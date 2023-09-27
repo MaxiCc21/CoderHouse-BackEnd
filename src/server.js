@@ -8,7 +8,7 @@ const userRoutes = require("./routes/user.routes");
 const viewsRoutes = require("./routes/views.routes");
 const newUserRoutes = require("./routes/newUser.routes");
 const cookieRoutes = require("./routes/cookie.routes");
-const comprarRoutes = require("./routes/comprar.routes");
+// const comprarRoutes = require("./routes/comprar.routes");
 const pruebaRoutes = require("./routes/prueba.routes");
 const mailRoutes = require("./routes/mailing.routes");
 const mockingRoutes = require("./routes/mock.routes");
@@ -24,12 +24,6 @@ const { errorHandler } = require("./middlewares/error.middleware");
 const { cartService } = require("./service");
 const { addLogger, logger } = require("./middlewares/logger");
 const socketMessage = require("./utils/socketMessage.js");
-
-const commander = require("./process/comander");
-const { mode } = commander.opts();
-require("dotenv").config({
-  path: mode === "production" ? "./.env.production" : "./.env.development",
-});
 
 //---------------Swagger--------------
 const swaggerJsDoc = require("swagger-jsdoc");
@@ -179,7 +173,7 @@ app.use("/chat", chatRoutes);
 
 app.use("/cookie", cookieRoutes);
 
-app.use("/comprar", comprarRoutes);
+// app.use("/comprar", comprarRoutes);
 
 app.use("/email", mailRoutes);
 
@@ -266,6 +260,6 @@ let PORT = process.env.PORT;
 exports.initServer = () => {
   serverHTTP.listen(PORT, () => {
     logger.info(`Escuchando en el puerto: ${PORT}`);
-    logger.info(`Base de datos: ${process.env.MONGO_URL_DB}`);
+    logger.info(`Escuchando en el puerto: ${process.env.PROD_ACCESS_TOKEN}`);
   });
 };
