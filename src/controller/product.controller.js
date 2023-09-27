@@ -1,6 +1,18 @@
 const { options } = require("../routes/product.routes");
-const { productService, cartService } = require("../service");
-const mercadopago = require("../config/mercadopago");
+const {
+  productService,
+  cartService,
+  userService,
+  ticketService,
+} = require("../service");
+// const mercadopago = require("../config/mercadopago");
+const mercadopago = require("mercadopago");
+require("dotenv").config();
+
+mercadopago.configure({
+  access_token:
+    "TEST-2266225865990759-092422-e0bc6629fa6d5a901b5be831b690d012-1485679631",
+});
 
 class ProductControler {
   showSingleProductGET = async (req, res) => {
@@ -39,12 +51,19 @@ class ProductControler {
   showSingleProductPOST = async (req, res) => {
     console.log("#POST /Agregar al carrito");
     const { pid } = req.params;
+    const JWTuser = req.user;
+    let preferenceId; // Declarar aquí la variable
+
     const foundProduct = await productService.getProductById(pid);
     if (!foundProduct) {
-      res.send({ status: "error", statusMsg: "No se a econtrado un producto" });
+      res.send({
+        status: "error",
+        statusMsg: "No se ha encontrado un producto",
+      });
     } else {
       if (req.body.action === "comprar") {
-        const preference = {
+        const { data } = await userService.getUserByID(JWTuser.sub);
+        let preference = {
           items: [
             {
               title: foundProduct.title,
@@ -57,22 +76,44 @@ class ProductControler {
               id: foundProduct._id,
             },
           ],
+          payer: {
+            name: data.firstname,
+            surname: data.lastname,
+            email: data.email,
+            identification: {
+              type: "DNI",
+              number: "12345678",
+            },
+            address: {
+              street_name: data.address,
+              street_number: 123,
+              zip_code: "5700",
+            },
+          },
           back_urls: {
-            success: "http://localhost:8080/home",
-            failure: "http://localhost:8080/home",
-            pending: "http://localhost:8080/home",
+            success: `http://localhost:8080/comprar/mercadopago-response/${foundProduct._id}`,
+            failure: `http://localhost:8080/comprar/mercadopago-response/${foundProduct._id}`,
+            pending: `http://localhost:8080/comprar/mercadopago-response/${foundProduct._id}`,
           },
           auto_return: "approved",
         };
-        mercadopago.preferences
-          .create(preference)
-          .then((response) => {
-            res.redirect(response.body.init_point);
-          })
-          .catch((err) => {
-            console.error(err);
-            res.status(500).send("Algo sali mal");
-          });
+
+        // mercadopago.preferences
+        //   .create(preference)
+        //   .then((response) => {
+        //     preferenceId = response.body.id; // Asignar el valor aquí
+        //     console.log("Preference ID:", preferenceId); // Verificar que se haya asignado correctamente
+        //     res.redirect(response.body.init_point);
+        //   })
+        //   .catch((err) => {
+        //     console.error(err);
+        //     res.status(500).send("Algo salió mal");
+        //   });
+
+        const response = await mercadopago.preferences.create(preference);
+        const preferenceId = response.body.id;
+        console.log("Preference ID:", preferenceId);
+        res.redirect(response.body.init_point);
       } else if (req.body.action === "carrito") {
         let cid = req.user.sub;
         let pid = foundProduct._id;
