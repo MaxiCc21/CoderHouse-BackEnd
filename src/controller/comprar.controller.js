@@ -72,7 +72,7 @@ class ComprarController {
     } else {
       tipoDeEnvio = "Retirar en local";
     }
-    // const found = await ticketService.validationSend("6498fe95739102139e720fbf");
+
     const ticketEdited = await ticketService.editTicketShipment(
       userID,
       address,
