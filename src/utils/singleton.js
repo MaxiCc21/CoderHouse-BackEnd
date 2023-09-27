@@ -1,4 +1,4 @@
-const { logger } = require("handlebars");
+const { logger } = require("../middlewares/logger");
 const { connect } = require("mongoose");
 require("dotenv").config();
 const mongoose = require("mongoose");
