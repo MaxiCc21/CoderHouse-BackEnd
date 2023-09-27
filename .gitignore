@@ -5,6 +5,11 @@ node_modules/
 MisErrore.txt
 Notas.txt
 
-.env*
+.env
+.env.otros
+.env.development
+.env.production
+
+
 /test
 
