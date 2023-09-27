@@ -1,5 +1,5 @@
 const { get } = require("mongoose");
-const { ticketService } = require("../service");
+const { ticketService, productService } = require("../service");
 const mercadopago = require("../config/mercadopago");
 
 class ComprarController {
