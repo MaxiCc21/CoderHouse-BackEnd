@@ -154,8 +154,7 @@ class TicketManager {
     };
   };
 
-  editTicketProducts = async (userID, productsArray, ticketID) => {
-    ticketID = "649a0b54d584f1b08e5e2f1b";
+  editTicketProducts = async (userID, productsArray) => {
     const foundTicket = await this.getTicket(userID);
     if (!foundTicket.ok) {
       console.log("No se encontró el ticket.");

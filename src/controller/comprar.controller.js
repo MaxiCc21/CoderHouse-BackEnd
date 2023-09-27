@@ -1,4 +1,4 @@
-const { ticketService, productService } = require("../service");
+const { ticketService, productService, cartService } = require("../service");
 const mercadopago = require("../config/mercadopago");
 
 class ComprarController {
@@ -17,27 +17,45 @@ class ComprarController {
     const { pid } = req.params;
     const JWTuser = req.user;
     if (req.query.status === "approved") {
-      const foundProduct = await productService.getProductById(pid);
+      const foundTicket = await ticketService.getTicket(pid);
 
-      const newTicketData = {
-        id_user_to_ticket: JWTuser.sub,
-        username: JWTuser.username,
-        email: JWTuser.email,
-        isSend: true,
-        total: foundProduct.price,
-        paymentMethod: "Mercado Pago",
-        merchantOrder: req.query.merchant_order_id,
-        purchaseDetails: [
-          {
-            product: foundProduct.title,
-            quantity: 1,
-            unitPrice: foundProduct.price,
-            mainImg: foundProduct.thumbnail,
-          },
-        ],
-      };
+      if (foundTicket.ok) {
+        const compraRealizada = await ticketService.purchaseMade(pid);
 
-      const createTicket = await ticketService.createNewTicket(newTicketData);
+        const newTicketData = {
+          id_user_to_ticket: JWTuser.sub,
+          username: JWTuser.username,
+          email: JWTuser.email,
+        };
+
+        const createNewTicket = await ticketService.createNewTicket(
+          newTicketData
+        );
+
+        const cleanCart = await cartService.cleanCart(pid);
+      } else {
+        const foundProduct = await productService.getProductById(pid);
+
+        const newTicketData = {
+          id_user_to_ticket: JWTuser.sub,
+          username: JWTuser.username,
+          email: JWTuser.email,
+          isSend: true,
+          total: foundProduct.price,
+          paymentMethod: "Mercado Pago",
+          merchantOrder: req.query.merchant_order_id,
+          purchaseDetails: [
+            {
+              product: foundProduct.title,
+              quantity: 1,
+              unitPrice: foundProduct.price,
+              mainImg: foundProduct.thumbnail,
+            },
+          ],
+        };
+
+        const createTicket = await ticketService.createNewTicket(newTicketData);
+      }
     } else {
       console.log("Algo salio mal");
     }
@@ -54,13 +72,12 @@ class ComprarController {
     } else {
       tipoDeEnvio = "Retirar en local";
     }
-    // const found = await ticketService.validationSend("6498fe95739102139e720fbf");
+
     const ticketEdited = await ticketService.editTicketShipment(
       userID,
       address,
       tipoDeEnvio
     );
-    console.log(ticketEdited);
 
     const dataTicket = await ticketService.getTicket(userID);
 
@@ -79,6 +96,12 @@ class ComprarController {
 
     const preference = {
       items: allProducts,
+      back_urls: {
+        success: `http://localhost:8080/comprar/mercadopago-response/${userID}`,
+        failure: `http://localhost:8080/comprar/mercadopago-response/${userID}`,
+        pending: `http://localhost:8080/comprar/mercadopago-response/${userID}`,
+      },
+      auto_return: "approved",
     };
     mercadopago.preferences
       .create(preference)
