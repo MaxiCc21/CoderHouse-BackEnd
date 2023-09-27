@@ -13,9 +13,11 @@ class MongoSingleton {
   static getInstance() {
     if (this.#instance) {
       console.log("Base de datos ya está creada");
+      console.log(process.env.MONGO_URL_DB);
       return this.#instance;
     }
     this.#instance = new MongoSingleton();
+    console.log(process.env.MONGO_URL_DB);
     console.log("Base de dato creada");
     return this.#instance;
   }
