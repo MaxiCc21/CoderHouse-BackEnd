@@ -1,7 +1,4 @@
 node_modules/
-.txt
-MisErrore.txt
-Notas.txt
-.env
-.env.production
+testPerformance.json
+.env*
 
