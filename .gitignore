@@ -6,5 +6,6 @@ MisErrore.txt
 Notas.txt
 
 .env
+.env.production
 /test
 

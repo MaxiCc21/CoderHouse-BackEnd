@@ -1,1 +1,3 @@
 /pureba/ cast _id number bla bla bla (Se estan pisando las rutas, deben de haber dos rutas iguales que se pisan por el uso de pramas /:uid)
+
+Cambiar el secret keyy se server

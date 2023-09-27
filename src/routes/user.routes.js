@@ -45,7 +45,8 @@ router.get("/", async (req, res) => {
     style: "user_Ingresar.css",
     data,
   };
-
+  console.log("Que onda");
+  console.log(data);
   res.send(options.data);
 });
 
