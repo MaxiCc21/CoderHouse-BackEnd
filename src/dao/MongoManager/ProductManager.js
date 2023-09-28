@@ -220,7 +220,7 @@ class HandleProducts {
       const createNewProduct = this.productModel.create(data);
       if (!createNewProduct) {
         return {
-          status: "error",
+          status: 401,
           statusMsj: "Ha ocurrido un erro al crear un nuevo producto",
           ok: false,
           data: undefined,
@@ -228,7 +228,7 @@ class HandleProducts {
       }
 
       return {
-        status: "ok",
+        status: 200,
         statusMsj: "Producto creado con exito",
         ok: true,
         data: undefined,

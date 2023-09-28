@@ -1,3 +1,26 @@
+### /---------------------------------------Product---------------------------------------/
+
+Para Crear un Product nuevo:
+URL:
+
+POST http://localhost:8080/products/createproduct
+
+-body:
+{
+"title": "El Resplandor",
+"description": "Una familia aislada en un hotel embrujado durante el invierno.",
+"price": 15.699,
+"thumbnail": "https://http2.mlstatic.com/D_NQ_NP_618680-MLA31092077635_062019-O.webp",
+"category": [
+"libros",
+"ficcion",
+"terror"
+],
+"marca": "EditorialABC",
+"stock": 25,
+"rating": 4.8
+}
+
 ### /---------------------------------------User Admin---------------------------------------/
 
 username: Admin01,

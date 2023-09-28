@@ -22,6 +22,16 @@ router.get("/", async (request, response) => {
   response.send(res);
 });
 
+router.post("/createproduct", async (req, res) => {
+  let dataNewProduct = req.body;
+
+  const { status, statusMsj, ok, data } = await productService.createProduct(
+    dataNewProduct
+  );
+
+  res.status(status).send({ statusMsj, data });
+});
+
 router.get(
   "/:pid",
   passportAuth("jwt"),
