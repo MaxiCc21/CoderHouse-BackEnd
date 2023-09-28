@@ -17,9 +17,6 @@ describe("Testing de user user", function () {
     //     .post("/session/login")
     //     .send(userMock);
 
-    //   console.log(statusCode);
-    //   console.log(_body);
-    //   console.log(ok);
     // });
     it("Test de user register", async () => {
       this.timeout(5000);
@@ -33,8 +30,6 @@ describe("Testing de user user", function () {
       };
 
       const result = await requester.post("/session/register").send(userMock);
-
-      console.log(result);
     });
   });
 });

@@ -1,5 +1,6 @@
 const { ticketService, productService, cartService } = require("../service");
 const mercadopago = require("../config/mercadopago");
+const { logger } = require("handlebars");
 
 class ComprarController {
   shopingGET = async (req, res) => {
@@ -56,8 +57,6 @@ class ComprarController {
 
         const createTicket = await ticketService.createNewTicket(newTicketData);
       }
-    } else {
-      console.log("Algo salio mal");
     }
 
     res.redirect("/home");

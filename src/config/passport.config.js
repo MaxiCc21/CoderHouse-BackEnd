@@ -175,7 +175,6 @@ const initPassportGithub = () => {
           }
           return done(null, user);
         } catch (err) {
-          console.log(err);
           done(err);
         }
       }
@@ -193,7 +192,6 @@ const initPassportGithub = () => {
 //         callbackURL: process.env.GITHUB_CALLBACK_URL,
 //       },
 //       async (accessToken, refreshToken, profile, done) => {
-//         console.log(profile);
 //         try {
 //           const found = await handleUser.loginValidationGithub(
 //             profile._json.email
@@ -203,7 +201,7 @@ const initPassportGithub = () => {
 //           }
 //           return done(null, found.item_found, { message: found.stateMsj });
 //         } catch (err) {
-//           console.log(err);
+
 //           done(err);
 //         }
 //       }

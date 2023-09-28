@@ -39,6 +39,5 @@ $SumarCantidadButton.forEach((button, index) => {
 });
 
 socket.on("okModCart", async (data) => {
-  console.log(data);
   location.reload();
 });

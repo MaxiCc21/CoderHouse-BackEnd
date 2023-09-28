@@ -7,9 +7,7 @@ const {
   ticketService,
 } = require("../service");
 
-
 require("dotenv").config();
-
 
 const mercadopago = require("../config/mercadopago");
 
@@ -55,8 +53,6 @@ class ProductControler {
     // const objectId = foundProduct._id;
     // const objectIdString = objectId.toString();
     // const valor = objectIdString.substring(10, 24);
-    // console.log(valor, "66666666");
-    // console.log(typeof valor, "66666666");
     if (!foundProduct) {
       res.send({
         status: "error",

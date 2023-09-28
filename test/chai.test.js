@@ -19,7 +19,7 @@ describe("Set de test User en chai", () => {
   it("el dao debe poder obtener todos los usuarioen un arreglo", async () => {
     this.timeout(5000);
     const result = await this.userDao.getAllUser();
-    console.log(result);
+
     expect(result).to.be.deep.equal([]);
   });
 });

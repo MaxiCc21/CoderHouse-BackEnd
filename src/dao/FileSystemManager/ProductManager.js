@@ -1,4 +1,5 @@
 const fs = require("fs");
+const { logger } = require("../../middlewares/logger");
 
 const IdGenerator = () => {
   return Date.now();
@@ -79,8 +80,8 @@ class ProductManager {
     let products = this.products;
     const found = products.find(({ id }) => id === itemID);
     found
-      ? console.log(found)
-      : console.error(`No se a encontrado un producto con el id (${itemID})`);
+      ? logger.error(found)
+      : logger.error(`No se a encontrado un producto con el id (${itemID})`);
 
     return found;
   };
