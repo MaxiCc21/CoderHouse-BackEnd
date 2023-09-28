@@ -46,7 +46,7 @@ router.delete("/:pid", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const newProduct = req.body;
-
+  console.log(" O Este?");
   let agregarProducto = await productService.addProduct(newProduct);
 
   res.status(agregarProducto.status).send(agregarProducto);
@@ -79,8 +79,7 @@ router.post("/", async (request, response) => {
 
   let res = await productService.addProduct(newProduct);
 
-  if (res.status) {
-  }
+  console.log("Este?");
 
   response.send(res);
 });

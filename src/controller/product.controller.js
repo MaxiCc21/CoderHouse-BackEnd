@@ -106,7 +106,7 @@ class ProductControler {
         let body = foundProduct;
         const itemAdd = await cartService.addItem(cid, pid, body);
 
-        res.send({ Message: itemAdd.statusMsj, cid, pid, body });
+        res.redirect("/api/cart");
       }
     }
   };
