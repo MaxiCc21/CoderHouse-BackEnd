@@ -1,6 +1,7 @@
 const { ticketService, productService, cartService } = require("../service");
 const mercadopago = require("../config/mercadopago");
 const { logger } = require("handlebars");
+const { PORT } = require("../config/objetConfig");
 
 class ComprarController {
   shopingGET = async (req, res) => {
@@ -72,6 +73,21 @@ class ComprarController {
       tipoDeEnvio = "Retirar en local";
     }
 
+    let back_urls;
+    if (PORT == 8080) {
+      back_urls = {
+        success: `http://localhost:8080/comprar/mercadopago-response/${userID}`,
+        failure: `http://localhost:8080/comprar/mercadopago-response/${userID}`,
+        pending: `http://localhost:8080/comprar/mercadopago-response/${userID}`,
+      };
+    } else {
+      back_urls = {
+        success: `https://mymercadopago.onrender.com/comprar/mercadopago-response/${userID}`,
+        failure: `https://mymercadopago.onrender.com/mercadopago-response/${userID}`,
+        pending: `https://mymercadopago.onrender.com/mercadopago-response/${userID}`,
+      };
+    }
+
     const ticketEdited = await ticketService.editTicketShipment(
       userID,
       address,
@@ -95,11 +111,7 @@ class ComprarController {
 
     const preference = {
       items: allProducts,
-      back_urls: {
-        success: `http://localhost:8080/comprar/mercadopago-response/${userID}`,
-        failure: `http://localhost:8080/comprar/mercadopago-response/${userID}`,
-        pending: `http://localhost:8080/comprar/mercadopago-response/${userID}`,
-      },
+      back_urls,
       auto_return: "approved",
     };
     mercadopago.preferences
