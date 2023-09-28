@@ -1,8 +1,4 @@
-const dotenv = require("dotenv");
-const commander = require("../process/comander");
-const { mode } = commander.opts(); //opts se guardan las configuraciones que nosotros creamos y acedemos a la propiedad mode para poder trabajar en distintos entornos
 const { MongoSingleton } = require("../utils/singleton");
-
 const dotenv = require("dotenv");
 const commander = require("../process/comander");
 const { mode } = commander.opts();
