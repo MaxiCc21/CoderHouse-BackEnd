@@ -9,6 +9,7 @@ dotenv.config({
 });
 
 module.exports = {
+  PORT: process.env.PORT,
   PROD_ACCESS_TOKEN: process.env.PROD_ACCESS_TOKEN,
   privateKey: process.env.PRIVATE_KEY_CODER,
   gmail_user_app: process.env.GMAIL_USER_APP,
