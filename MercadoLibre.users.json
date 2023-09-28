@@ -58,7 +58,7 @@
   "firstname": "Admin",
   "lastname": "Admin",
   "fullname": "Admin",
-  "username": "Admin01",
+  "username": "Admin02",
   "email": "adminCoder@coder.com",
   "password": "adminCod3r123",
   "isAdmin": true,
@@ -85,23 +85,6 @@
   },
   "__v": 0,
   "online": "on"
-},
-{
-  "_id": {
-    "$oid": "64db067e5b2c98779f93a94f"
-  },
-  "firstname": "sdafasdf",
-  "lastname": "asdfsdf",
-  "username": "fanta",
-  "email": "bisayi7786@weishu8.com",
-  "password": "$2b$10$354M/t1GwANQe9fIBpcBROMQJAQsEjJ6MjaSthIWrxzGWiJHG60ry",
-  "address": "sdafsadf",
-  "lastUpdate": {
-    "$date": "2023-08-15T05:00:46.154Z"
-  },
-  "__v": 0,
-  "online": "on",
-  "status": "premium"
 },
 {
   "_id": {
@@ -318,6 +301,42 @@
   "online": "on",
   "lastUpdate": {
     "$date": "2023-09-17T06:50:39.606Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6513e02fced9c31468998536"
+  },
+  "firstname": "fanta",
+  "lastname": "tino",
+  "username": "fanta",
+  "email": "pokelog273@cdeter.com",
+  "status": "user",
+  "password": "$2b$10$Cr/f9Lg8S2rBy1.9IPHXledcsqdNaqrjKcMCQENMsdHYs.IOfzvL.",
+  "isAdmin": false,
+  "address": "asdfsdaf",
+  "online": "on",
+  "lastUpdate": {
+    "$date": "2023-09-27T07:56:31.736Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6515327cdeb8b246131bb7a2"
+  },
+  "firstname": "Admin",
+  "lastname": "Admin",
+  "username": "Admin01",
+  "email": "dminCoder@coder.com",
+  "status": "admin",
+  "password": "$2b$10$hDqN.AaUL0rUtaF9/U8BXepjvGeiyhbJ3DDPmiNswBWwebC1QFuUy",
+  "isAdmin": true,
+  "address": "Dados 214",
+  "online": "on",
+  "lastUpdate": {
+    "$date": "2023-09-28T07:59:56.598Z"
   },
   "__v": 0
 }]
