@@ -14,10 +14,6 @@ class ComprarController {
     res.render("shopping/shopping", options);
   };
 
-  MercadoPago0feedbackGET = async (req, res) => {
-    res.send("hoal");
-  };
-
   MercadoPagoResponseGET = async (req, res) => {
     const { pid } = req.params;
     const JWTuser = req.user;

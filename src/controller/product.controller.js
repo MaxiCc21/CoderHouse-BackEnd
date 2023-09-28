@@ -48,11 +48,11 @@ class ProductControler {
     const JWTuser = req.user;
 
     const foundProduct = await productService.getProductById(pid);
-    const objectId = foundProduct._id;
-    const objectIdString = objectId.toString();
-    const valor = objectIdString.substring(10, 24);
-    console.log(valor, "66666666");
-    console.log(typeof valor, "66666666");
+    // const objectId = foundProduct._id;
+    // const objectIdString = objectId.toString();
+    // const valor = objectIdString.substring(10, 24);
+    // console.log(valor, "66666666");
+    // console.log(typeof valor, "66666666");
     if (!foundProduct) {
       res.send({
         status: "error",
@@ -89,9 +89,9 @@ class ProductControler {
             },
           },
           back_urls: {
-            success: `http://localhost:8080/comprar/mercadopago-response/${valor}`,
-            failure: `http://localhost:8080/comprar/mercadopago-response/${valor}`,
-            pending: `http://localhost:8080/comprar/mercadopago-response/${valor}`,
+            success: `http://localhost:8080/comprar/mercadopago-response/${foundProduct._id}`,
+            failure: `http://localhost:8080/comprar/mercadopago-response/${foundProduct._id}`,
+            pending: `http://localhost:8080/comprar/mercadopago-response/${foundProduct._id}`,
           },
           auto_return: "approved",
         };
