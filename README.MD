@@ -61,7 +61,11 @@ Datod de prueba:
 
 Posible Error:
 En el modo development es posible que al querer realizar una compra diga el error "Uno de los datos es de modo prueba",
-si pasa eso abrir una ventana incognito abrir el localhost en la nueva ventana y logearse en mercado pago con esto datos de prueba :
+si pasa eso:
 
-- Username: TESTUSER1608332342
-- Password: 84ZiK3QLDB
+1. Abrir una ventana incognito
+2. Abrir el localhost en la nueva ventana
+3. Logearse en mercado pago con esto datos de prueba :
+
+- - Username: TESTUSER1608332342
+- - Password: 84ZiK3QLDB

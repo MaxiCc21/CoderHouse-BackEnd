@@ -10,9 +10,16 @@ const {
 require("dotenv").config();
 
 const mercadopago = require("../config/mercadopago");
+const { PORT } = require("../config/objetConfig");
 
 class ProductControler {
   showSingleProductGET = async (req, res) => {
+    let warningMessage;
+    if (PORT === 4000) {
+      warningMessage =
+        "OJO! si estas viendo esta paguina desde internet, las credenciales Mercado Pago estan activas, para probar con seguridad pruebe en modo development MG";
+    }
+
     const pid = req.params.pid;
 
     const product = await productService.getProductById(pid);
@@ -27,6 +34,7 @@ class ProductControler {
       style: "productShow.css",
       data: product,
       usercookie: jwtUser,
+      warningMessage,
     };
 
     res.render("products/product_show.handlebars", options);
