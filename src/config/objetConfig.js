@@ -4,7 +4,6 @@ const { mode } = commander.opts(); //opts se guardan las configuraciones que nos
 const { MongoSingleton } = require("../utils/singleton");
 
 dotenv.config({
-  //Dependiendo los argumentos que le pasemos a la ejecucion/proceso nos ejecutara un entorno u otro, recordar el valor por defecto que se le otorgó a la configuración.
   path: mode === "production" ? "./.env.production" : "./.env.development",
 });
 
