@@ -8,10 +8,7 @@ const niveles = {
 
 const authorizaton = (...roles) => {
   return async (req, res, next) => {
-    console.log(roles);
-
     if (roles.includes("PUBLIC")) {
-      console.log("Pasa directo");
       return next();
     }
 

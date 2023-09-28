@@ -1,5 +1,3 @@
-console.log("home");
-
 const d = document;
 
 let elementos = d.querySelectorAll("#text");

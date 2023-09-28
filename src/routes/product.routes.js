@@ -40,13 +40,13 @@ router.delete("/:pid", async (req, res) => {
   let { pid } = req.params;
 
   let deleteProduct = await productService.deleteProductByID(pid);
-  console.log(deleteProduct);
+
   res.status(deleteProduct.status).send(deleteProduct);
 });
 
 router.post("/", async (req, res) => {
   const newProduct = req.body;
-  console.log(newProduct);
+
   let agregarProducto = await productService.addProduct(newProduct);
 
   res.status(agregarProducto.status).send(agregarProducto);
@@ -78,7 +78,6 @@ router.post("/", async (request, response) => {
   const newProduct = request.body;
 
   let res = await productService.addProduct(newProduct);
-  console.log(res, "rs");
 
   if (res.status) {
   }

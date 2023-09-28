@@ -5,7 +5,6 @@ const storage = multer.diskStorage({
     cb(null, `${__dirname}/public/uploads`);
   },
   filename: (req, file, cb) => {
-    console.log(file);
     cb(null, file.originalname);
   },
 });
@@ -13,7 +12,6 @@ const storage = multer.diskStorage({
 const uploader = multer({
   storage,
   onError: (err, next) => {
-    console.log(err);
     next();
   },
 });

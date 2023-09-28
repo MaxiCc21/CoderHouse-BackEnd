@@ -1,3 +1,5 @@
+const { logger } = require("../../middlewares/logger");
+
 const form = document.getElementById("userEditAdminForm");
 
 const onlineStatus = document.getElementById("onlineStatus");
@@ -34,7 +36,7 @@ form.addEventListener("submit", (e) => {
         if (responseData.ok) {
           window.location.href = "/session/admin/users?page=1";
         } else {
-          console.log("La solicitud no fue exitosa");
+          logger.error("La solicitud no fue exitosa");
         }
       });
     } else if (result.isDenied) {

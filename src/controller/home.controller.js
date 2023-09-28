@@ -1,10 +1,14 @@
+const { logger } = require("../middlewares/logger");
 const { productService } = require("../service");
+
+const { PROD_ACCESS_TOKEN: lol } = require("../config/config");
 
 class UserController {
   loadProduct = async (req, res) => {
-    console.log("/Home");
+    logger.info("/Home");
+    console.log(process.env.PROD_ACCESS_TOKEN);
+    console.log(lol, "lllllllllll");
     const JWTuser = req.user ? req.user : false;
-    console.log(JWTuser);
     if (JWTuser.role === "admin") {
       let options = {
         style: "adminHome.css",

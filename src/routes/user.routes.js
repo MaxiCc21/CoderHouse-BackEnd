@@ -24,6 +24,7 @@ const {
 const { passportAuth } = require("../config/passportAuth");
 const { authorizaton } = require("../config/passportAuthorization");
 const { ticketService, userService } = require("../service");
+const { logger } = require("handlebars");
 
 const handleUser = new (require("../dao/MongoManager/UserManager"))();
 
@@ -45,8 +46,7 @@ router.get("/", async (req, res) => {
     style: "user_Ingresar.css",
     data,
   };
-  console.log("Que onda");
-  console.log(data);
+
   res.send(options.data);
 });
 
@@ -63,7 +63,7 @@ router.get(
       data: foundSendTicket.data,
       usercookie: jwtUser,
     };
-    console.log(foundSendTicket.data);
+
     if (!foundSendTicket.ok) {
       res.status(400).send(foundSendTicket.statusMsj);
     } else {
@@ -75,7 +75,7 @@ router.get(
 router.get("/paginate", async (req, res) => {
   const { page = 1, limit = 5 } = req.query;
   let data = await handleUser.getAllUserPaginate(page, limit);
-  console.log(data);
+
   const { docs, hasPrevPage, hasNextPage, prevPage, nextPage } = data;
   let options = {
     style: "showUser_paginate.css",
@@ -141,7 +141,6 @@ http: router.post("/createuser", async (req, res) => {
   };
 
   let myRes = await handleUser.createNewUser(data);
-  console.log(myRes.statusMsj);
 
   res.render("home", options);
 });
@@ -169,7 +168,7 @@ http: router.delete("/deleteuser/:pid", async (req, res) => {
 
   let myRes = await handleUser.deletUser(pid);
   if (!myRes) {
-    console.log("Objeto eliminado exitosamento");
+    logger.info("Objeto eliminado exitosamento");
   } else {
     res.send("A ocurrido un error al eliminar el objeto");
   }
@@ -216,7 +215,6 @@ router.post(
 );
 
 router.get("/failregister", (req, res) => {
-  console.log("ERRRRRRRRRRR");
   res.send({ status: "err", statusMsj: "Fallo autenticate" });
 });
 
@@ -230,7 +228,7 @@ router.post("/modify-password", modifyPOST);
 
 router.get("/premium", passportAuth("jwt"), (req, res) => {
   const JWTuser = req.user;
-  console.log(JWTuser);
+
   if (JWTuser.role === "premium") {
     res.redirect("/publicar");
   } else {

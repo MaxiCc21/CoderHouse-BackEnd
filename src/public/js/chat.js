@@ -59,7 +59,7 @@ socket.on("show-All-Products", (data) => {
 
   data.forEach((el) => {
     JSON.stringify(el);
-    console.log(typeof el);
+
     tooAdd += `
     <div class="product-box">
         <img class="img" src=${el.thumbnail}>
@@ -91,7 +91,6 @@ $form.addEventListener("submit", (e) => {
 
   if (hasAllData()) {
     let newData = newProductCreate();
-    console.log(newData);
     socket.emit("addProduct", newData);
   } else {
     alert("Tiene que ingresar todos los datos");

@@ -162,7 +162,6 @@ const initPassportGithub = () => {
         callbackURL: process.env.GITHUB_CALLBACK_URL,
       },
       async (accessToken, refreshToken, profile, done) => {
-        console.log(profile);
         try {
           let user = await userModel.findOne({ email: profile._json.email });
           if (!user) {

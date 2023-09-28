@@ -1,11 +1,21 @@
 node_modules/
-.txt
+
 
 
 MisErrore.txt
 Notas.txt
 
 .env
-.env.production
-/test
 
+.env.production
+
+
+config.yaml
+
+
+error.log
+request.log
+
+
+testPerformance.json
+testResult.html

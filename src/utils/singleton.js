@@ -1,3 +1,4 @@
+const { logger } = require("../middlewares/logger");
 const { connect } = require("mongoose");
 require("dotenv").config();
 const mongoose = require("mongoose");
@@ -12,13 +13,13 @@ class MongoSingleton {
   }
   static getInstance() {
     if (this.#instance) {
-      console.log("Base de datos ya está creada");
-      console.log(process.env.MONGO_URL_DB);
+      logger.info("Base de datos ya está creada");
+
       return this.#instance;
     }
     this.#instance = new MongoSingleton();
-    console.log(process.env.MONGO_URL_DB);
-    console.log("Base de dato creada");
+
+    logger.info("Base de dato creada");
     return this.#instance;
   }
 }
