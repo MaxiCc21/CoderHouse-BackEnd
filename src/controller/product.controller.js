@@ -68,6 +68,21 @@ class ProductControler {
       });
     } else {
       if (req.body.action === "comprar") {
+        let back_urls;
+        if (PORT == 8080) {
+          back_urls = {
+            success: `http://localhost:8080/comprar/mercadopago-response/${userID}`,
+            failure: `http://localhost:8080/comprar/mercadopago-response/${userID}`,
+            pending: `http://localhost:8080/comprar/mercadopago-response/${userID}`,
+          };
+        } else {
+          back_urls = {
+            success: `https://mymercadopago.onrender.com/comprar/mercadopago-response/${userID}`,
+            failure: `https://mymercadopago.onrender.com/mercadopago-response/${userID}`,
+            pending: `https://mymercadopago.onrender.com/mercadopago-response/${userID}`,
+          };
+        }
+
         const { data } = await userService.getUserByID(JWTuser.sub);
         let preference = {
           items: [
@@ -96,11 +111,7 @@ class ProductControler {
               zip_code: "5700",
             },
           },
-          back_urls: {
-            success: `http://localhost:8080/comprar/mercadopago-response/${foundProduct._id}`,
-            failure: `http://localhost:8080/comprar/mercadopago-response/${foundProduct._id}`,
-            pending: `http://localhost:8080/comprar/mercadopago-response/${foundProduct._id}`,
-          },
+          back_urls,
           auto_return: "approved",
         };
 
