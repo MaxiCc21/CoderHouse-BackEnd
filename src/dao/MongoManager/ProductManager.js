@@ -2,6 +2,7 @@ const fs = require("fs");
 const { productModel } = require("../models/product.model");
 const { ObjectId } = require("bson");
 const { tr } = require("@faker-js/faker");
+const { logger } = require("../../middlewares/logger");
 
 const IdGenerator = () => {
   return Date.now();
