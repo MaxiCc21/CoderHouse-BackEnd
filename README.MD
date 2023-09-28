@@ -2,6 +2,7 @@
 
 Datod de prueba:
 -Tarjeta de debito: 5031 7557 3453 0604
+-Nombre de titular: APRO
 -Código de seguridad: 123
 -Fecha de caducidad: 11/25
 -DNI: 12345678
