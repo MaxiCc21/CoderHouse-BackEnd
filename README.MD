@@ -1,7 +1,7 @@
 ### /---------------------------------------Mercado Pago---------------------------------------/
 
 Datod de prueba:
--Tarjeta de devito: 5031 7557 3453 0604
+-Tarjeta de debito: 5031 7557 3453 0604
 -Código de seguridad: 123
 -Fecha de caducidad: 11/25
 -DNI: 12345678
