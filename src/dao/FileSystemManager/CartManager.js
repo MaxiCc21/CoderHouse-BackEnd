@@ -69,7 +69,6 @@ class CartManager {
     let newCart = { id: IdGenerator(), products: newItemCreated };
 
     let products = await this.getItem();
-    console.log(products);
 
     products.push(newCart);
     await fs.promises.writeFile(this.path, JSON.stringify(products), "utf-8");

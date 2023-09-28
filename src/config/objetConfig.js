@@ -3,12 +3,15 @@ const commander = require("../process/comander");
 const { mode } = commander.opts(); //opts se guardan las configuraciones que nosotros creamos y acedemos a la propiedad mode para poder trabajar en distintos entornos
 const { MongoSingleton } = require("../utils/singleton");
 
+const dotenv = require("dotenv");
+const commander = require("../process/comander");
+const { mode } = commander.opts();
+
 dotenv.config({
   path: mode === "production" ? "./.env.production" : "./.env.development",
 });
 
 module.exports = {
-  PORT: process.env.PORT,
   PROD_ACCESS_TOKEN: process.env.PROD_ACCESS_TOKEN,
   privateKey: process.env.PRIVATE_KEY_CODER,
   gmail_user_app: process.env.GMAIL_USER_APP,

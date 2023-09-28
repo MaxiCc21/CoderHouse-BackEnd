@@ -8,7 +8,7 @@ const userRoutes = require("./routes/user.routes");
 const viewsRoutes = require("./routes/views.routes");
 const newUserRoutes = require("./routes/newUser.routes");
 const cookieRoutes = require("./routes/cookie.routes");
-const comprarRoutes = require("./routes/comprar.routes");
+// const comprarRoutes = require("./routes/comprar.routes");
 const pruebaRoutes = require("./routes/prueba.routes");
 const mailRoutes = require("./routes/mailing.routes");
 const mockingRoutes = require("./routes/mock.routes");
@@ -25,19 +25,11 @@ const { cartService } = require("./service");
 const { addLogger, logger } = require("./middlewares/logger");
 const socketMessage = require("./utils/socketMessage.js");
 
-const commander = require("./process/comander");
-const { mode } = commander.opts();
-require("dotenv").config({
-  path: mode === "production" ? "./.env.production" : "./.env.development",
-});
-
 //---------------Swagger--------------
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUiExpress = require("swagger-ui-express");
 
 //---------------Swagger--------------
-console.log(process.argv);
-
 const NewUserRoutes = new newUserRoutes();
 
 const cors = require("cors");
@@ -181,7 +173,7 @@ app.use("/chat", chatRoutes);
 
 app.use("/cookie", cookieRoutes);
 
-app.use("/comprar", comprarRoutes);
+// app.use("/comprar", comprarRoutes);
 
 app.use("/email", mailRoutes);
 
@@ -190,7 +182,7 @@ app.use("/mockingproducts", mockingRoutes);
 app.use("/publicar", publicarRoutes);
 
 app.use((err, req, res, next) => {
-  console.log(err);
+  logger.error(err);
   res.status(500).send("Todo mal");
 });
 
@@ -225,7 +217,6 @@ io.on("connection", async (socket) => {
 
   socket.on("eliminar-producto", async (dataID) => {
     let res = await productHandle.deleteProduct(dataID);
-    console.log(res.statusMsj);
   });
 
   let messages = await messagesHandle.getMessages();
@@ -233,27 +224,27 @@ io.on("connection", async (socket) => {
 
   socket.on("new-message", async (data) => {
     let res = await messagesHandle.addMessages(data);
-    console.log(res);
+
     socket.emit("send-all-messages", messages);
   });
   //------------------CART------------------------------
   socket.on("cartDeleteItem", async ($userIdInput, $productIdInput) => {
     let res = await cartService.deleteItemToCart($userIdInput, $productIdInput);
-    console.log(res.statusMsj);
+
     if (res.ok) {
       socket.emit("okModCart", "Todo ok ");
     }
   });
   socket.on("cartAddItem", async ($userIdInput, $productIdInput) => {
     let res = await cartService.addItemToCart($userIdInput, $productIdInput);
-    console.log(res.statusMsj);
+
     if (res.ok) {
       socket.emit("okModCart", "Todo ok ");
     }
   });
   socket.on("cartDeleteProduct", async (userIdInput, productIdInput) => {
     let res = await cartService.DeleteProduct(userIdInput, productIdInput);
-    console.log(res.statusMsj);
+
     if (res.ok) {
       socket.emit("okModCart", "Todo ok ");
     }
@@ -269,6 +260,5 @@ let PORT = process.env.PORT;
 exports.initServer = () => {
   serverHTTP.listen(PORT, () => {
     logger.info(`Escuchando en el puerto: ${PORT}`);
-    logger.info(`Base de datos: ${process.env.MONGO_URL_DB}`);
   });
 };

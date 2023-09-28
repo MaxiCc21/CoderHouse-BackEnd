@@ -1,3 +1,4 @@
+const { logger } = require("../middlewares/logger");
 const { options } = require("../routes/product.routes");
 const {
   productService,
@@ -6,7 +7,9 @@ const {
   ticketService,
 } = require("../service");
 
+
 require("dotenv").config();
+
 
 const mercadopago = require("../config/mercadopago");
 
@@ -45,12 +48,15 @@ class ProductControler {
   };
 
   showSingleProductPOST = async (req, res) => {
-    console.log("#POST /Agregar al carrito");
     const { pid } = req.params;
     const JWTuser = req.user;
-    let preferenceId; // Declarar aquí la variable
 
     const foundProduct = await productService.getProductById(pid);
+    // const objectId = foundProduct._id;
+    // const objectIdString = objectId.toString();
+    // const valor = objectIdString.substring(10, 24);
+    // console.log(valor, "66666666");
+    // console.log(typeof valor, "66666666");
     if (!foundProduct) {
       res.send({
         status: "error",
@@ -94,28 +100,16 @@ class ProductControler {
           auto_return: "approved",
         };
 
-        // mercadopago.preferences
-        //   .create(preference)
-        //   .then((response) => {
-        //     preferenceId = response.body.id; // Asignar el valor aquí
-        //     console.log("Preference ID:", preferenceId); // Verificar que se haya asignado correctamente
-        //     res.redirect(response.body.init_point);
-        //   })
-        //   .catch((err) => {
-        //     console.error(err);
-        //     res.status(500).send("Algo salió mal");
-        //   });
-
         const response = await mercadopago.preferences.create(preference);
         const preferenceId = response.body.id;
-        console.log("Preference ID:", preferenceId);
+
         res.redirect(response.body.init_point);
       } else if (req.body.action === "carrito") {
         let cid = req.user.sub;
         let pid = foundProduct._id;
         let body = foundProduct;
         const itemAdd = await cartService.addItem(cid, pid, body);
-        console.log(itemAdd.statusMsj);
+
         res.send({ Message: itemAdd.statusMsj, cid, pid, body });
       }
     }
@@ -146,7 +140,7 @@ class ProductControler {
       const JWTuser = req.user;
       const page = req.query.page || 1;
       const products = await productService.getProductPaginator(page, 5);
-      console.log(products);
+
       // const { docs, hasPrevPage, hasNextPage, prevPage, nextPage } = products;
       // let options = {
       //   style: "productPaginateAdmin.css",
@@ -161,7 +155,7 @@ class ProductControler {
       // };
       res.render("admin/productPaginateAdmin");
     } catch (err) {
-      console.log(err);
+      logger.error(err);
     }
   };
 }

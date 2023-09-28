@@ -1,4 +1,3 @@
-console.log("Socket CHAT");
 const socket = io();
 
 socket.on("message", async (data) => {

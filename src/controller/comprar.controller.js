@@ -1,5 +1,6 @@
 const { ticketService, productService, cartService } = require("../service");
 const mercadopago = require("../config/mercadopago");
+const { logger } = require("../middlewares/logger");
 
 class ComprarController {
   shopingGET = async (req, res) => {
@@ -18,7 +19,7 @@ class ComprarController {
     const JWTuser = req.user;
     if (req.query.status === "approved") {
       const foundTicket = await ticketService.getTicket(pid);
-
+      console.log(foundTicket, "foundTicketfoundTicketfoundTicket");
       if (foundTicket.ok) {
         const compraRealizada = await ticketService.purchaseMade(pid);
 
@@ -57,7 +58,7 @@ class ComprarController {
         const createTicket = await ticketService.createNewTicket(newTicketData);
       }
     } else {
-      console.log("Algo salio mal");
+      logger.error("Algo salio mal");
     }
 
     res.redirect("/home");

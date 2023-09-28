@@ -2,6 +2,7 @@ const fs = require("fs");
 const { cartModel } = require("../models/cart.model");
 const { log } = require("console");
 const { ObjectId } = require("bson");
+const { logger } = require("../../middlewares/logger");
 
 const IdGenerator = () => {
   return Date.now();
@@ -115,7 +116,6 @@ class CartManager {
     }
   };
   addItemToCart = async (uid, pid) => {
-    console.log(uid, pid);
     pid = new ObjectId(pid);
     try {
       const cart = await this.cartModel
@@ -147,7 +147,7 @@ class CartManager {
       let myRes = await this.cartModel.find().lean();
       return myRes;
     } catch (err) {
-      console.log(err.stateMsj);
+      logger.error(err.stateMsj);
     }
   };
 
@@ -156,7 +156,7 @@ class CartManager {
       const found = await this.cartModel.find({ _id: itemID }).lean();
       return found;
     } catch (err) {
-      console.log("A occurido un error");
+      logger.error("A occurido un error");
     }
   };
 
@@ -231,7 +231,7 @@ class CartManager {
   };
   DeleteProduct = async (uid, pid) => {
     pid = new ObjectId(pid);
-    console.log(uid, pid);
+
     try {
       const deleteAllProducts = await this.cartModel.findOneAndUpdate(
         { id_user_to_cart: uid },

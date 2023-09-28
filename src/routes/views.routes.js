@@ -55,13 +55,11 @@ router.post(
     successRedirect: "login",
   }),
   function (req, res) {
-    console.log(req.newUser);
     res.redirect("/login");
   }
 );
 
 router.get("/failregister", (req, res) => {
-  console.log("ERRRRRRRRRRR");
   res.send({ status: "err", statusMsj: "Fallo autenticate" });
 });
 

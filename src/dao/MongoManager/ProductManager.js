@@ -144,7 +144,7 @@ class HandleProducts {
       let myRes = await this.productModel.find().lean();
       return myRes;
     } catch (err) {
-      console.log(err.stateMsj);
+      logger.error(err.stateMsj);
     }
   };
 
@@ -153,7 +153,7 @@ class HandleProducts {
       const found = await this.productModel.findOne({ _id: itemID }).lean();
       return found;
     } catch (err) {
-      console.log(err);
+      logger.error(err);
     }
   };
 
@@ -243,7 +243,7 @@ class HandleProducts {
       const deleteProduct = await this.productModel.findByIdAndRemove({
         _id: productID,
       });
-      console.log(deleteProduct);
+
       if (!deleteProduct) {
         return {
           status: 404,
@@ -271,7 +271,6 @@ class HandleProducts {
 
   updateProduct = async (pid, newData) => {
     try {
-      console.log(newData);
       const updateProduct = await this.productModel.findOneAndUpdate(
         {
           _id: pid,
