@@ -69,12 +69,6 @@ router.get("/stringmuylargo", async (req, res) => {
   res.send(string);
 });
 
-router.get("/logger", (req, res) => {
-  req.logger.info("Hola");
-  req.logger.warning("Ojo");
-  res.send("Hola");
-});
-
 router.get("/testuser", (req, res) => {
   const persona = {
     first_name: faker.person.firstName(),
