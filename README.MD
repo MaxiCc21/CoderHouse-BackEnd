@@ -1,3 +1,24 @@
+### /---------------------------------------Mercado Pago---------------------------------------/
+
+Datod de prueba:
+
+- Tarjeta de debito: 5031 7557 3453 0604
+- Nombre de titular: APRO
+- Código de seguridad: 123
+- Fecha de caducidad: 11/25
+- DNI: 12345678
+
+Posible Error:
+En el modo development es posible que al querer realizar una compra diga el error "Uno de los datos es de modo prueba",
+si pasa eso:
+
+1. Abrir una ventana incognito
+2. Abrir el localhost en la nueva ventana
+3. Logearse en mercado pago con esto datos de prueba :
+
+- - Username: TESTUSER1608332342
+- - Password: 84ZiK3QLDB
+
 ### /---------------------------------------Render Link---------------------------------------/
 
 Link: https://mymercadopago.onrender.com/home
@@ -48,24 +69,3 @@ estructura:
 - - sessions
 - - tickets
 - - users
-
-### /---------------------------------------Mercado Pago---------------------------------------/
-
-Datod de prueba:
-
-- Tarjeta de debito: 5031 7557 3453 0604
-- Nombre de titular: APRO
-- Código de seguridad: 123
-- Fecha de caducidad: 11/25
-- DNI: 12345678
-
-Posible Error:
-En el modo development es posible que al querer realizar una compra diga el error "Uno de los datos es de modo prueba",
-si pasa eso:
-
-1. Abrir una ventana incognito
-2. Abrir el localhost en la nueva ventana
-3. Logearse en mercado pago con esto datos de prueba :
-
-- - Username: TESTUSER1608332342
-- - Password: 84ZiK3QLDB
