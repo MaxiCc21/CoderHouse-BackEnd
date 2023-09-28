@@ -17,7 +17,7 @@ En el modo development es posible que al querer realizar una compra diga el erro
 si pasa eso:
 
 1. Abrir una ventana incognito
-2. Abrir el https://mymercadopago.onrender.com/home en la nueva ventana
+2. Abrir el http://localhost:8080/home o https://mymercadopago.onrender.com/home en la nueva ventana
 3. Logearse en mercado pago con esto datos de prueba :
 
 - - Username: TESTUSER1608332342
