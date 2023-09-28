@@ -5,14 +5,10 @@ const {
   userService,
   ticketService,
 } = require("../service");
-// const mercadopago = require("../config/mercadopago");
-const mercadopago = require("mercadopago");
+
 require("dotenv").config();
 
-mercadopago.configure({
-  access_token:
-    "TEST-2266225865990759-092422-e0bc6629fa6d5a901b5be831b690d012-1485679631",
-});
+const mercadopago = require("../config/mercadopago");
 
 class ProductControler {
   showSingleProductGET = async (req, res) => {
