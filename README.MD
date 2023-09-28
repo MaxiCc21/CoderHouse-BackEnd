@@ -2,6 +2,11 @@
 
 uri: mongodb://localhost:27017/MercadoLibre
 
+En la raiz del proyecto dejo los archivos para poder importar a MongoDB Compass:
+
+- MercadoLibre.products.json
+- MercadoLibre.users.json
+
 estructura:
 
 - Mercado Libre
@@ -11,10 +16,6 @@ estructura:
 - - sessions
 - - tickets
 - - users
-    En la raiz del proyecto dejo los archivos:
-    - MercadoLibre.products.json
-    - MercadoLibre.users.json
-      para poder importar a MongoDB Compass
 
 ### /---------------------------------------Mercado Pago---------------------------------------/
 
