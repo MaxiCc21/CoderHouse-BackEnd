@@ -52,9 +52,13 @@ class ProductControler {
   showSingleProductPOST = async (req, res) => {
     const { pid } = req.params;
     const JWTuser = req.user;
-    let preferenceId; // Declarar aquí la variable
 
     const foundProduct = await productService.getProductById(pid);
+    const objectId = foundProduct._id;
+    const objectIdString = objectId.toString();
+    const valor = objectIdString.substring(10, 24);
+    console.log(valor, "66666666");
+    console.log(typeof valor, "66666666");
     if (!foundProduct) {
       res.send({
         status: "error",
@@ -91,24 +95,12 @@ class ProductControler {
             },
           },
           back_urls: {
-            success: `http://localhost:8080/comprar/mercadopago-response/${foundProduct._id}`,
-            failure: `http://localhost:8080/comprar/mercadopago-response/${foundProduct._id}`,
-            pending: `http://localhost:8080/comprar/mercadopago-response/${foundProduct._id}`,
+            success: `http://localhost:8080/comprar/mercadopago-response/${valor}`,
+            failure: `http://localhost:8080/comprar/mercadopago-response/${valor}`,
+            pending: `http://localhost:8080/comprar/mercadopago-response/${valor}`,
           },
           auto_return: "approved",
         };
-
-        // mercadopago.preferences
-        //   .create(preference)
-        //   .then((response) => {
-        //     preferenceId = response.body.id; // Asignar el valor aquí
-        //     console.log("Preference ID:", preferenceId); // Verificar que se haya asignado correctamente
-        //     res.redirect(response.body.init_point);
-        //   })
-        //   .catch((err) => {
-        //     console.error(err);
-        //     res.status(500).send("Algo salió mal");
-        //   });
 
         const response = await mercadopago.preferences.create(preference);
         const preferenceId = response.body.id;

@@ -33,13 +33,6 @@ router.get("/done", (req, res) => {
 });
 
 router.get(
-  "/mercadopago-response/:pid",
-  passportAuth("jwt"),
-  authorizaton("user"),
-  MercadoPagoResponseGET
-);
-
-router.get(
   "/methodPayment",
   passportAuth("jwt"),
   authorizaton("user"),
@@ -58,6 +51,13 @@ router.post(
   passportAuth("jwt"),
   authorizaton("user"),
   methodPaymentPOST
+);
+
+router.get(
+  "/mercadopago-response/:pid",
+  passportAuth("jwt"),
+  authorizaton("user"),
+  MercadoPagoResponseGET
 );
 
 module.exports = router;

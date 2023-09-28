@@ -260,6 +260,5 @@ let PORT = process.env.PORT;
 exports.initServer = () => {
   serverHTTP.listen(PORT, () => {
     logger.info(`Escuchando en el puerto: ${PORT}`);
-    logger.info(`Escuchando en el puerto: ${process.env.PROD_ACCESS_TOKEN}`);
   });
 };

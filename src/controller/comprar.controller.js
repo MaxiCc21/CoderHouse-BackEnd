@@ -14,12 +14,16 @@ class ComprarController {
     res.render("shopping/shopping", options);
   };
 
+  MercadoPago0feedbackGET = async (req, res) => {
+    res.send("hoal");
+  };
+
   MercadoPagoResponseGET = async (req, res) => {
     const { pid } = req.params;
     const JWTuser = req.user;
     if (req.query.status === "approved") {
       const foundTicket = await ticketService.getTicket(pid);
-
+      console.log(foundTicket, "foundTicketfoundTicketfoundTicket");
       if (foundTicket.ok) {
         const compraRealizada = await ticketService.purchaseMade(pid);
 
