@@ -267,6 +267,5 @@ let PORT = process.env.PORT;
 exports.initServer = () => {
   serverHTTP.listen(PORT, () => {
     logger.info(`Escuchando en el puerto: ${PORT}`);
-    logger.info(`Base de datos: ${process.env.MONGO_URL_DB}`);
   });
 };
