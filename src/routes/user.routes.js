@@ -11,186 +11,71 @@ const {
   recoverPOST,
   modifyGET,
   modifyPOST,
-  getUserByID,
+
   getUserByIDGET,
   getPaginate,
-  adminUserEdit,
+
   adminUserEditGET,
   adminUserEditPOST,
-  adminUserCreateNewUser,
+
   adminUserCreateNewUserGET,
   adminUserCreateNewUserPOST,
+
+  allUsersGET,
+  misComprasGET,
+  paginateGET,
+  githubGET,
+  githubcallbackGET,
+  deleteUserDELETE,
+  updateUserPUT,
+  premiumGET,
+  premiumPOST,
 } = require("../controller/user.controller");
 const { passportAuth } = require("../config/passportAuth");
 const { authorizaton } = require("../config/passportAuthorization");
-const { ticketService, userService } = require("../service");
-const { logger } = require("handlebars");
 
-const handleUser = new (require("../dao/MongoManager/UserManager"))();
-
-function idGenerator() {
-  return uuidv4();
-}
-
-// router.get("/", (req, res) => {
-//   let options = {
-//     style: "user_Ingresar.css",
-//   };
-
-//   res.render("handleUser.handlebars", options);
-// });
-
-router.get("/", async (req, res) => {
-  let data = await handleUser.getAllUser();
-  let options = {
-    style: "user_Ingresar.css",
-    data,
-  };
-
-  res.send(options.data);
-});
+router.get("/", allUsersGET);
 
 router.get(
   "/miscompras",
   passportAuth("jwt"),
   authorizaton("user"),
-  async (req, res) => {
-    const jwtUser = req.user;
-    const foundSendTicket = await ticketService.getSendTicket(jwtUser.sub);
-
-    const options = {
-      style: "misCompras.css",
-      data: foundSendTicket.data,
-      usercookie: jwtUser,
-    };
-
-    if (!foundSendTicket.ok) {
-      res.status(400).send(foundSendTicket.statusMsj);
-    } else {
-      res.render("shopping/misCompras", options);
-    }
-  }
+  misComprasGET
 );
 
-router.get("/paginate", async (req, res) => {
-  const { page = 1, limit = 5 } = req.query;
-  let data = await handleUser.getAllUserPaginate(page, limit);
-
-  const { docs, hasPrevPage, hasNextPage, prevPage, nextPage } = data;
-  let options = {
-    style: "showUser_paginate.css",
-    users: docs,
-    page,
-    hasPrevPage,
-    hasNextPage,
-    prevPage,
-    nextPage,
-    disabled: "disabled",
-  };
-
-  res.render("showUser_paginate.handlebars", options);
-});
-
-router.get("/create-user", async (req, res) => {
-  let options = {
-    style: "userCrear.css",
-    title: "Mercado-Libre | Usuario",
-  };
-
-  res.render("user_Create.handlebars", options);
-});
-
-//localhost:8080/handleUser/createuser
-// {
-//   "firstname": "Prueba",
-//   "lastname": "Prueba",
-//   "username": "Prueba21",
-//   "email": "prueba123@gmail.com",
-//   "password": "Hola21498",
-//   "isAdmin": false,
-//   "adress": "Salta 1234",
-//   "lastUpdate": {
-//     "$date": "2023-05-11T18:12:58.841Z"
-//   },
-//   "__v": 0
-// }
-http: router.post("/createuser", async (req, res) => {
-  let options = {
-    style: "userCrear.css",
-  };
-  let {
-    firstname,
-    lastname,
-    fullname,
-    username,
-    email,
-    password,
-    isAdmin,
-    adress,
-  } = req.body;
-
-  let data = {
-    firstname,
-    lastname,
-    fullname,
-    username,
-    mail: email,
-    password,
-    isAdmin,
-    adress,
-  };
-
-  let myRes = await handleUser.createNewUser(data);
-
-  res.render("home", options);
-});
+router.get("/paginate", paginateGET);
 
 //localhost:8080/handleUser/updateuser/6461c87748c1be7bd066bc2f
 // {
 // "firstname":"Prueba"
 // }
-http: router.put("/updateuser/:pid", async (req, res) => {
-  let pid = req.params.pid;
-  let bodyData = req.body;
 
-  let myRes = await handleUser.updateUser(pid, bodyData);
-
-  if (!myRes) {
-    res.send("Se an realizado los cambios correctamente");
-  } else {
-    res.send("A ocurrido un erro");
-  }
-});
+http: router.put(
+  "/updateuser/:pid",
+  passportAuth("jwt"),
+  authorizaton("user"),
+  updateUserPUT
+);
 
 //localhost:8080/handleUser/deleteuser/6461c87748c1be7bd066bc2f
-http: router.delete("/deleteuser/:pid", async (req, res) => {
-  let pid = req.params.pid;
-
-  let myRes = await handleUser.deletUser(pid);
-  if (!myRes) {
-    logger.info("Objeto eliminado exitosamento");
-  } else {
-    res.send("A ocurrido un error al eliminar el objeto");
-  }
-});
+http: router.delete(
+  "/deleteuser/:pid",
+  passportAuth("jwt"),
+  authorizaton("user"),
+  deleteUserDELETE
+);
 
 router.get(
   "/github",
   passport.authenticate("github", { scope: ["user:email"] }),
-  (req, res) => {
-    res.send("GET request to the homepage");
-  }
+  githubGET
 );
 router.get(
   "/githubcallback",
   passport.authenticate("github", {
     failureRedirect: "/views/register",
   }),
-  async (req, res) => {
-    req.session.user = req.user;
-
-    res.redirect("/home");
-  }
+  githubcallbackGET
 );
 
 // ---------------------------
@@ -214,10 +99,6 @@ router.post(
   registerPOST
 );
 
-router.get("/failregister", (req, res) => {
-  res.send({ status: "err", statusMsj: "Fallo autenticate" });
-});
-
 router.get("/recover-password", recoverGET);
 
 router.post("/recover-password", recoverPOST);
@@ -226,48 +107,13 @@ router.get("/modify-password", modifyGET);
 
 router.post("/modify-password", modifyPOST);
 
-router.get("/premium", passportAuth("jwt"), (req, res) => {
-  const JWTuser = req.user;
+router.get("/premium", passportAuth("jwt"), authorizaton("user"), premiumGET);
 
-  if (JWTuser.role === "premium") {
-    res.redirect("/publicar");
-  } else {
-    const options = {
-      style: "bePremium.css",
-      usercookie: JWTuser,
-    };
-
-    res.render("publicar/bePremium", options);
-  }
-});
-
-router.post(
-  "/premium",
-  passportAuth("jwt"),
-
-  async (req, res) => {
-    const JWTuser = req.user;
-
-    const updateStatusUser = await userService.changeStatus(
-      JWTuser.sub,
-      "premium"
-    );
-
-    if (updateStatusUser.ok) {
-      res.redirect("/publicar");
-    } else {
-      res.send(updateStatusUser.statusMsj);
-    }
-  }
-);
+router.post("/premium", passportAuth("jwt"), authorizaton("user"), premiumPOST);
 
 // --------------Admin Routes-------------
 
-router.get(
-  "/admin/userEdit/:uid",
-
-  adminUserEditGET
-);
+router.get("/admin/userEdit/:uid", adminUserEditGET);
 
 router.post(
   "/admin/userEdit/:uid",
@@ -299,4 +145,5 @@ router.get(
 // --------------Admin Routes-------------
 
 router.get("/:uid", getUserByIDGET);
+
 module.exports = router;

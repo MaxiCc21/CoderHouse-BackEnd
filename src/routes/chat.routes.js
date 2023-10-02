@@ -1,16 +1,8 @@
 const { Router, response, request } = require("express");
+const { chatGET } = require("../controller/chat.controller");
 const router = Router();
 const chatHandle = new (require("../dao/MongoManager/ChatManager"))();
 
-router.get("/", async (request, response) => {
-  let messages = await chatHandle.getMessages();
-
-  let options = {
-    style: "chat.css",
-    messages,
-  };
-
-  response.render("chat.handlebars", options);
-});
+router.get("/", chatGET);
 
 module.exports = router;
