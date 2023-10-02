@@ -1,5 +1,5 @@
 const { Router, response, request } = require("express");
-const { authToken } = require("../utils/jwt");
+
 const { authorizaton } = require("../config/passportAuthorization");
 const { passportAuth } = require("../config/passportAuth");
 const {
@@ -7,30 +7,20 @@ const {
   showSingleProductPOST,
   showProductsByCategoryGET,
   APIshowSingleProductGET,
-  getProductPaginator,
   getProductPaginatorGET,
+  productDELETE,
+  productAddPOST,
+  createProductPOST,
+
+  productGET,
 } = require("../controller/product.controller");
+
 const { productService } = require("../service");
 const router = Router();
 
-router.get("/", async (request, response) => {
-  let res = await productService.getAllProducts();
-  let { limit } = request.query;
-  if (limit) {
-    res = res.slice(0, limit);
-  }
-  response.send(res);
-});
+router.get("/", productGET);
 
-router.post("/createproduct", async (req, res) => {
-  let dataNewProduct = req.body;
-
-  const { status, statusMsj, ok, data } = await productService.createProduct(
-    dataNewProduct
-  );
-
-  res.status(status).send({ statusMsj, data });
-});
+router.post("/createproduct", createProductPOST);
 
 router.get(
   "/:pid",
@@ -46,21 +36,14 @@ router.post(
   showSingleProductPOST
 );
 
-router.delete("/:pid", async (req, res) => {
-  let { pid } = req.params;
+router.delete(
+  "/:pid",
+  passportAuth("jwt"),
+  authorizaton("user"),
+  productDELETE
+);
 
-  let deleteProduct = await productService.deleteProductByID(pid);
-
-  res.status(deleteProduct.status).send(deleteProduct);
-});
-
-router.post("/", async (req, res) => {
-  const newProduct = req.body;
-  console.log(" O Este?");
-  let agregarProducto = await productService.addProduct(newProduct);
-
-  res.status(agregarProducto.status).send(agregarProducto);
-});
+router.post("/", passportAuth("jwt"), authorizaton("user"), productAddPOST);
 
 router.get(
   "/categoria/:pc",
