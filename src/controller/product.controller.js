@@ -13,6 +13,41 @@ const mercadopago = require("../config/mercadopago");
 const { PORT } = require("../config/objetConfig");
 
 class ProductControler {
+  productGET = async (request, response) => {
+    let res = await productService.getAllProducts();
+    let { limit } = request.query;
+    if (limit) {
+      res = res.slice(0, limit);
+    }
+    response.send(res);
+  };
+
+  createProductPOST = async (req, res) => {
+    let dataNewProduct = req.body;
+
+    const { status, statusMsj, ok, data } = await productService.createProduct(
+      dataNewProduct
+    );
+
+    res.status(status).send({ statusMsj, data });
+  };
+
+  productDELETE = async (req, res) => {
+    let { pid } = req.params;
+
+    let deleteProduct = await productService.deleteProductByID(pid);
+
+    res.status(deleteProduct.status).send(deleteProduct);
+  };
+
+  productAddPOST = async (req, res) => {
+    const newProduct = req.body;
+
+    let agregarProducto = await productService.addProduct(newProduct);
+
+    res.status(agregarProducto.status).send(agregarProducto);
+  };
+
   showSingleProductGET = async (req, res) => {
     let warningMessage;
     if (PORT === 4000) {
