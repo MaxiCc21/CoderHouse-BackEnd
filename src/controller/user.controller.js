@@ -10,6 +10,116 @@ const { tr } = require("@faker-js/faker");
 const { options } = require("../routes/user.routes");
 
 class UserController {
+  allUsersGET = async (req, res) => {
+    let data = await handleUser.getAllUser();
+    let options = {
+      style: "user_Ingresar.css",
+      data,
+    };
+
+    res.send(options.data);
+  };
+
+  misComprasGET = async (req, res) => {
+    const jwtUser = req.user;
+    const foundSendTicket = await ticketService.getSendTicket(jwtUser.sub);
+
+    const options = {
+      style: "misCompras.css",
+      data: foundSendTicket.data,
+      usercookie: jwtUser,
+    };
+
+    if (!foundSendTicket.ok) {
+      res.status(400).send(foundSendTicket.statusMsj);
+    } else {
+      res.render("shopping/misCompras", options);
+    }
+  };
+
+  paginateGET = async (req, res) => {
+    const { page = 1, limit = 5 } = req.query;
+    let data = await handleUser.getAllUserPaginate(page, limit);
+
+    const { docs, hasPrevPage, hasNextPage, prevPage, nextPage } = data;
+    let options = {
+      style: "showUser_paginate.css",
+      users: docs,
+      page,
+      hasPrevPage,
+      hasNextPage,
+      prevPage,
+      nextPage,
+      disabled: "disabled",
+    };
+
+    res.render("showUser_paginate.handlebars", options);
+  };
+
+  githubGET = (req, res) => {
+    res.send("GET request to the homepage");
+  };
+
+  githubcallbackGET = async (req, res) => {
+    req.session.user = req.user;
+
+    res.redirect("/home");
+  };
+
+  deleteUserDELETE = async (req, res) => {
+    let pid = req.params.pid;
+
+    let myRes = await handleUser.deletUser(pid);
+    if (!myRes) {
+      logger.info("Objeto eliminado exitosamento");
+    } else {
+      res.send("A ocurrido un error al eliminar el objeto");
+    }
+  };
+
+  updateUserPUT = async (req, res) => {
+    let pid = req.params.pid;
+    let bodyData = req.body;
+
+    let myRes = await handleUser.updateUser(pid, bodyData);
+
+    if (!myRes) {
+      res.send("Se an realizado los cambios correctamente");
+    } else {
+      res.send("A ocurrido un erro");
+    }
+  };
+
+  premiumGET = async (req, res) => {
+    const JWTuser = req.user;
+
+    if (JWTuser.role === "premium") {
+      res.redirect("/publicar");
+    } else {
+      const options = {
+        style: "bePremium.css",
+        usercookie: JWTuser,
+      };
+
+      res.render("publicar/bePremium", options);
+    }
+  };
+
+  premiumPOST = async (req, res) => {
+    const JWTuser = req.user;
+
+    const updateStatusUser = await userService.changeStatus(
+      JWTuser.sub,
+      "premium"
+    );
+
+    if (updateStatusUser.ok) {
+      res.redirect("/publicar");
+    } else {
+      res.send(updateStatusUser.statusMsj);
+    }
+  };
+
   getUserByIDGET = async (req, res) => {
     let { uid } = req.params;
     const foundUser = await userService.getUserByID(uid);
