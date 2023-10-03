@@ -44,7 +44,8 @@ class CartManager {
   }
 
   getItemToCart = async (uid) => {
-    uid = new ObjectId(uid);
+    // uid = new ObjectId(uid);
+
     try {
       const found = await this.cartModel
         .findOne({ id_user_to_cart: uid })
@@ -126,6 +127,15 @@ class CartManager {
         )
         .lean();
 
+      if (!cart) {
+        return {
+          status: 400,
+          statusMsj: "No se pudo agregar un producto",
+          ok: false,
+          data: undefined,
+        };
+      }
+
       return {
         status: "Ok",
         statusMsj: "Se agrego una unidad del peoducto",
@@ -134,7 +144,7 @@ class CartManager {
       };
     } catch (error) {
       return {
-        status: "error",
+        status: 500,
         statusMsj: `Error agregando producto al carrito: ${error.message}`,
         ok: false,
         data: null,
