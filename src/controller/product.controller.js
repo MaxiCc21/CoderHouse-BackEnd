@@ -158,8 +158,9 @@ class ProductControler {
         let cid = req.user.sub;
         let pid = foundProduct._id;
         let body = foundProduct;
+        console.log(cid, pid, body);
         const itemAdd = await cartService.addItem(cid, pid, body);
-
+        console.log(itemAdd);
         res.redirect("/api/cart");
       }
     }

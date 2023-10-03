@@ -1,0 +1,17 @@
+.createOwnProduct-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.createOwnProduct-form {
+  background-color: var(--main-backgournd-color-grey);
+  padding: 10px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 7px;
+}

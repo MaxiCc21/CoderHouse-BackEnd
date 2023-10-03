@@ -29,6 +29,7 @@ class PublicarController {
 
   createProductGET = (req, res) => {
     const JWTuser = req.user;
+
     const options = {
       style: "createOwnProduct.css",
       usercookie: JWTuser,

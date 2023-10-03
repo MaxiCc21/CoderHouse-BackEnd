@@ -9,16 +9,16 @@ class cartController {
     const productDataUser = await cartService.getItemToCart(jwtUser.sub);
     if (!productDataUser.ok) {
       res.status(400).send("Algo salio mal al cargar los productos");
+    } else {
+      const options = {
+        title: "Carrito de compras",
+        style: "cart.css",
+        products: productDataUser.data,
+        usercookie: jwtUser,
+      };
+
+      res.render("cart/cart.handlebars", options);
     }
-
-    const options = {
-      title: "Carrito de compras",
-      style: "cart.css",
-      products: productDataUser.data,
-      usercookie: jwtUser,
-    };
-
-    res.render("cart/cart.handlebars", options);
   };
   cartPOST = async (req, res) => {
     const jwtUser = req.user;
