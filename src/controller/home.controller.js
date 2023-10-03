@@ -1,8 +1,6 @@
 const { logger } = require("../middlewares/logger");
 const { productService } = require("../service");
 
-const { PROD_ACCESS_TOKEN: lol } = require("../config/config");
-
 class UserController {
   loadProduct = async (req, res) => {
     logger.info("/Home");

@@ -6,6 +6,7 @@ const { cartService, ticketService } = require("../service");
 
 const cartHandle = new (require("../dao/MongoManager/CartManager"))();
 const router = Router();
+const { PROD_ACCESS_TOKEN } = require("../config/objetConfig");
 
 router.get("/", passportAuth("jwt"), authorizaton("user", "premium"), cartGET);
 
@@ -39,7 +40,7 @@ const mercadopago = require("mercadopago");
 require("dotenv").config();
 
 mercadopago.configure({
-  access_token: process.env.PROD_ACCESS_TOKEN,
+  access_token: PROD_ACCESS_TOKEN,
 });
 
 router.get("/shopmethomp", (req, res) => {
