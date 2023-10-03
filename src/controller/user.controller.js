@@ -112,8 +112,24 @@ class UserController {
       JWTuser.sub,
       "premium"
     );
-
     if (updateStatusUser.ok) {
+      const newData = {
+        sub: JWTuser._id,
+        username: JWTuser.username,
+        fullname: JWTuser.fullname,
+        role: "premium",
+        email: JWTuser.email,
+        address: JWTuser.address,
+        isAdmin: JWTuser.isAdmin,
+      };
+
+      const newToken = generateToke(newData);
+
+      res.cookie("jwtCoder", newToken, {
+        maxAge: 100000 * 60,
+        httpOnly: true,
+      });
+
       res.redirect("/publicar");
     } else {
       res.send(updateStatusUser.statusMsj);
