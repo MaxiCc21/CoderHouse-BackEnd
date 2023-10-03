@@ -114,7 +114,7 @@ class UserController {
     );
     if (updateStatusUser.ok) {
       const newData = {
-        sub: JWTuser._id,
+        sub: JWTuser.sub,
         username: JWTuser.username,
         fullname: JWTuser.fullname,
         role: "premium",

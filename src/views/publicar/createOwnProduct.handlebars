@@ -1,44 +1,47 @@
-<div>
-  <h1>Agregar Producto</h1>
-  <form method="post" action="/publicar/createproduct">
-    <label for="title">Título:</label>
-    <input type="text" id="title" name="title" required /><br />
+<section class="createOwnProduct-section">
+  <div class="createOwnProduct-form">
+    <h1>Agregar Producto</h1>
+    <form method="post" action="/publicar/createproduct">
+      <label for="title">Título:</label>
+      <input type="text" id="title" name="title" required /><br />
 
-    <label for="description">Descripción:</label>
-    <textarea id="description" name="description" required></textarea><br />
+      <label for="description">Descripción:</label>
+      <textarea id="description" name="description" required></textarea><br />
 
-    <label for="price">Precio:</label>
-    <input type="number" id="price" name="price" step="0.01" required /><br />
+      <label for="price">Precio:</label>
+      <input type="number" id="price" name="price" step="0.01" required /><br />
 
-    <label for="thumbnail">URL de la Imagen:</label>
-    <input type="text" id="thumbnail" name="thumbnail" required /><br />
+      <label for="thumbnail">URL de la Imagen:</label>
+      <input type="text" id="thumbnail" name="thumbnail" required /><br />
 
-    <label for="category">Categoría:</label>
-    <input type="text" id="category" name="category" /><br />
+      <label for="category">Categoría:</label>
+      <input type="text" id="category" name="category" /><br />
 
-    <label for="marca">Marca:</label>
-    <input type="text" id="marca" name="marca" /><br />
+      <label for="marca">Marca:</label>
+      <input type="text" id="marca" name="marca" /><br />
 
-    <label for="stock">Stock:</label>
-    <input type="number" id="stock" name="stock" required /><br />
+      <label for="stock">Stock:</label>
+      <input type="number" id="stock" name="stock" required /><br />
 
-    <label for="ownerID">ID del Propietario:</label>
-    <input
-      type="text"
-      id="ownerID"
-      name="ownerID"
-      required
-      value="{{usercookie.sub}}"
-    /><br />
-    <label for="ownerUsername">ownerUsername:</label>
-    <input
-      type="text"
-      id="ownerUsername"
-      name="ownerUsername"
-      value="{{usercookie.username}}"
-      required
-    /><br />
+      <input
+        type="hidden"
+        id="ownerID"
+        name="ownerID"
+        required
+        value="{{usercookie.sub}}"
+        style="display: none;"
+      /><br />
 
-    <input type="submit" value="Agregar Producto" />
-  </form>
-</div>
+      <input
+        type="hidden"
+        id="ownerUsername"
+        name="ownerUsername"
+        value="{{usercookie.username}}"
+        required
+        style="display: none;"
+      /><br />
+
+      <input type="submit" value="Agregar Producto" />
+    </form>
+  </div>
+</section>
