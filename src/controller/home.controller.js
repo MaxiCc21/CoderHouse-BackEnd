@@ -1,5 +1,9 @@
+const { productModel } = require("../dao/models/product.model");
 const { logger } = require("../middlewares/logger");
 const { productService } = require("../service");
+const fs = require("fs");
+const path = require("path");
+const mongoose = require("mongoose");
 
 class UserController {
   loadProduct = async (req, res) => {
@@ -13,6 +17,21 @@ class UserController {
       res.render("admin/home.admin.handlebars", options);
     } else {
       let listProducts = await productService.getAllProducts();
+
+      if (listProducts.length === 0) {
+        const jsonFilePath = path.resolve(
+          __dirname,
+          "../../MercadoLibre.products.json"
+        );
+        const jsonData = fs.readFileSync(jsonFilePath, "utf8");
+        const productsFromJson = JSON.parse(jsonData);
+        await productModel.insertMany(productsFromJson);
+        console.log("Datos importados desde MercadoLibre.products.json.");
+        window.location.reload();
+      } else {
+        console.log("listProducts NO está vacío, no se importaron datos.");
+      }
+
       let options = {
         products: listProducts,
         style: "home.css",
