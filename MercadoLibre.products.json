@@ -1,406 +1,203 @@
-[{
-  "_id": {
-    "$oid": "6499039b6c134e0021ba41fe"
+[
+  {
+    "title": "LG 65-inch OLED 4K UHD Smart TV",
+    "description": "Enjoy a truly immersive viewing experience with this LG 65-inch OLED 4K UHD Smart TV. It features self-lit pixels for perfect blacks and intense colors, AI-powered picture quality, and support for popular streaming apps.",
+    "price": 399900,
+    "thumbnail": "https://medias.musimundo.com/medias/size515-144793-1-.jpg?context=bWFzdGVyfHJvb3R8NzExNTJ8aW1hZ2UvanBlZ3xoNTIvaDVjLzEwNDcyMjI3MzA3NTUwL3NpemU1MTVfMTQ0NzkzXyAoMSkuanBnfDM0NGMzNDY1MWE5YmU3MDRhMDZjY2EyODViZjk3NDQ0YTBlM2IxZGIyOWQxMjNhNjY5YjUzNzhkNTNhYThlZTY",
+    "code": "lg65tv",
+    "brand": "LG",
+    "stock": 5,
+    "marca": "sansung",
+    "rating": 4,
+    "category": ["tecnologia", "tv"]
   },
-  "title": "LG 65-inch OLED 4K UHD Smart TV",
-  "description": "Enjoy a truly immersive viewing experience with this LG 65-inch OLED 4K UHD Smart TV. It features self-lit pixels for perfect blacks and intense colors, AI-powered picture quality, and support for popular streaming apps.",
-  "price": 399900,
-  "thumbnail": "https://medias.musimundo.com/medias/size515-144793-1-.jpg?context=bWFzdGVyfHJvb3R8NzExNTJ8aW1hZ2UvanBlZ3xoNTIvaDVjLzEwNDcyMjI3MzA3NTUwL3NpemU1MTVfMTQ0NzkzXyAoMSkuanBnfDM0NGMzNDY1MWE5YmU3MDRhMDZjY2EyODViZjk3NDQ0YTBlM2IxZGIyOWQxMjNhNjY5YjUzNzhkNTNhYThlZTY",
-  "code": "lg65tv",
-  "brand": "LG",
-  "stock": 5,
-  "rating": 4,
-  "category": [
-    "tecnologia",
-    "tv"
-  ]
-},
-{
-  "_id": {
-    "$oid": "6499039b6c134e0021ba4200"
+  {
+    "title": "TCL 50-inch 4K Roku Smart TV",
+    "description": "Stream your favorite content with ease on this TCL 50-inch 4K Roku Smart TV. It features a 4K Ultra HD display, Dolby Vision for enhanced HDR, and the Roku platform for easy access to popular streaming services.",
+    "price": 279900,
+    "thumbnail": "https://www.megatone.net/Images/Articulos/zoom2x/253/TEL5015TCL.jpg",
+    "code": "tcl50tv",
+    "brand": "TCL",
+    "stock": 8,
+    "marca": "sansung",
+    "rating": 5,
+    "category": ["tecnologia", "tv"]
   },
-  "title": "TCL 50-inch 4K Roku Smart TV",
-  "description": "Stream your favorite content with ease on this TCL 50-inch 4K Roku Smart TV. It features a 4K Ultra HD display, Dolby Vision for enhanced HDR, and the Roku platform for easy access to popular streaming services.",
-  "price": 279900,
-  "thumbnail": "https://www.megatone.net/Images/Articulos/zoom2x/253/TEL5015TCL.jpg",
-  "code": "tcl50tv",
-  "brand": "TCL",
-  "stock": 8,
-  "rating": 5,
-  "category": [
-    "tecnologia",
-    "tv"
-  ]
-},
-{
-  "_id": {
-    "$oid": "6499039b6c134e0021ba4201"
+  {
+    "title": "Hisense 55-inch QLED 4K UHD Android TV",
+    "description": "Upgrade your entertainment setup with this Hisense 55-inch QLED 4K UHD Android TV. It delivers vibrant colors and deep blacks with QLED technology, runs on the Android TV platform, and supports voice control for hands-free operation.",
+    "price": 439900,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_919793-MLA52643836859_112022-O.webp",
+    "code": "hisense55tv",
+    "marca": "Hisense",
+    "stock": 12,
+    "rating": 2,
+    "category": ["tecnologia", "tv"]
   },
-  "title": "Hisense 55-inch QLED 4K UHD Android TV",
-  "description": "Upgrade your entertainment setup with this Hisense 55-inch QLED 4K UHD Android TV. It delivers vibrant colors and deep blacks with QLED technology, runs on the Android TV platform, and supports voice control for hands-free operation.",
-  "price": 439900,
-  "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_919793-MLA52643836859_112022-O.webp",
-  "code": "hisense55tv",
-  "brand": "Hisense",
-  "stock": 12,
-  "rating": 2,
-  "category": [
-    "tecnologia",
-    "tv"
-  ]
-},
-{
-  "_id": {
-    "$oid": "64cdd711a4d570e4507856bc"
+  {
+    "title": "La Zona Muerta",
+    "description": "Un hombre despierta de un coma con el poder de ver el futuro y el pasado.",
+    "price": 9.7,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_843653-MLA52143105955_102022-O.webp",
+    "category": ["libros", "ficcion", "suspense"],
+    "marca": "EditorialABC",
+    "stock": 14,
+    "rating": 4.1
   },
-  "title": "La Zona Muerta",
-  "description": "Un hombre despierta de un coma con el poder de ver el futuro y el pasado.",
-  "price": 9.7,
-  "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_843653-MLA52143105955_102022-O.webp",
-  "category": [
-    "libros",
-    "ficcion",
-    "suspense"
-  ],
-  "marca": "EditorialABC",
-  "stock": 14,
-  "rating": 4.1
-},
-{
-  "_id": {
-    "$oid": "64cdd711a4d570e4507856b5"
+  {
+    "title": "Cementerio de Animales",
+    "description": "Un misterioso cementerio con el poder de devolver a la vida.",
+    "price": 11.609,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_883013-MLA40579374951_012020-O.webp",
+    "category": ["libros", "ficcion", "terror"],
+    "marca": "EditorialXYZ",
+    "stock": 20,
+    "rating": 4.6
   },
-  "title": "Cementerio de Animales",
-  "description": "Un misterioso cementerio con el poder de devolver a la vida.",
-  "price": 11.609,
-  "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_883013-MLA40579374951_012020-O.webp",
-  "category": [
-    "libros",
-    "ficcion",
-    "terror"
-  ],
-  "marca": "EditorialXYZ",
-  "stock": 20,
-  "rating": 4.6
-},
-{
-  "_id": {
-    "$oid": "64cdd711a4d570e4507856b4"
+  {
+    "title": "El Resplandor",
+    "description": "Una familia aislada en un hotel embrujado durante el invierno.",
+    "price": 15.699,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_618680-MLA31092077635_062019-O.webp",
+    "category": ["libros", "ficcion", "terror"],
+    "marca": "EditorialABC",
+    "stock": 25,
+    "rating": 4.8
   },
-  "title": "El Resplandor",
-  "description": "Una familia aislada en un hotel embrujado durante el invierno.",
-  "price": 15.699,
-  "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_618680-MLA31092077635_062019-O.webp",
-  "category": [
-    "libros",
-    "ficcion",
-    "terror"
-  ],
-  "marca": "EditorialABC",
-  "stock": 25,
-  "rating": 4.8
-},
-{
-  "_id": {
-    "$oid": "64cdd711a4d570e4507856b6"
+  {
+    "title": "Misery",
+    "description": "Un escritor secuestrado por su fan más obsesiva.",
+    "price": 6.799,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_998771-MLA53781046610_022023-O.webp",
+    "category": ["libros", "ficcion", "terror"],
+    "marca": "EditorialABC",
+    "stock": 15,
+    "rating": 4.7
   },
-  "title": "Misery",
-  "description": "Un escritor secuestrado por su fan más obsesiva.",
-  "price": 6.799,
-  "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_998771-MLA53781046610_022023-O.webp",
-  "category": [
-    "libros",
-    "ficcion",
-    "terror"
-  ],
-  "marca": "EditorialABC",
-  "stock": 15,
-  "rating": 4.7
-},
-{
-  "_id": {
-    "$oid": "64cdd711a4d570e4507856b3"
+  {
+    "title": "Carrie",
+    "description": "La historia de una joven con poderes telequinéticos.",
+    "price": 8.819,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_735470-MLA48048804266_102021-O.webp",
+    "category": ["libros", "ficcion", "terror"],
+    "marca": "EditorialXYZ",
+    "stock": 30,
+    "rating": 4.2
   },
-  "title": "Carrie",
-  "description": "La historia de una joven con poderes telequinéticos.",
-  "price": 8.819,
-  "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_735470-MLA48048804266_102021-O.webp",
-  "category": [
-    "libros",
-    "ficcion",
-    "terror"
-  ],
-  "marca": "EditorialXYZ",
-  "stock": 30,
-  "rating": 4.2
-},
-{
-  "_id": {
-    "$oid": "64cdd711a4d570e4507856b9"
+  {
+    "title": "El Juego de Gerald",
+    "description": "Una mujer atrapada esposada a una cama después de un juego erótico que salió mal.",
+    "price": 6.567,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_935226-MLA54253958746_032023-O.webp",
+    "category": ["libros", "ficcion", "terror"],
+    "marca": "EditorialXYZ",
+    "stock": 10,
+    "rating": 4.3
   },
-  "title": "El Juego de Gerald",
-  "description": "Una mujer atrapada esposada a una cama después de un juego erótico que salió mal.",
-  "price": 6.567,
-  "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_935226-MLA54253958746_032023-O.webp",
-  "category": [
-    "libros",
-    "ficcion",
-    "terror"
-  ],
-  "marca": "EditorialXYZ",
-  "stock": 10,
-  "rating": 4.3
-},
-{
-  "_id": {
-    "$oid": "64cdd711a4d570e4507856b7"
+  {
+    "title": "La Torre Oscura: El Pistolero",
+    "description": "La primera entrega de la épica serie de fantasía oscura.",
+    "price": 5.039,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_987501-MLA25887287652_082017-O.webp",
+    "category": ["libros", "ficcion", "terror"],
+    "marca": "EditorialXYZ",
+    "stock": 12,
+    "rating": 4.9
   },
-  "title": "La Torre Oscura: El Pistolero",
-  "description": "La primera entrega de la épica serie de fantasía oscura.",
-  "price": 5.039,
-  "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_987501-MLA25887287652_082017-O.webp",
-  "category": [
-    "libros",
-    "ficcion",
-    "terror"
-  ],
-  "marca": "EditorialXYZ",
-  "stock": 12,
-  "rating": 4.9
-},
-{
-  "_id": {
-    "$oid": "64cdd711a4d570e4507856b8"
+  {
+    "title": "Salem's Lot",
+    "description": "Una historia de vampiros que acechan un pequeño pueblo.",
+    "price": 12.239,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_996783-MLA44027673016_112020-O.webp",
+    "category": ["libros", "ficcion", "terror"],
+    "marca": "EditorialABC",
+    "stock": 18,
+    "rating": 4.4
   },
-  "title": "Salem's Lot",
-  "description": "Una historia de vampiros que acechan un pequeño pueblo.",
-  "price": 12.239,
-  "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_996783-MLA44027673016_112020-O.webp",
-  "category": [
-    "libros",
-    "ficcion",
-    "terror"
-  ],
-  "marca": "EditorialABC",
-  "stock": 18,
-  "rating": 4.4
-},
-{
-  "_id": {
-    "$oid": "64cdd711a4d570e4507856bb"
+  {
+    "title": "22/11/63",
+    "description": "Un profesor viaja en el tiempo para evitar el asesinato de JFK.",
+    "price": 13.498,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_827353-MLA42891673700_072020-O.webp",
+    "category": ["libros", "ficcion", "ciencia ficcion"],
+    "marca": "EditorialXYZ",
+    "stock": 8,
+    "rating": 4.7
   },
-  "title": "22/11/63",
-  "description": "Un profesor viaja en el tiempo para evitar el asesinato de JFK.",
-  "price": 13.498,
-  "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_827353-MLA42891673700_072020-O.webp",
-  "category": [
-    "libros",
-    "ficcion",
-    "ciencia ficcion"
-  ],
-  "marca": "EditorialXYZ",
-  "stock": 8,
-  "rating": 4.7
-},
-{
-  "_id": {
-    "$oid": "64cdd711a4d570e4507856ba"
+  {
+    "title": "La Cúpula",
+    "description": "Una pequeña ciudad es inexplicablemente atrapada bajo una cúpula invisible.",
+    "price": 12.779,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_854046-MLA41792499487_052020-O.webp",
+    "category": ["libros", "ficcion", "ciencia ficcion"],
+    "marca": "EditorialABC",
+    "stock": 22,
+    "rating": 4.5
   },
-  "title": "La Cúpula",
-  "description": "Una pequeña ciudad es inexplicablemente atrapada bajo una cúpula invisible.",
-  "price": 12.779,
-  "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_854046-MLA41792499487_052020-O.webp",
-  "category": [
-    "libros",
-    "ficcion",
-    "ciencia ficcion"
-  ],
-  "marca": "EditorialABC",
-  "stock": 22,
-  "rating": 4.5
-},
-{
-  "_id": {
-    "$oid": "64f65d697871ce0b8c0bda18"
+  {
+    "title": "Mochila",
+    "description": "buena mochola",
+    "price": 1234,
+    "thumbnail": "https://nikearprod.vtexassets.com/arquivos/ids/212564/DQ5149_010_A.jpg?v=638098241173330000",
+    "category": ["indumentaria"],
+    "marca": "Nike",
+    "stock": 50
   },
-  "title": "asdfasdf",
-  "description": "sadfsdaf",
-  "price": 123123,
-  "thumbnail": "dsafasdf",
-  "category": [
-    "sadfasdf"
-  ],
-  "marca": "sadfasdf",
-  "stock": 213123,
-  "owner": {
-    "ownerID": {
-      "$oid": "64db067e5b2c98779f93a94f"
-    },
-    "ownerUsername": "fanta"
+  {
+    "title": "iphon14",
+    "description": "buen telefono",
+    "price": 1234,
+    "thumbnail": "https://elcomercio.pe/resizer/E3OkE8--eX_dvTou0YvSvz9by4I=/1200x800/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/4WZRKAOCFBFVVOAMMWMMOUXYNQ.jpg",
+    "category": ["Tecnologia"],
+    "marca": "Iphine",
+    "stock": 14
   },
-  "createTime": {
-    "$date": "2023-09-04T22:42:49.559Z"
+  {
+    "title": "destornillador",
+    "description": "buen destornillador",
+    "price": 1234,
+    "thumbnail": "https://pimdata.irimo.com/media/sub74/17c16cfdefb5b93f.png",
+    "category": ["Herramientas"],
+    "marca": "ioqc",
+    "stock": 250
   },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "64f80cbb94a0f2cc81c062ba"
+  {
+    "title": "Remera Negra",
+    "description": "buena remera ",
+    "price": 1234,
+    "thumbnail": "https://acdn.mitiendanube.com/stores/001/966/536/products/plantilla-regular-fit-negro-web_mesa-de-trabajo-11-563658c9ab867cb4bf16632607231508-1024-1024.jpg",
+    "category": ["ropa"],
+    "marca": "nike",
+    "stock": 43
   },
-  "title": "Mochila",
-  "description": "buena mochola",
-  "price": 1234,
-  "thumbnail": "https://nikearprod.vtexassets.com/arquivos/ids/212564/DQ5149_010_A.jpg?v=638098241173330000",
-  "category": [
-    "indumentaria"
-  ],
-  "marca": "Nike",
-  "stock": 50,
-  "owner": {
-    "ownerID": {
-      "$oid": "64db067e5b2c98779f93a94f"
-    },
-    "ownerUsername": "fanta"
+  {
+    "title": "Remera Negra",
+    "description": "buena remera ",
+    "price": 1234,
+    "thumbnail": "https://acdn.mitiendanube.com/stores/001/966/536/products/plantilla-regular-fit-negro-web_mesa-de-trabajo-11-563658c9ab867cb4bf16632607231508-1024-1024.jpg",
+    "category": ["ropa"],
+    "marca": "nike",
+    "stock": 43
   },
-  "createTime": {
-    "$date": "2023-09-06T05:23:07.035Z"
+  {
+    "title": "Remera Negra",
+    "description": "buena remera ",
+    "price": 1234,
+    "thumbnail": "https://acdn.mitiendanube.com/stores/001/966/536/products/plantilla-regular-fit-negro-web_mesa-de-trabajo-11-563658c9ab867cb4bf16632607231508-1024-1024.jpg",
+    "category": ["ropa"],
+    "marca": "nike",
+    "stock": 43
   },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "64f80e5b94a0f2cc81c062c8"
-  },
-  "title": "iphon14",
-  "description": "buen telefono",
-  "price": 1234,
-  "thumbnail": "https://elcomercio.pe/resizer/E3OkE8--eX_dvTou0YvSvz9by4I=/1200x800/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/4WZRKAOCFBFVVOAMMWMMOUXYNQ.jpg",
-  "category": [
-    "Tecnologia"
-  ],
-  "marca": "Iphine",
-  "stock": 14,
-  "owner": {
-    "ownerID": {
-      "$oid": "64db067e5b2c98779f93a94f"
-    },
-    "ownerUsername": "fanta"
-  },
-  "createTime": {
-    "$date": "2023-09-06T05:30:03.341Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "64f80e8b94a0f2cc81c062ca"
-  },
-  "title": "destornillador",
-  "description": "buen destornillador",
-  "price": 1234,
-  "thumbnail": "https://pimdata.irimo.com/media/sub74/17c16cfdefb5b93f.png",
-  "category": [
-    "Herramientas"
-  ],
-  "marca": "ioqc",
-  "stock": 250,
-  "owner": {
-    "ownerID": {
-      "$oid": "64db067e5b2c98779f93a94f"
-    },
-    "ownerUsername": "fanta"
-  },
-  "createTime": {
-    "$date": "2023-09-06T05:30:51.288Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "64f80f6b94a0f2cc81c062d8"
-  },
-  "title": "Remera Negra",
-  "description": "buena remera ",
-  "price": 1234,
-  "thumbnail": "https://acdn.mitiendanube.com/stores/001/966/536/products/plantilla-regular-fit-negro-web_mesa-de-trabajo-11-563658c9ab867cb4bf16632607231508-1024-1024.jpg",
-  "category": [
-    "ropa"
-  ],
-  "marca": "nike",
-  "stock": 43,
-  "owner": {
-    "ownerID": {
-      "$oid": "64db067e5b2c98779f93a94f"
-    },
-    "ownerUsername": "fanta"
-  },
-  "createTime": {
-    "$date": "2023-09-06T05:34:35.284Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "64fb8204da3b1fe6daf49edc"
-  },
-  "title": "Remera Negra",
-  "description": "buena remera ",
-  "price": 1234,
-  "thumbnail": "https://acdn.mitiendanube.com/stores/001/966/536/products/plantilla-regular-fit-negro-web_mesa-de-trabajo-11-563658c9ab867cb4bf16632607231508-1024-1024.jpg",
-  "category": [
-    "ropa"
-  ],
-  "marca": "nike",
-  "stock": 43,
-  "owner": {
-    "ownerID": {
-      "$oid": "64db067e5b2c98779f93a94f"
-    },
-    "ownerUsername": "fanta"
-  },
-  "createTime": {
-    "$date": "2023-09-06T05:34:35.284Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "64fb8584da3b1fe6daf49edf"
-  },
-  "title": "Remera Negra",
-  "description": "buena remera ",
-  "price": 1234,
-  "thumbnail": "https://acdn.mitiendanube.com/stores/001/966/536/products/plantilla-regular-fit-negro-web_mesa-de-trabajo-11-563658c9ab867cb4bf16632607231508-1024-1024.jpg",
-  "category": [
-    "ropa"
-  ],
-  "marca": "nike",
-  "stock": 43,
-  "owner": {
-    "ownerID": {
-      "$oid": "64db067e5b2c98779f93a94f"
-    },
-    "ownerUsername": "fanta"
-  },
-  "createTime": {
-    "$date": "2023-09-06T05:34:35.284Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "6513d6c2e240b3a9bdff41b1"
-  },
-  "title": "LG 65-inch OLED 4K UHD Smart TV",
-  "description": "Enjoy a truly immersive viewing experience with this LG 65-inch OLED 4K UHD Smart TV. It features self-lit pixels for perfect blacks and intense colors, AI-powered picture quality, and support for popular streaming apps.",
-  "price": 399900,
-  "thumbnail": "https://medias.musimundo.com/medias/size515-144793-1-.jpg?context=bWFzdGVyfHJvb3R8NzExNTJ8aW1hZ2UvanBlZ3xoNTIvaDVjLzEwNDcyMjI3MzA3NTUwL3NpemU1MTVfMTQ0NzkzXyAoMSkuanBnfDM0NGMzNDY1MWE5YmU3MDRhMDZjY2EyODViZjk3NDQ0YTBlM2IxZGIyOWQxMjNhNjY5YjUzNzhkNTNhYThlZTY",
-  "code": "lg65tv",
-  "brand": "LG",
-  "stock": 5,
-  "rating": 4,
-  "category": [
-    "tecnologia",
-    "tv"
-  ]
-}]
+  {
+    "title": "LG 65-inch OLED 4K UHD Smart TV",
+    "description": "Enjoy a truly immersive viewing experience with this LG 65-inch OLED 4K UHD Smart TV. It features self-lit pixels for perfect blacks and intense colors, AI-powered picture quality, and support for popular streaming apps.",
+    "price": 399900,
+    "thumbnail": "https://medias.musimundo.com/medias/size515-144793-1-.jpg?context=bWFzdGVyfHJvb3R8NzExNTJ8aW1hZ2UvanBlZ3xoNTIvaDVjLzEwNDcyMjI3MzA3NTUwL3NpemU1MTVfMTQ0NzkzXyAoMSkuanBnfDM0NGMzNDY1MWE5YmU3MDRhMDZjY2EyODViZjk3NDQ0YTBlM2IxZGIyOWQxMjNhNjY5YjUzNzhkNTNhYThlZTY",
+    "code": "lg65tv",
+    "brand": "LG",
+    "stock": 5,
+    "marca": "LG",
+    "rating": 4,
+    "category": ["tecnologia", "tv"]
+  }
+]
