@@ -21,7 +21,7 @@ const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
 const FileStore = require("session-file-store");
 const { create } = require("connect-mongo");
 const { errorHandler } = require("./middlewares/error.middleware");
-const { cartService } = require("./service");
+const { cartService, productService } = require("./service");
 const { addLogger, logger } = require("./middlewares/logger");
 const socketMessage = require("./utils/socketMessage.js");
 
@@ -49,6 +49,44 @@ const {
 const passport = require("passport");
 
 objectConfig.connectDB();
+
+// const product = {
+//   title: "LG 65-inch OLED 4K UHD Smart TV",
+//   description:
+//     "Enjoy a truly immersive viewing experience with this LG 65-inch OLED 4K UHD Smart TV. It features self-lit pixels for perfect blacks and intense colors, AI-powered picture quality, and support for popular streaming apps.",
+//   price: 399900,
+//   thumbnail:
+//     "https://medias.musimundo.com/medias/size515-144793-1-.jpg?context=bWFzdGVyfHJvb3R8NzExNTJ8aW1hZ2UvanBlZ3xoNTIvaDVjLzEwNDcyMjI3MzA3NTUwL3NpemU1MTVfMTQ0NzkzXyAoMSkuanBnfDM0NGMzNDY1MWE5YmU3MDRhMDZjY2EyODViZjk3NDQ0YTBlM2IxZGIyOWQxMjNhNjY5YjUzNzhkNTNhYThlZTY",
+//   code: "lg65tv",
+//   brand: "LG",
+//   stock: 5,
+//   marca: "samsung",
+//   rating: 4,
+//   category: ["tecnologia", "tv"],
+// };
+
+// async function createProductAuto(data) {
+//   try {
+//     let title = "LG 65-inch OLED 4K UHD Smart TV";
+//     // const exist = await productService.getProductBy(title);
+
+//     const addProduct = await productService.addProduct(data);
+//     return addProduct;
+//   } catch (error) {
+//     console.error(error);
+//     throw error; // O maneja el error de alguna otra manera apropiada
+//   }
+// }
+
+// async function main() {
+//   try {
+//     const result = await createProductAuto(product);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
+// main();
 
 const app = express();
 // HandleBars
