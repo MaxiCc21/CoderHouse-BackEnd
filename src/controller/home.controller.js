@@ -4,6 +4,7 @@ const { productService } = require("../service");
 const fs = require("fs");
 const path = require("path");
 const mongoose = require("mongoose");
+const { userModel } = require("../dao/models/user.model");
 
 class UserController {
   loadProduct = async (req, res) => {
@@ -19,17 +20,24 @@ class UserController {
       let listProducts = await productService.getAllProducts();
 
       if (listProducts.length === 0) {
-        const jsonFilePath = path.resolve(
+        const productJsonFilePath = path.resolve(
           __dirname,
           "../../MercadoLibre.products.json"
         );
-        const jsonData = fs.readFileSync(jsonFilePath, "utf8");
-        const productsFromJson = JSON.parse(jsonData);
+        const userJsonFilePath = path.resolve(
+          __dirname,
+          "../../MercadoLibre.users.json"
+        );
+        const userJsonData = fs.readFileSync(userJsonFilePath, "utf8");
+        const productJsonData = fs.readFileSync(productJsonFilePath, "utf8");
+        const productsFromJson = JSON.parse(productJsonData);
+        const userFromJson = JSON.parse(userJsonData);
         await productModel.insertMany(productsFromJson);
-        console.log("Datos importados desde MercadoLibre.products.json.");
-        window.location.reload();
+        await userModel.insertMany(userFromJson);
+        logger.info("Datos importados desde MercadoLibre.products.json.");
+        location.reload();
       } else {
-        console.log("listProducts NO está vacío, no se importaron datos.");
+        logger.info("listProducts NO está vacío, no se importaron datos.");
       }
 
       let options = {
