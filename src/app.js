@@ -59,6 +59,13 @@ const helpers = {
   eq: function (value1, value2, options) {
     return value1 === value2 ? options.fn(this) : options.inverse(this);
   },
+  sumProductPrice: function (products) {
+    let total = 0;
+    products.forEach((product) => {
+      total += product.product.price * product.quantity;
+    });
+    return total.toFixed(2);
+  },
 };
 
 for (const helperName in helpers) {
@@ -121,8 +128,6 @@ app.use("/api/cart", cartRoutes);
 app.use("/session", userRoutes);
 
 app.use("/home", homeRoutes);
-
-// app.use("/views", viewsRoutes);
 
 app.use("/chat", chatRoutes);
 
@@ -206,6 +211,6 @@ app.get("*", (req, res) => {
 
 let PORT = process.env.PORT;
 
-app.listen(PORT, () => {
-  logger.info(` escuchando en el puerto ${PORT}`);
+serverHTTP.listen(PORT, () => {
+  logger.info(`Escuchando en el puerto: ${PORT}`);
 });
