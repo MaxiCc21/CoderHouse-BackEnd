@@ -5,11 +5,7 @@ const cartRoutes = require("./routes/carts.routes");
 const homeRoutes = require("./routes/home.routes");
 const chatRoutes = require("./routes/chat.routes");
 const userRoutes = require("./routes/user.routes");
-const viewsRoutes = require("./routes/views.routes");
-const newUserRoutes = require("./routes/newUser.routes");
 const cookieRoutes = require("./routes/cookie.routes");
-// const comprarRoutes = require("./routes/comprar.routes");
-const pruebaRoutes = require("./routes/prueba.routes");
 const mailRoutes = require("./routes/mailing.routes");
 const mockingRoutes = require("./routes/mock.routes");
 const publicarRoutes = require("./routes/publicar.routes");
@@ -18,19 +14,14 @@ const { uploader } = require("./utils/multer");
 const productHandle = new (require("./dao/MongoManager/ProductManager"))();
 const objectConfig = require("./config/config");
 const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
-const FileStore = require("session-file-store");
-const { create } = require("connect-mongo");
-const { errorHandler } = require("./middlewares/error.middleware");
 const { cartService } = require("./service");
 const { addLogger, logger } = require("./middlewares/logger");
-const socketMessage = require("./utils/socketMessage.js");
 
 //---------------Swagger--------------
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUiExpress = require("swagger-ui-express");
 
 //---------------Swagger--------------
-const NewUserRoutes = new newUserRoutes();
 
 const cors = require("cors");
 //Passport
@@ -66,16 +57,18 @@ const helpers = {
   eq: function (value1, value2, options) {
     return value1 === value2 ? options.fn(this) : options.inverse(this);
   },
+  sumProductPrice: function (products) {
+    let total = 0;
+    products.forEach((product) => {
+      total += product.product.price * product.quantity;
+    });
+    return total.toFixed(2);
+  },
 };
 
 for (const helperName in helpers) {
   Handlebars.registerHelper(helperName, helpers[helperName]);
 }
-
-// Handlebars.registerHelper("toUpperCase", function (date) {
-//   return moment(date).locale("es").format("D MMMM YYYY");
-// });
-// HandleBars
 
 app.use(express.json());
 // app.use(core());
@@ -103,36 +96,6 @@ const specs = swaggerJsDoc(swaggerOptions);
 app.use("/docs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
 //---------------Swagger--------------
-
-const fileStore = FileStore(session);
-// app.use(
-//   session({
-//     store: new fileStore({
-//       ttl: 100000 * 60,
-//       path: "./session",
-//       retries: 0,
-//     }),
-//     secret: "s33sionC0d3",
-//     resave: true,
-//     saveUninitialized: true,
-//   })
-// );
-
-// app.use(
-//   session({
-//     store: create({
-//       mongoUrl: "mongodb://localhost:27017/MercadoLibre",
-//       mongoOptions: {
-//         useNewUrlParser: true,
-//         useUnifiedTopology: true,
-//       },
-//       ttl: 15,
-//     }),
-//     secret: "s33sionC0d3",
-//     resave: false,
-//     saveUninitialized: false,
-//   })
-// );
 
 app.use(
   session({
@@ -163,17 +126,11 @@ app.use("/api/cart", cartRoutes);
 
 app.use("/session", userRoutes);
 
-app.use("/newuserRoutes", NewUserRoutes.getRouter());
-
 app.use("/home", homeRoutes);
-
-app.use("/views", viewsRoutes);
 
 app.use("/chat", chatRoutes);
 
 app.use("/cookie", cookieRoutes);
-
-// app.use("/comprar", comprarRoutes);
 
 app.use("/email", mailRoutes);
 
@@ -200,10 +157,6 @@ const { dirname } = require("path");
 
 const serverHTTP = ServerHTTP(app);
 const io = new ServerIO(serverHTTP);
-
-// const io = new Server(httpServer);
-
-// socketMessage(io);
 
 io.on("connection", async (socket) => {
   socket.emit("message", "Se conectado un usuario");
