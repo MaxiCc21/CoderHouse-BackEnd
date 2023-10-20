@@ -27,14 +27,6 @@ router.get("/", async (require, res) => {
   res.render("home.handlebars", testUser);
 });
 
-// router.post(
-//   "/login",
-//   passport.authenticate("login", {
-//     failureRedirect: "login",
-//     successRedirect: "home",
-//   })
-// );
-
 router.post(
   "/login",
   passport.authenticate("login", { failureRedirect: "/login" }),

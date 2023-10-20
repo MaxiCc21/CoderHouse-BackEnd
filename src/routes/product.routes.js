@@ -7,7 +7,6 @@ const {
   showSingleProductPOST,
   showProductsByCategoryGET,
   APIshowSingleProductGET,
-  getProductPaginator,
   getProductPaginatorGET,
 } = require("../controller/product.controller");
 const { productService } = require("../service");

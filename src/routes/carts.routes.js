@@ -9,31 +9,6 @@ const router = Router();
 
 router.get("/", passportAuth("jwt"), authorizaton("user", "premium"), cartGET);
 
-//? router.post("/", async (request, response) => {
-//?   let res = await cartHandle.createNewCart();
-//?   if (!res) {
-//?     response.send("A ocurrido un error");
-//?   }
-//?   response.send(res);
-//? });
-
-//! router.post("/:cid/product/:pid", async (request, response) => {
-//!   let { cid } = request.params;
-//!   let { pid } = request.params;
-//!   let body = { id: 1, name: "hola" };
-//!   let res = await cartHandle.addItem(cid, pid, body);
-//!   //! console.log(res.status, res.statusMsj);
-//!   response.send(res);
-//! });
-
-//! //! Delete Item
-//! router.delete("/:cid/product/:pid", async (req, res) => {
-//!   let { cid, pid } = req.params,
-//!     body = req.body;
-//!   let found = await cartHandle.getItemById(cid);
-//!   console.log(found);
-//!   res.send("Hola");
-//! });
 //---------------------- Mercado Pago ----------------------
 const mercadopago = require("mercadopago");
 require("dotenv").config();
@@ -52,9 +27,9 @@ router.post("/shopmethomp", (req, res) => {
       {
         title: "Camiseta de fútbol",
         description: "Camiseta oficial del equipo",
-        unit_price: 2500, // 25 pesos argentinos
-        quantity: 2, // Se están vendiendo 2 camisetas
-        currency_id: "ARS", // Moneda argentina
+        unit_price: 2500,
+        quantity: 2,
+        currency_id: "ARS",
         picture_url: "https://example.com/camiseta.jpg",
         category_id: "ropa",
         id: "123456",

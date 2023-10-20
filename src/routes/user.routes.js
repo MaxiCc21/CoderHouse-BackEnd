@@ -32,14 +32,6 @@ function idGenerator() {
   return uuidv4();
 }
 
-// router.get("/", (req, res) => {
-//   let options = {
-//     style: "user_Ingresar.css",
-//   };
-
-//   res.render("handleUser.handlebars", options);
-// });
-
 router.get("/", async (req, res) => {
   let data = await handleUser.getAllUser();
   let options = {
@@ -100,21 +92,7 @@ router.get("/create-user", async (req, res) => {
   res.render("user_Create.handlebars", options);
 });
 
-//localhost:8080/handleUser/createuser
-// {
-//   "firstname": "Prueba",
-//   "lastname": "Prueba",
-//   "username": "Prueba21",
-//   "email": "prueba123@gmail.com",
-//   "password": "Hola21498",
-//   "isAdmin": false,
-//   "adress": "Salta 1234",
-//   "lastUpdate": {
-//     "$date": "2023-05-11T18:12:58.841Z"
-//   },
-//   "__v": 0
-// }
-http: router.post("/createuser", async (req, res) => {
+router.post("/createuser", async (req, res) => {
   let options = {
     style: "userCrear.css",
   };
@@ -145,11 +123,7 @@ http: router.post("/createuser", async (req, res) => {
   res.render("home", options);
 });
 
-//localhost:8080/handleUser/updateuser/6461c87748c1be7bd066bc2f
-// {
-// "firstname":"Prueba"
-// }
-http: router.put("/updateuser/:pid", async (req, res) => {
+router.put("/updateuser/:pid", async (req, res) => {
   let pid = req.params.pid;
   let bodyData = req.body;
 
@@ -162,8 +136,7 @@ http: router.put("/updateuser/:pid", async (req, res) => {
   }
 });
 
-//localhost:8080/handleUser/deleteuser/6461c87748c1be7bd066bc2f
-http: router.delete("/deleteuser/:pid", async (req, res) => {
+router.delete("/deleteuser/:pid", async (req, res) => {
   let pid = req.params.pid;
 
   let myRes = await handleUser.deletUser(pid);

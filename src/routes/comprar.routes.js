@@ -28,7 +28,6 @@ router.get("/done", (req, res) => {
       </body>
     </html>
   `;
-  // res.send(htmlResponse);
   res.render("done.handlebars");
 });
 
