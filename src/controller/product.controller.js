@@ -1,5 +1,4 @@
 const { logger } = require("../middlewares/logger");
-const { options } = require("../routes/product.routes");
 const {
   productService,
   cartService,
