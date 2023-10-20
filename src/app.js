@@ -21,15 +21,9 @@ const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
 const FileStore = require("session-file-store");
 const { create } = require("connect-mongo");
 const { errorHandler } = require("./middlewares/error.middleware");
-const { cartService, productService } = require("./service");
+const { cartService } = require("./service");
 const { addLogger, logger } = require("./middlewares/logger");
 const socketMessage = require("./utils/socketMessage.js");
-
-const commander = require("./process/comander");
-const { mode } = commander.opts();
-require("dotenv").config({
-  path: mode === "production" ? "./.env.production" : "./.env.development",
-});
 
 //---------------Swagger--------------
 const swaggerJsDoc = require("swagger-jsdoc");
@@ -49,44 +43,6 @@ const {
 const passport = require("passport");
 
 objectConfig.connectDB();
-
-// const product = {
-//   title: "LG 65-inch OLED 4K UHD Smart TV",
-//   description:
-//     "Enjoy a truly immersive viewing experience with this LG 65-inch OLED 4K UHD Smart TV. It features self-lit pixels for perfect blacks and intense colors, AI-powered picture quality, and support for popular streaming apps.",
-//   price: 399900,
-//   thumbnail:
-//     "https://medias.musimundo.com/medias/size515-144793-1-.jpg?context=bWFzdGVyfHJvb3R8NzExNTJ8aW1hZ2UvanBlZ3xoNTIvaDVjLzEwNDcyMjI3MzA3NTUwL3NpemU1MTVfMTQ0NzkzXyAoMSkuanBnfDM0NGMzNDY1MWE5YmU3MDRhMDZjY2EyODViZjk3NDQ0YTBlM2IxZGIyOWQxMjNhNjY5YjUzNzhkNTNhYThlZTY",
-//   code: "lg65tv",
-//   brand: "LG",
-//   stock: 5,
-//   marca: "samsung",
-//   rating: 4,
-//   category: ["tecnologia", "tv"],
-// };
-
-// async function createProductAuto(data) {
-//   try {
-//     let title = "LG 65-inch OLED 4K UHD Smart TV";
-//     // const exist = await productService.getProductBy(title);
-
-//     const addProduct = await productService.addProduct(data);
-//     return addProduct;
-//   } catch (error) {
-//     console.error(error);
-//     throw error; // O maneja el error de alguna otra manera apropiada
-//   }
-// }
-
-// async function main() {
-//   try {
-//     const result = await createProductAuto(product);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
-// main();
 
 const app = express();
 // HandleBars
@@ -117,13 +73,7 @@ for (const helperName in helpers) {
   Handlebars.registerHelper(helperName, helpers[helperName]);
 }
 
-// Handlebars.registerHelper("toUpperCase", function (date) {
-//   return moment(date).locale("es").format("D MMMM YYYY");
-// });
-// HandleBars
-
 app.use(express.json());
-// app.use(core());
 app.use(cokieParser("c0ntr4s3n4"));
 app.use("/static", express.static(__dirname + "/public"));
 
@@ -148,36 +98,6 @@ const specs = swaggerJsDoc(swaggerOptions);
 app.use("/docs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
 //---------------Swagger--------------
-
-const fileStore = FileStore(session);
-// app.use(
-//   session({
-//     store: new fileStore({
-//       ttl: 100000 * 60,
-//       path: "./session",
-//       retries: 0,
-//     }),
-//     secret: "s33sionC0d3",
-//     resave: true,
-//     saveUninitialized: true,
-//   })
-// );
-
-// app.use(
-//   session({
-//     store: create({
-//       mongoUrl: "mongodb://localhost:27017/MercadoLibre",
-//       mongoOptions: {
-//         useNewUrlParser: true,
-//         useUnifiedTopology: true,
-//       },
-//       ttl: 15,
-//     }),
-//     secret: "s33sionC0d3",
-//     resave: false,
-//     saveUninitialized: false,
-//   })
-// );
 
 app.use(
   session({
@@ -212,7 +132,7 @@ app.use("/newuserRoutes", NewUserRoutes.getRouter());
 
 app.use("/home", homeRoutes);
 
-app.use("/views", viewsRoutes);
+// app.use("/views", viewsRoutes);
 
 app.use("/chat", chatRoutes);
 
@@ -231,8 +151,6 @@ app.use((err, req, res, next) => {
   res.status(500).send("Todo mal");
 });
 
-// app.use(errorHandler);
-
 // Socket-----------------------------------------------------------------------------
 
 app.get("/realtimeproducts", (req, res) => {
@@ -245,10 +163,6 @@ const { dirname } = require("path");
 
 const serverHTTP = ServerHTTP(app);
 const io = new ServerIO(serverHTTP);
-
-// const io = new Server(httpServer);
-
-// socketMessage(io);
 
 io.on("connection", async (socket) => {
   socket.emit("message", "Se conectado un usuario");
@@ -302,8 +216,6 @@ app.get("*", (req, res) => {
 
 let PORT = process.env.PORT;
 
-exports.initServer = () => {
-  serverHTTP.listen(PORT, () => {
-    logger.info(`Escuchando en el puerto: ${PORT}`);
-  });
-};
+app.listen(PORT, () => {
+  logger.info(` escuchando en el puerto ${PORT}`);
+});
