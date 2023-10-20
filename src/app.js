@@ -74,7 +74,6 @@ for (const helperName in helpers) {
 }
 
 app.use(express.json());
-// app.use(core());
 app.use(cokieParser("c0ntr4s3n4"));
 app.use("/static", express.static(__dirname + "/public"));
 

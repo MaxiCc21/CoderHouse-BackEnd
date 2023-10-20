@@ -1,15 +1,5 @@
 const winston = require("winston");
 
-// // Configurar los transportes de registro (dónde se guardarán los registros)
-// const logger = winston.createLogger({
-//   // level: "info", // Nivel mínimo de registro
-//   // format: winston.format.json(), // Formato de registro
-//   transports: [
-//     new winston.transports.Console({ level: "http" }), // Registro en la consola
-//     new winston.transports.File({ filename: "error.log", level: "warn" }), // Registro en archivo
-//   ],
-// });
-// Configurar los transportes de registro (dónde se guardarán los registros)
 const customLevelOptioms = {
   level: {
     fatal: 0,

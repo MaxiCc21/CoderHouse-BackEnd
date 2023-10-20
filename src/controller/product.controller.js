@@ -93,9 +93,6 @@ class ProductControler {
     const JWTuser = req.user;
 
     const foundProduct = await productService.getProductById(pid);
-    // const objectId = foundProduct._id;
-    // const objectIdString = objectId.toString();
-    // const valor = objectIdString.substring(10, 24);
     if (!foundProduct) {
       res.send({
         status: "error",

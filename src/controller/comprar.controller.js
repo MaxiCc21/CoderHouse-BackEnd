@@ -170,9 +170,9 @@ class ComprarController {
         {
           title: "Camiseta de fútbol",
           description: "Camiseta oficial del equipo",
-          unit_price: 2500, // 25 pesos argentinos
-          quantity: 2, // Se están vendiendo 2 camisetas
-          currency_id: "ARS", // Moneda argentina
+          unit_price: 2500,
+          quantity: 2,
+          currency_id: "ARS",
           picture_url: "https://example.com/camiseta.jpg",
           category_id: "ropa",
           id: "123456",

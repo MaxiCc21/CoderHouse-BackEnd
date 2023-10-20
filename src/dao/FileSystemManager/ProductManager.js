@@ -102,7 +102,7 @@ class ProductManager {
         ...code,
       };
       let products = await this.getProducts();
-      // products = JSON.parse(products);
+
       products.push(newItemCreated);
       await fs.promises.writeFile(this.path, JSON.stringify(products), "utf-8");
       return {
