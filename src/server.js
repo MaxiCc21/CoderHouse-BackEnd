@@ -16,7 +16,8 @@ const objectConfig = require("./config/config");
 const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
 const { cartService } = require("./service");
 const { addLogger, logger } = require("./middlewares/logger");
-
+const { Server: ServerIO } = require("socket.io");
+const { Server: ServerHTTP } = require("http");
 //---------------Swagger--------------
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUiExpress = require("swagger-ui-express");
@@ -150,10 +151,6 @@ app.use((err, req, res, next) => {
 app.get("/realtimeproducts", (req, res) => {
   res.render("realTimeProducts", { style: "realTime.css" });
 });
-
-const { Server: ServerIO } = require("socket.io");
-const { Server: ServerHTTP } = require("http");
-const { dirname } = require("path");
 
 const serverHTTP = ServerHTTP(app);
 const io = new ServerIO(serverHTTP);
