@@ -18,6 +18,8 @@ const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
 const { errorHandler } = require("./middlewares/error.middleware");
 const { cartService } = require("./service");
 const { addLogger, logger } = require("./middlewares/logger");
+const { Server: ServerIO } = require("socket.io");
+const { Server: ServerHTTP } = require("http");
 
 //---------------Swagger--------------
 const swaggerJsDoc = require("swagger-jsdoc");
@@ -117,10 +119,6 @@ app.use(passport.session());
 
 app.use(cors());
 
-app.post("/single", uploader.single("myFile"), (res, req) => {
-  res.status(200).send("Todo ok");
-});
-
 app.use("/products", productRoutes);
 
 app.use("/api/cart", cartRoutes);
@@ -148,13 +146,9 @@ app.use((err, req, res, next) => {
 
 // Socket-----------------------------------------------------------------------------
 
-app.get("/realtimeproducts", (req, res) => {
-  res.render("realTimeProducts", { style: "realTime.css" });
-});
-
-const { Server: ServerIO } = require("socket.io");
-const { Server: ServerHTTP } = require("http");
-const { dirname } = require("path");
+// app.get("/realtimeproducts", (req, res) => {
+//   res.render("realTimeProducts", { style: "realTime.css" });
+// });
 
 const serverHTTP = ServerHTTP(app);
 const io = new ServerIO(serverHTTP);
