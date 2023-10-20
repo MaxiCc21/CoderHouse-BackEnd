@@ -11,13 +11,10 @@ const {
   recoverPOST,
   modifyGET,
   modifyPOST,
-  getUserByID,
   getUserByIDGET,
   getPaginate,
-  adminUserEdit,
   adminUserEditGET,
   adminUserEditPOST,
-  adminUserCreateNewUser,
   adminUserCreateNewUserGET,
   adminUserCreateNewUserPOST,
 } = require("../controller/user.controller");
@@ -27,10 +24,6 @@ const { ticketService, userService } = require("../service");
 const { logger } = require("handlebars");
 
 const handleUser = new (require("../dao/MongoManager/UserManager"))();
-
-function idGenerator() {
-  return uuidv4();
-}
 
 router.get("/", async (req, res) => {
   let data = await handleUser.getAllUser();

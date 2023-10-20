@@ -113,21 +113,20 @@ class ComprarController {
         console.error(err);
         res.status(500).send("Algo sali mal");
       });
-
-    // if (ticketEdited.ok) {
-    //   res.redirect("/comprar/methodPayment");
-    // } else {
-    //   res.status(400).send(ticketEdited.statusMsj);
-    // }
   };
 
   methodPaymentGET = async (req, res) => {
     const JWTuser = req.user;
 
+    const productDataUser = await cartService.getItemToCart(JWTuser.sub);
+    if (!productDataUser.ok) {
+      res.status(400).send("Algo salio mal al cargar los productos");
+    }
     const options = {
       style: "methodPayment.css",
       data: req.body,
       usercookie: JWTuser,
+      products: productDataUser.data,
     };
 
     res.render("shopping/methodPayment", options);
