@@ -7,6 +7,7 @@ const chatRoutes = require("./routes/chat.routes");
 const userRoutes = require("./routes/user.routes");
 const cookieRoutes = require("./routes/cookie.routes");
 const mailRoutes = require("./routes/mailing.routes");
+const comprarRoutes = require("./routes/comprar.routes");
 const mockingRoutes = require("./routes/mock.routes");
 const publicarRoutes = require("./routes/publicar.routes");
 const cokieParser = require("cookie-parser");
@@ -132,6 +133,8 @@ app.use("/home", homeRoutes);
 app.use("/chat", chatRoutes);
 
 app.use("/cookie", cookieRoutes);
+
+app.use("/comprar", comprarRoutes);
 
 app.use("/email", mailRoutes);
 

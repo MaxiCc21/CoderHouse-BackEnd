@@ -7,9 +7,7 @@ const {
   ticketService,
 } = require("../service");
 
-
 require("dotenv").config();
-
 
 const mercadopago = require("../config/mercadopago");
 
@@ -52,11 +50,7 @@ class ProductControler {
     const JWTuser = req.user;
 
     const foundProduct = await productService.getProductById(pid);
-    // const objectId = foundProduct._id;
-    // const objectIdString = objectId.toString();
-    // const valor = objectIdString.substring(10, 24);
-    // console.log(valor, "66666666");
-    // console.log(typeof valor, "66666666");
+
     if (!foundProduct) {
       res.send({
         status: "error",
@@ -110,7 +104,7 @@ class ProductControler {
         let body = foundProduct;
         const itemAdd = await cartService.addItem(cid, pid, body);
 
-        res.send({ Message: itemAdd.statusMsj, cid, pid, body });
+        res.redirect("/home");
       }
     }
   };

@@ -5,10 +5,17 @@ const { logger } = require("../middlewares/logger");
 class ComprarController {
   shopingGET = async (req, res) => {
     const jwtUser = req.user;
+
+    const productDataUser = await cartService.getItemToCart(jwtUser.sub);
+    if (!productDataUser.ok) {
+      res.status(400).send("Algo salio mal al cargar los productos");
+    }
+
     const options = {
       title: "Comprar producto",
       style: "shopping.css",
       usercookie: jwtUser,
+      products: productDataUser.data,
     };
 
     res.render("shopping/shopping", options);
@@ -116,17 +123,12 @@ class ComprarController {
   };
 
   methodPaymentGET = async (req, res) => {
-    const JWTuser = req.user;
+    const jwtUser = req.user;
 
-    const productDataUser = await cartService.getItemToCart(JWTuser.sub);
-    if (!productDataUser.ok) {
-      res.status(400).send("Algo salio mal al cargar los productos");
-    }
     const options = {
       style: "methodPayment.css",
       data: req.body,
-      usercookie: JWTuser,
-      products: productDataUser.data,
+      usercookie: jwtUser,
     };
 
     res.render("shopping/methodPayment", options);
