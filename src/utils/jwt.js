@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
-const { privateKey } = require("../config/objetConfig");
+const { PRIVATE_KEY } = require("../config/config");
 
 const generateToke = (user) => {
-  const token = jwt.sign({ user }, privateKey, { expiresIn: "1d" });
+  const token = jwt.sign({ user }, PRIVATE_KEY, { expiresIn: "1d" });
   return token;
 };
 
@@ -13,7 +13,7 @@ const authToken = (req, res, next) => {
   }
   const token = authHeader.split(" ")[1];
 
-  jwt.verify("token", privateKey, (error, credential) => {
+  jwt.verify("token", PRIVATE_KEY, (error, credential) => {
     if (error) {
       return res
         .status(403)

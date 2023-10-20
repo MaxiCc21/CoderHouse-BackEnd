@@ -11,8 +11,14 @@
     <input type="text" id="email" name="email" />
     <label for="address">Direccion</label>
     <input type="text" id="address" name="address" />
+    <label for="mostrarContrasena">Mostrar Contraseña:</label>
+    <input
+      type="checkbox"
+      id="mostrarContrasena"
+      onchange="mostrarOcultarContrasena()"
+    />
     <label for="password">Contraseña</label>
-    <input type="text" id="password" name="password" />
+    <input type="password" id="password" name="password" />
     <button type="submit">Crear</button>
   </form>
 

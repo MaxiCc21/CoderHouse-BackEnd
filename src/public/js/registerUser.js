@@ -35,12 +35,11 @@ document.addEventListener("DOMContentLoaded", function () {
       "La contraseña debe cumplir con los siguientes requisitos:\n\n" +
       requisitos.join("\n");
     Swal.fire(mensaje);
-    // alert(mensaje);
   }
 });
 function mostrarOcultarContrasena() {
   const checkbox = document.getElementById("mostrarContrasena");
-  const contrasena = document.getElementById("contrasena");
+  const contrasena = document.getElementById("password");
 
   if (checkbox.checked) {
     contrasena.type = "text";

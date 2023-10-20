@@ -10,7 +10,7 @@ const {
 require("dotenv").config();
 
 const mercadopago = require("../config/mercadopago");
-const { PORT } = require("../config/objetConfig");
+const { PORT } = require("../config/config");
 
 class ProductControler {
   productGET = async (request, response) => {
