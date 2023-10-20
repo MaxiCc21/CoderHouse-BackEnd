@@ -13,7 +13,7 @@ const {
 } = require("../controller/user.controller");
 
 router.get("/", async (require, res) => {
-  let listProducts = await handleProducts.getProducts();
+  let listProducts = await handleProducts.getAllProducts();
 
   let testUser = {
     products: listProducts,
