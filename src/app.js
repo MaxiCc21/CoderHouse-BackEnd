@@ -5,11 +5,9 @@ const cartRoutes = require("./routes/carts.routes");
 const homeRoutes = require("./routes/home.routes");
 const chatRoutes = require("./routes/chat.routes");
 const userRoutes = require("./routes/user.routes");
-const viewsRoutes = require("./routes/views.routes");
 const newUserRoutes = require("./routes/newUser.routes");
 const cookieRoutes = require("./routes/cookie.routes");
 const comprarRoutes = require("./routes/comprar.routes");
-const pruebaRoutes = require("./routes/prueba.routes");
 const mailRoutes = require("./routes/mailing.routes");
 const mockingRoutes = require("./routes/mock.routes");
 const publicarRoutes = require("./routes/publicar.routes");
@@ -18,12 +16,9 @@ const { uploader } = require("./utils/multer");
 const productHandle = new (require("./dao/MongoManager/ProductManager"))();
 const objectConfig = require("./config/config");
 const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
-const FileStore = require("session-file-store");
-const { create } = require("connect-mongo");
 const { errorHandler } = require("./middlewares/error.middleware");
 const { cartService } = require("./service");
 const { addLogger, logger } = require("./middlewares/logger");
-const socketMessage = require("./utils/socketMessage.js");
 
 //---------------Swagger--------------
 const swaggerJsDoc = require("swagger-jsdoc");
