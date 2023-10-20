@@ -17,7 +17,7 @@ const handleUser = new (require("../dao/MongoManager/UserManager"))();
 const handleCart = new (require("../dao/MongoManager/CartManager"))();
 
 router.get("/", async (require, res) => {
-  let listProducts = await handleProducts.getProducts();
+  let listProducts = await handleProducts.getAllProducts();
 
   let testUser = {
     products: listProducts,
