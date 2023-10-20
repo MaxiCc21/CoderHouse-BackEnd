@@ -1,7 +1,7 @@
 const { ticketService, productService, cartService } = require("../service");
 const mercadopago = require("../config/mercadopago");
 const { logger } = require("handlebars");
-const { PORT } = require("../config/objetConfig");
+const { PORT } = require("../config/config");
 
 class ComprarController {
   shopingGET = async (req, res) => {

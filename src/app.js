@@ -13,7 +13,7 @@ const publicarRoutes = require("./routes/publicar.routes");
 const cokieParser = require("cookie-parser");
 const { uploader } = require("./utils/multer");
 const productHandle = new (require("./dao/MongoManager/ProductManager"))();
-const objectConfig = require("./config/config");
+const { connectDB, PORT } = require("./config/config");
 const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
 const { errorHandler } = require("./middlewares/error.middleware");
 const { cartService } = require("./service");
@@ -36,7 +36,7 @@ const {
 } = require("./config/passport.config");
 const passport = require("passport");
 
-objectConfig.connectDB();
+connectDB();
 
 const app = express();
 // HandleBars
@@ -202,8 +202,6 @@ io.on("connection", async (socket) => {
 app.get("*", (req, res) => {
   res.status(404).send("Not found");
 });
-
-let PORT = process.env.PORT;
 
 serverHTTP.listen(PORT, () => {
   logger.info(`Escuchando en el puerto: ${PORT}`);

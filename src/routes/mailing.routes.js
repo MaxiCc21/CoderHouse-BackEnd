@@ -2,7 +2,7 @@ const { Router, response, request } = require("express");
 const { passportAuth } = require("../config/passportAuth");
 const { authorizaton } = require("../config/passportAuthorization");
 const nodemailer = require("nodemailer");
-const config = require("../config/objetConfig");
+const { GMAIL_USER_APP, GMAIL_PASS_APP } = require("../config/config");
 
 const { loadProduct, logOutUser } = require("../controller/home.controller");
 const { sendMail } = require("../utils/sendmail");
@@ -23,8 +23,8 @@ const tranport = nodemailer.createTransport({
   service: "gmail",
   port: 587,
   auth: {
-    user: config.gmail_user_app,
-    pass: config.gmail_pass_app,
+    user: GMAIL_USER_APP,
+    pass: GMAIL_PASS_APP,
   },
 });
 

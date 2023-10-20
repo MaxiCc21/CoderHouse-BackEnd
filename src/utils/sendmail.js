@@ -1,12 +1,12 @@
 const nodemailer = require("nodemailer");
-const config = require("../config/objetConfig");
+const { GMAIL_USER_APP, GMAIL_PASS_APP } = require("../config/config");
 
 const tranport = nodemailer.createTransport({
   service: "gmail",
   port: 587,
   auth: {
-    user: config.gmail_user_app,
-    pass: config.gmail_pass_app,
+    user: GMAIL_USER_APP,
+    pass: GMAIL_PASS_APP,
   },
 });
 
