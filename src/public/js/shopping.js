@@ -6,8 +6,8 @@ const barra2 = document.getElementById("barra2");
 sendInput.addEventListener("change", function () {
   if (sendInput.checked) {
     barra.classList.add("barra-azul");
-    fetchInput.checked = false; // Desmarca el otro checkbox
-    barra2.classList.remove("barra-azul"); // Remueve la clase del otro checkbox
+    fetchInput.checked = false;
+    barra2.classList.remove("barra-azul");
   } else {
     barra.classList.remove("barra-azul");
   }
@@ -16,8 +16,8 @@ sendInput.addEventListener("change", function () {
 fetchInput.addEventListener("change", function () {
   if (fetchInput.checked) {
     barra2.classList.add("barra-azul");
-    sendInput.checked = false; // Desmarca el otro checkbox
-    barra.classList.remove("barra-azul"); // Remueve la clase del otro checkbox
+    sendInput.checked = false;
+    barra.classList.remove("barra-azul");
   } else {
     barra2.classList.remove("barra-azul");
   }
@@ -26,12 +26,3 @@ fetchInput.addEventListener("change", function () {
 // ------------------------------------------------
 
 const $formShopping = document.getElementById("formShoppingWay");
-
-// $formShopping.addEventListener("submit", (e) => {
-//   fetch("/comprar", {
-//     method: "post",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   });
-// });

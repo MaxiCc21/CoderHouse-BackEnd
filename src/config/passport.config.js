@@ -24,12 +24,12 @@ function verificarCamposNoVacios(req) {
   for (const key in data) {
     if (data.hasOwnProperty(key)) {
       if (data[key] === "") {
-        return false; // Un campo está vacío
+        return false;
       }
     }
   }
 
-  return true; // Todos los campos están llenos
+  return true;
 }
 
 const LocalStrategy = local.Strategy;
@@ -69,15 +69,6 @@ const initPassport = () => {
       },
       async (req, username, password, done) => {
         try {
-          // const camposLlenos = verificarCamposNoVacios(req);
-
-          // if (!camposLlenos) {
-          //   logger.warning("Ah pasado datos en blanco");
-          //   return done(null, false, {
-          //     message: "Algunos de los datos esta vacio",
-          //   });
-          // }
-
           let userDB = await userModel.findOne({ username: username });
           if (userDB) {
             logger.error(
@@ -121,26 +112,6 @@ const initPassport = () => {
       }
     })
   );
-  // passport.use(
-  //   "login",
-  //   new LocalStrategy(async (username, password, done) => {
-  //     // const userDB = await userModel.findOne({ username: username });
-  //     const loginRes = await handleUser.loginValidation(username, password);
-  //     // MOD USER MANAGER
-  //     try {
-  //       if (!userDB)
-  //         return done(null, false, { message: "No se a contrado un usuario" });
-
-  //       if (!isValidPassword(password, userDB.password))
-  //         return done(null, false, {
-  //           message: "La contrasela no es correcta",
-  //         });
-  //       return done(null, userDB);
-  //     } catch (error) {
-  //       return done(error);
-  //     }
-  //   })
-  // );
 
   passport.serializeUser((user, done) => {
     done(null, user._id);
@@ -181,33 +152,6 @@ const initPassportGithub = () => {
     )
   );
 };
-
-// const initPassportGithub = () => {
-//   passport.use(
-//     "loginGithub",
-//     new GithubStrategy(
-//       {
-//         clientID: process.env.GITHUB_CLIENT_ID,
-//         clientSecret: process.env.GITHUB_CLIENT_SECRET,
-//         callbackURL: process.env.GITHUB_CALLBACK_URL,
-//       },
-//       async (accessToken, refreshToken, profile, done) => {
-//         try {
-//           const found = await handleUser.loginValidationGithub(
-//             profile._json.email
-//           );
-//           if (!found.ok) {
-//             return done(null, false, { message: found.stateMsj });
-//           }
-//           return done(null, found.item_found, { message: found.stateMsj });
-//         } catch (err) {
-
-//           done(err);
-//         }
-//       }
-//     )
-//   );
-// };
 
 module.exports = {
   initPassport,

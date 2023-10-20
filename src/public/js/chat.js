@@ -71,8 +71,6 @@ socket.on("show-All-Products", (data) => {
     </div>`;
     $list.innerHTML = tooAdd;
   });
-
-  //   cloneNode
 });
 
 const $form = document.getElementById("formAddProduct");

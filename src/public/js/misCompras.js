@@ -12,5 +12,3 @@ function ocultarTextoCompleto() {
   textoRecortado.style.display = "inline";
   textoCompleto.style.display = "none";
 }
-
-// ----------------------------------------------------

@@ -339,7 +339,6 @@ class UserController {
         return res.status(400).send(updateUser.statusMsj);
       }
     } catch (err) {
-      // Manejar otros errores aquí
       logger.error(err);
       return res.status(500).send("Error interno del servidor");
     }
@@ -391,10 +390,6 @@ class UserController {
       const dataNewUser = req.body;
 
       const createNewAdmin = await userService.createNewUser(dataNewUser, true);
-
-      // if (createNewAdmin.status === 500) {
-      //   logger.error(createNewAdmin.err);
-      // }
 
       if (createNewAdmin.status > 399) {
         res

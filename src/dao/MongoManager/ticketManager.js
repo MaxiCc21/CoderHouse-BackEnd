@@ -23,7 +23,6 @@ function purchaseDetailsGenerate(products) {
 function calculatePricesGenerate(tickeProducts) {
   let subtotal = 0;
 
-  // // Calcular subtotal
   tickeProducts.forEach((product) => {
     subtotal += product.quantity * product.unitPrice;
   });

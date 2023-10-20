@@ -83,16 +83,6 @@ if (RegisterForm) {
         body: JSON.stringify(data),
       });
     });
-
-    // if (validarDataTypeUser(data)) {
-    // fetch("/views/register", {
-    //   method: "POST",
-    //   headers: {
-    //forgotPasswordButton/     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(data),
-    // });
-    // }
   });
 }
 
@@ -125,31 +115,8 @@ userLoginButton.addEventListener("click", function (e) {
   });
 });
 
-// if (loginForm) {
-//   loginForm.addEventListener("submit", (e) => {
-//     const datosFormulario = new FormData(loginForm);
-
-//     const identification = datosFormulario.get("identification");
-//     const password = datosFormulario.get("password");
-
-//     const data = {
-//       identification,
-//       password,
-//     };
-
-//     fetch("/session/login", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(data),
-//     });
-//   });
-// }
-
 if (forgotPasswordButton) {
   forgotPasswordButton.addEventListener("click", function (e) {
-    // Redireccionar a una URL cuando se hace clic en el botón de Olvidaste tu contraseña
     e.preventDefault();
 
     window.location.href = "recover-password";
