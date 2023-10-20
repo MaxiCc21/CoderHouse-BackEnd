@@ -52,39 +52,39 @@ function validarDataTypeUser(data) {
   }
 }
 
-const RegisterForm = document.getElementById("creteUser-form");
-if (RegisterForm) {
-  RegisterForm.addEventListener("submit", (e) => {
-    RegisterForm.addEventListener("submit", async (e) => {
-      const datosFormulario = new FormData(RegisterForm);
-      const firstname = datosFormulario.get("firstname");
-      const lastname = datosFormulario.get("lastname");
-      const username = datosFormulario.get("username");
-      const email = datosFormulario.get("email");
-      const address = datosFormulario.get("address");
-      const password = datosFormulario.get("password");
-      const fullname = `${firstname} ${lastname}`;
+// const RegisterForm = document.getElementById("creteUser-form");
+// if (RegisterForm) {
+//   RegisterForm.addEventListener("submit", (e) => {
+//     RegisterForm.addEventListener("submit", async (e) => {
+//       const datosFormulario = new FormData(RegisterForm);
+//       const firstname = datosFormulario.get("firstname");
+//       const lastname = datosFormulario.get("lastname");
+//       const username = datosFormulario.get("username");
+//       const email = datosFormulario.get("email");
+//       const address = datosFormulario.get("address");
+//       const password = datosFormulario.get("password");
+//       const fullname = `${firstname} ${lastname}`;
 
-      const data = {
-        firstname,
-        lastname,
-        fullname,
-        username,
-        email,
-        address,
-        password,
-      };
+//       const data = {
+//         firstname,
+//         lastname,
+//         fullname,
+//         username,
+//         email,
+//         address,
+//         password,
+//       };
 
-      fetch("/session/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-    });
-  });
-}
+//       fetch("/session/register", {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify(data),
+//       });
+//     });
+//   });
+// }
 
 // --------------------------------------------------
 //UserLogin
