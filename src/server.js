@@ -111,36 +111,6 @@ app.use("/docs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
 //---------------Swagger--------------
 
-const fileStore = FileStore(session);
-// app.use(
-//   session({
-//     store: new fileStore({
-//       ttl: 100000 * 60,
-//       path: "./session",
-//       retries: 0,
-//     }),
-//     secret: "s33sionC0d3",
-//     resave: true,
-//     saveUninitialized: true,
-//   })
-// );
-
-// app.use(
-//   session({
-//     store: create({
-//       mongoUrl: "mongodb://localhost:27017/MercadoLibre",
-//       mongoOptions: {
-//         useNewUrlParser: true,
-//         useUnifiedTopology: true,
-//       },
-//       ttl: 15,
-//     }),
-//     secret: "s33sionC0d3",
-//     resave: false,
-//     saveUninitialized: false,
-//   })
-// );
-
 app.use(
   session({
     secret: "s33sionC0d3",

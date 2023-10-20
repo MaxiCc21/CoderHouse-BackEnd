@@ -1,7 +1,5 @@
 const { cartModel } = require("../models/cart.model");
-const { messageModel } = require("../models/messages.model");
 const { ticketModel } = require("../models/ticket.model");
-const { ObjectId } = require("bson");
 
 function purchaseDetailsGenerate(products) {
   const arrayProducts = [];

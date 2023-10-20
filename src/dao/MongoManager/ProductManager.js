@@ -4,83 +4,6 @@ const { ObjectId } = require("bson");
 const { tr } = require("@faker-js/faker");
 const { logger } = require("../../middlewares/logger");
 
-const IdGenerator = () => {
-  return Date.now();
-};
-//
-
-// class ProductManager {
-//   constructor() {
-//     this.path = "./db.json";
-//     this.products = [];
-//   }
-
-//   getProducts = async () => {
-//     try {
-//       let myRes = await productModel.find().lean();
-//       return myRes;
-//     } catch (err) {
-//       console.log(err.stateMsj);
-//     }
-//   };
-
-//   getProductById = async (itemID) => {
-//     console.log(itemID, "product");
-//     try {
-//       const found = await productModel.findOne({ _id: itemID }).lean();
-//       return found;
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
-
-//   addProduct = async (data) => {
-//     let res = checkObjectKeys(data);
-//     if (res.state === "error") {
-//       return res.msgState;
-//     } else {
-//       let newItemCreated = {
-//         id: IdGenerator(),
-//         ...data,
-//       };
-//       let code = codeGenerator(newItemCreated);
-
-//       newItemCreated = {
-//         ...newItemCreated,
-//         ...code,
-//       };
-//       let products = await this.getProducts();
-//       // products = JSON.parse(products);
-//       products.push(newItemCreated);
-//       await fs.promises.writeFile(this.path, JSON.stringify(products), "utf-8");
-//       return {
-//         status: "ok",
-//         statusMsj: "El Porducto fue agregado satisfactoriamente ",
-//       };
-//     }
-//   };
-
-//   updateProduct = async (id, data) => {
-//     let products = await this.getProducts();
-
-//     let newData = products.map((el) =>
-//       el.id === Number(id) ? { ...el, ...data } : el
-//     );
-
-//     await fs.promises.writeFile(this.path, JSON.stringify(newData), "utf-8");
-//   };
-
-//   deleteProduct = async (idToDelete) => {
-//     try {
-//       const user = await productModel.findByIdAndRemove(idToDelete);
-//     } catch (err) {
-//       return err;
-//     }
-//   };
-// }
-
-// module.exports = ProductManager;
-
 const checkObjectKeys = (obj) => {
   if (
     !obj.title ||
@@ -134,9 +57,7 @@ const codeGenerator = (obj) => {
 };
 
 class HandleProducts {
-  // manager User
   constructor() {
-    //  iniciar la base de datos
     this.productModel = productModel;
   }
 

@@ -26,7 +26,6 @@ class RouterClass {
     const authHeader = req.headers.authorization;
     if (!authHeader)
       return res.send({ status: "error", error: "no autorizado" });
-    // [Beares, fahjsdfkshdaf]
     const token = authHeader.split(" ")[1];
     const user = jwt.verify(token, "CoderSecreto");
     if (!policies.includes(user.role.toUpperCase()))

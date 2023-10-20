@@ -1,10 +1,9 @@
-const { Router, response, request } = require("express");
+const { Router } = require("express");
 const router = Router();
 const handleProducts = new (require("../dao/MongoManager/ProductManager"))();
 const { v4: uuidv4 } = require("uuid");
-const { createHashhhh } = require("../utils/bcryptHas");
 const passport = require("passport");
-const { generateToke } = require("../utils/jwt");
+
 const { passportAuth } = require("../config/passportAuth");
 const { authorizaton } = require("../config/passportAuthorization");
 const {
@@ -12,9 +11,6 @@ const {
   loginPOST,
   registerGET,
 } = require("../controller/user.controller");
-
-const handleUser = new (require("../dao/MongoManager/UserManager"))();
-const handleCart = new (require("../dao/MongoManager/CartManager"))();
 
 router.get("/", async (require, res) => {
   let listProducts = await handleProducts.getProducts();
@@ -26,14 +22,6 @@ router.get("/", async (require, res) => {
 
   res.render("home.handlebars", testUser);
 });
-
-// router.post(
-//   "/login",
-//   passport.authenticate("login", {
-//     failureRedirect: "login",
-//     successRedirect: "home",
-//   })
-// );
 
 router.post(
   "/login",

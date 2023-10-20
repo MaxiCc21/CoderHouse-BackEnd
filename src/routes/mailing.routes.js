@@ -29,7 +29,6 @@ const tranport = nodemailer.createTransport({
 });
 
 router.get("/", async (req, res) => {
-  // Lee y compila la plantilla Handlebars
   const templateFilePath = path.join(
     __dirname,
     "templates",
@@ -38,7 +37,6 @@ router.get("/", async (req, res) => {
   const templateSource = fs.readFileSync(templateFilePath, "utf-8");
   const compiledTemplate = handlebars.compile(templateSource);
 
-  // Genera el contenido HTML utilizando la plantilla compilada
   const htmlContent = compiledTemplate(templateData);
 
   const to = "maxi21498@gmail.com";

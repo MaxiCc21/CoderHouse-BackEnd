@@ -8,7 +8,7 @@ form.addEventListener("submit", (e) => {
   e.preventDefault();
   const datosFormulario = new FormData(form);
   const onLine = datosFormulario.get("online");
-  // const isAdmin = datosFormulario.get("isAdmin");
+
   const userIDInput = document.getElementById("userID");
   const userID = userIDInput.dataset.userId;
 

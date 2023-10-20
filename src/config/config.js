@@ -1,10 +1,9 @@
 const dotenv = require("dotenv");
 const commander = require("../process/comander");
-const { mode } = commander.opts(); //opts se guardan las configuraciones que nosotros creamos y acedemos a la propiedad mode para poder trabajar en distintos entornos
+const { mode } = commander.opts();
 const { MongoSingleton } = require("../utils/singleton");
 
 dotenv.config({
-  //Dependiendo los argumentos que le pasemos a la ejecucion/proceso nos ejecutara un entorno u otro, recordar el valor por defecto que se le otorgó a la configuración.
   path: mode === "production" ? "./.env.production" : "./.env.development",
 });
 

@@ -7,7 +7,6 @@ loader.innerHTML = '<div class="loader"></div>';
 formCreateNewUserAdmin.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  // Agrega el loader a la página mientras se procesa la solicitud
   Swal.fire({
     title: "Procesando...",
     html: loader.outerHTML,

@@ -191,18 +191,6 @@ class ProductControler {
       const page = req.query.page || 1;
       const products = await productService.getProductPaginator(page, 5);
 
-      // const { docs, hasPrevPage, hasNextPage, prevPage, nextPage } = products;
-      // let options = {
-      //   style: "productPaginateAdmin.css",
-      //   users: docs,
-      //   page,
-      //   hasPrevPage,
-      //   hasNextPage,
-      //   prevPage,
-      //   nextPage,
-      //   disabled: "disabled",
-      //   usercookie: JWTuser,
-      // };
       res.render("admin/productPaginateAdmin");
     } catch (err) {
       logger.error(err);

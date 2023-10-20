@@ -123,12 +123,6 @@ class ComprarController {
         console.error(err);
         res.status(500).send("Algo sali mal");
       });
-
-    // if (ticketEdited.ok) {
-    //   res.redirect("/comprar/methodPayment");
-    // } else {
-    //   res.status(400).send(ticketEdited.statusMsj);
-    // }
   };
 
   methodPaymentGET = async (req, res) => {

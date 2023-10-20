@@ -45,11 +45,6 @@ router.get(
 
 router.get("/paginate", paginateGET);
 
-//localhost:8080/handleUser/updateuser/6461c87748c1be7bd066bc2f
-// {
-// "firstname":"Prueba"
-// }
-
 http: router.put(
   "/updateuser/:pid",
   passportAuth("jwt"),
@@ -57,7 +52,6 @@ http: router.put(
   updateUserPUT
 );
 
-//localhost:8080/handleUser/deleteuser/6461c87748c1be7bd066bc2f
 http: router.delete(
   "/deleteuser/:pid",
   passportAuth("jwt"),

@@ -4,8 +4,6 @@ const chatHandle = new (require("../dao/MongoManager/ChatManager"))();
 const faker = require("@faker-js/faker");
 const compression = require("express-compression");
 
-// router.use(compression(s));
-
 router.use(
   compression({
     brotli: { enabled: true, zlib: {} },
@@ -22,7 +20,7 @@ router.get("/simple", (req, res) => {
   for (let i = 0; i < 10000000; i++) {
     suma += 1;
   }
-  // artillery quick --count 40 --num 50   'http://localhost:8080/prueba/simple' -o simple.json
+
   res.send({
     status: "succes",
     mesage: `El worker ${procces.id} a atendido esta peticion, resultado es ${suma}`,
@@ -48,7 +46,6 @@ router.get("/simple", (req, res) => {
   for (let i = 0; i < 10000000; i++) {
     suma += 1;
   }
-  // artillery quick --count 40 --num 50   'http://localhost:8080/prueba/simple' -o simple.json
   res.send({ suma });
 });
 router.get("/complejo", (req, res) => {

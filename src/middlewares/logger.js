@@ -55,16 +55,6 @@ const addLogger = (req, res, next) => {
   next();
 };
 
-// const addLogger = (req, res, next) => {
-//   requestLogger.log("info", {
-//     method: req.method,
-//     url: req.url,
-//     timestamp: new Date(),
-//   });
-//   next();
-// };
-// Registrar mensajes en diferentes niveles
-
 module.exports = {
   logger,
   addLogger,
