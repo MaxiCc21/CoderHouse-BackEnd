@@ -5,7 +5,6 @@ const cartRoutes = require("./routes/carts.routes");
 const homeRoutes = require("./routes/home.routes");
 const chatRoutes = require("./routes/chat.routes");
 const userRoutes = require("./routes/user.routes");
-const newUserRoutes = require("./routes/newUser.routes");
 const cookieRoutes = require("./routes/cookie.routes");
 const comprarRoutes = require("./routes/comprar.routes");
 const mailRoutes = require("./routes/mailing.routes");
@@ -25,8 +24,6 @@ const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUiExpress = require("swagger-ui-express");
 
 //---------------Swagger--------------
-
-const NewUserRoutes = new newUserRoutes();
 
 const cors = require("cors");
 //Passport
@@ -122,8 +119,6 @@ app.use("/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 
 app.use("/session", userRoutes);
-
-app.use("/newuserRoutes", NewUserRoutes.getRouter());
 
 app.use("/home", homeRoutes);
 

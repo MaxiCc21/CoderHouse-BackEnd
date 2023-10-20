@@ -1,2 +1,12 @@
 C:\Programacion\CoderHouse\BackEnd\CoderHouse-BackEnd
 
+Hola profe, Ya estuve eliminando el código comentado y elimine los config del server, que ahora lo renombre app.js; 
+Con respecto al error de la primera imagen ese error es de una ruta que cree al inicio del curso que me olvide de eliminar,
+el link para poder ejecutar el proyecto es:
+    http://localhost:8080/home
+Ya pude poner en linea mi codigo por render le dejo el link:
+    https://mymercadopago.onrender.com/home
+Para poder probar la compra con MP, es necesario iniciar sesion con un usuario de prueba:
+    - - Username: TESTUSER1608332342
+    - - Password: 84ZiK3QLDB
+En el README estan los datos de una tarjeta te pureva,y esta un poco mejor explicado, MG por la paciencia
