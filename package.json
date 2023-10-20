@@ -6,8 +6,8 @@
   "scripts": {
     "oldtest": "echo \"Error: no test specified\" && exit 1",
     "test": "mocha test/supertest.test.js",
-    "start:dev": "nodemon app.js --mode development",
-    "start": "node app.js --mode production"
+    "start:dev": "nodemon src/app.js --mode development",
+    "start": "node src/app.js --mode production"
   },
   "keywords": [],
   "author": "",

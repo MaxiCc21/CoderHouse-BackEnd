@@ -25,12 +25,6 @@ const { cartService } = require("./service");
 const { addLogger, logger } = require("./middlewares/logger");
 const socketMessage = require("./utils/socketMessage.js");
 
-const commander = require("./process/comander");
-const { mode } = commander.opts();
-require("dotenv").config({
-  path: mode === "production" ? "./.env.production" : "./.env.development",
-});
-
 //---------------Swagger--------------
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUiExpress = require("swagger-ui-express");
@@ -78,11 +72,6 @@ const helpers = {
 for (const helperName in helpers) {
   Handlebars.registerHelper(helperName, helpers[helperName]);
 }
-
-// Handlebars.registerHelper("toUpperCase", function (date) {
-//   return moment(date).locale("es").format("D MMMM YYYY");
-// });
-// HandleBars
 
 app.use(express.json());
 // app.use(core());
@@ -163,8 +152,6 @@ app.use((err, req, res, next) => {
   res.status(500).send("Todo mal");
 });
 
-// app.use(errorHandler);
-
 // Socket-----------------------------------------------------------------------------
 
 app.get("/realtimeproducts", (req, res) => {
@@ -177,10 +164,6 @@ const { dirname } = require("path");
 
 const serverHTTP = ServerHTTP(app);
 const io = new ServerIO(serverHTTP);
-
-// const io = new Server(httpServer);
-
-// socketMessage(io);
 
 io.on("connection", async (socket) => {
   socket.emit("message", "Se conectado un usuario");
@@ -234,8 +217,6 @@ app.get("*", (req, res) => {
 
 let PORT = process.env.PORT;
 
-exports.initServer = () => {
-  serverHTTP.listen(PORT, () => {
-    logger.info(`Escuchando en el puerto: ${PORT}`);
-  });
-};
+app.listen(PORT, () => {
+  logger.info(` escuchando en el puerto ${PORT}`);
+});
