@@ -12,6 +12,8 @@ module.exports = {
   PROD_ACCESS_TOKEN: process.env.PROD_ACCESS_TOKEN,
   PRIVATE_KEY: process.env.PRIVATE_KEY_CODER,
 
+  MONGO_URL_DB: process.env.MONGO_URL_DB,
+
   GMAIL_USER_APP: process.env.GMAIL_USER_APP,
   GMAIL_PASS_APP: process.env.GMAIL_PASS_APP,
 
