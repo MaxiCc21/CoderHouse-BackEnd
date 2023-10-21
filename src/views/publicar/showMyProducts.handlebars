@@ -8,14 +8,26 @@
     <h2>Cantidad de productos en venta ({{data.length}})</h2>
     <div class="products-section-z1">
       {{#each data}}
-        <a class="products-section-a" href="">
-          <div class="products-section-a">
+        <div class="section-showymyproduct">
+          <div class="z-right-showmyproduct">
+            <div class="z-right-top-showmyproduct">{{this.estado}}</div>
+            <div class="z-right-botton-showmyproduct"><a
+                href="/publicar/editmyproducts/{{this._id}}"
+              >Editar</a></div>
+          </div>
+          <div class="z-left-showmyproduct">
             <p>{{this.title}}</p>
             <img src="{{this.thumbnail}}" alt="{{this.title}}" />
-
           </div>
-        </a>
+        </div>
+
       {{/each}}
     </div>
   </div>
 </section>
+
+<script>
+  let updateMessage = '{{updateMessage}}'
+</script>
+
+<script src="/static/js/showMyProducts.js"></script>

@@ -22,7 +22,7 @@ const ProductSchema = new Schema({
   createTime: { type: Date, default: Date.now },
   estado: {
     type: String,
-    enum: ["on", "off", "pausa"],
+    enum: ["on", "off", "pause"],
     default: "on",
   },
   rating: Number,

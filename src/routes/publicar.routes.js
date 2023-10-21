@@ -6,6 +6,8 @@ const {
   createProductGET,
   createProductPOST,
   publicarGET,
+  editMyProductGET,
+  editMyProductPOST,
 } = require("../controller/publicar.controller");
 
 const router = Router();
@@ -31,6 +33,19 @@ router.post(
   passportAuth("jwt"),
   authorizaton("premium"),
   createProductPOST
+);
+
+router.get(
+  "/editmyproducts/:pid",
+  passportAuth("jwt"),
+  authorizaton("premium"),
+  editMyProductGET
+);
+router.post(
+  "/editmyproducts/:pid",
+  passportAuth("jwt"),
+  authorizaton("premium"),
+  editMyProductPOST
 );
 
 module.exports = router;

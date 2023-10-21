@@ -16,12 +16,17 @@ class PublicarController {
     const JWTuser = req.user;
     let uid = JWTuser.sub;
 
+    const updateMessage = req.query.update
+      ? "Se realizaron los cambios con exito"
+      : "Ah ocurrido un erro inesperado \nVuelva a intentarlo mas tarde";
+
     const myproducts = await productService.getProductByUserID(uid);
 
     const options = {
       style: "showMyProducts.css",
       data: myproducts.data,
       usercookie: JWTuser,
+      updateMessage,
     };
 
     res.render("publicar/showMyProducts", options);
@@ -52,7 +57,38 @@ class PublicarController {
     delete dataNewProduct.ownerUsername;
     const createNewProduct = await productService.createProduct(dataNewProduct);
 
-    res.send(createNewProduct);
+    res.redirect("/publicar/myproducts");
+  };
+
+  editMyProductGET = async (req, res) => {
+    const { pid } = req.params;
+
+    const JWTuser = req.user;
+    const options = {
+      style: "editMyProduct.css",
+      usercookie: JWTuser,
+    };
+
+    const getProduct = await productService.getProductById(pid);
+    if (!getProduct) {
+      options.warmMessage = "A ocurrido un error el buscar el producto";
+    } else {
+      options.product = getProduct;
+    }
+
+    res.render("publicar/editmyproduct", options);
+  };
+
+  editMyProductPOST = async (req, res) => {
+    const { body: productData } = req;
+    const { pid } = req.params;
+
+    const { status, ...rest } = await productService.updateProduct(
+      pid,
+      productData
+    );
+
+    res.status(status).redirect(`/publicar/myproducts?update=${rest.ok}`);
   };
 }
 

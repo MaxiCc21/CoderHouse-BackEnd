@@ -1,0 +1,49 @@
+<div>
+  <div class="form-container">
+    <h1>Formulario de Producto</h1>
+    <form action="/publicar/editmyproducts/{{product._id}}" method="post">
+      <label for="title">Título:</label>
+      <input type="text" name="title" required value="{{product.title}}" /><br
+      />
+
+      <label for="description">Descripción:</label>
+      <textarea name="description" required>{{product.description}}</textarea>
+      <br />
+
+      <label for="price">Precio:</label>
+      <input type="number" name="price" required value="{{product.price}}" /><br
+      />
+
+      <label for="thumbnail">Imagen del producto:</label>
+      <input
+        type="text"
+        name="thumbnail"
+        required
+        value="{{product.thumbnail}}"
+      /><br />
+
+      <label for="category">Categoría:</label>
+      <input type="text" name="category" value="{{product.category}}" /><br />
+
+      <label for="marca">Marca:</label>
+      <input type="text" name="marca" required value="{{product.marca}}" /><br
+      />
+
+      <label for="stock">Stock:</label>
+      <input type="number" name="stock" required value="{{product.stock}}" /><br
+      />
+
+      <label for="estado">Estado:</label>
+      <select name="estado" required>
+        <option value="on" {{#eq product.estado 'on'}}selected{{/eq}}>On</option>
+        <option value="pause" {{#eq product.estado 'pause'}}selected{{/eq}}>Pause</option>
+        <option value="off" {{#eq product.estado 'off'}}selected{{/eq}}>Off</option>
+      </select><br />
+      <button type="submit">Guardar Producto</button>
+    </form>
+
+  </div>
+</div>
+<script>
+  let warmMessage = '{{warmMessage}}'
+</script>
