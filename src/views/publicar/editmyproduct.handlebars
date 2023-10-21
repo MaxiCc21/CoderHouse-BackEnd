@@ -3,34 +3,49 @@
     <h1>Formulario de Producto</h1>
     <form action="/publicar/editmyproducts/{{product._id}}" method="post">
       <label for="title">Título:</label>
-      <input type="text" name="title" required value="{{product.title}}" /><br
-      />
+
+      <input type="text" name="title" required disabled disabled value="{{product.title}}" />
+      <input type="checkbox" class="editCheckbox" > Habilitar Edición
+<br/>
 
       <label for="description">Descripción:</label>
-      <textarea name="description" required>{{product.description}}</textarea>
+      <textarea name="description" required disabled>{{product.description}}</textarea>
+        <input type="checkbox" class="editCheckbox"> Habilitar Edición
+
       <br />
 
       <label for="price">Precio:</label>
-      <input type="number" name="price" required value="{{product.price}}" /><br
-      />
+      <input type="number" name="price" required disabled value="{{product.price}}" />
+        <input type="checkbox" class="editCheckbox"> Habilitar Edición
+<br/>
 
       <label for="thumbnail">Imagen del producto:</label>
       <input
         type="text"
         name="thumbnail"
-        required
+        required disabled
         value="{{product.thumbnail}}"
-      /><br />
+      />
+        <input type="checkbox" class="editCheckbox"> Habilitar Edición
+
+      <br />
 
       <label for="category">Categoría:</label>
-      <input type="text" name="category" value="{{product.category}}" /><br />
+      <input type="text" name="category" required disabled value="{{product.category}}" />
+        <input type="checkbox" class="editCheckbox"> Habilitar Edición
+<br />
 
       <label for="marca">Marca:</label>
-      <input type="text" name="marca" required value="{{product.marca}}" /><br
+      <input type="text" name="marca" required disabled value="{{product.marca}}" />
+        <input type="checkbox" class="editCheckbox"> Habilitar Edición
+<br
       />
 
       <label for="stock">Stock:</label>
-      <input type="number" name="stock" required value="{{product.stock}}" /><br
+      <input type="number" name="stock" required disabled value="{{product.stock}}" />
+        <input type="checkbox" class="editCheckbox"> Habilitar Edición
+
+      <br
       />
 
       <label for="estado">Estado:</label>
@@ -47,3 +62,5 @@
 <script>
   let warmMessage = '{{warmMessage}}'
 </script>
+
+<script src="/static/js/editMyProduct.js"></script>
