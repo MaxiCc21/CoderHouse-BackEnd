@@ -89,7 +89,9 @@ router.get("/login", loginGET);
 
 router.post(
   "/login",
-  passport.authenticate("login", { failureRedirect: "/session/login" }),
+  passport.authenticate("login", {
+    failureRedirect: "/session/login?error=true",
+  }),
   loginPOST
 );
 

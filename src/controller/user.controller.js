@@ -160,8 +160,13 @@ class UserController {
   //* ------------Login------------
 
   loginGET = async (req, res) => {
+    let loginError = req.query.error
+      ? "Alguno de los datos no es correcto"
+      : false;
+
     let options = {
       style: "user_Ingresar.css",
+      loginErrorMessage: loginError,
     };
 
     res.render("users/userLogin", options);
