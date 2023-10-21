@@ -1,11 +1,12 @@
 const { logger } = require("../middlewares/logger");
 const { connect } = require("mongoose");
-const { MONGO_URL_DB } = require("../config/config");
+require("dotenv").config();
+const mongoose = require("mongoose");
 
 class MongoSingleton {
   static #instance;
   constructor() {
-    connect(MONGO_URL_DB, {
+    connect(process.env.MONGO_URL_DB, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
