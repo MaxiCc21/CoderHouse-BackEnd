@@ -44,8 +44,30 @@ class UserManager {
   getAllUser = async () => {
     try {
       let users = await userModel.find().lean();
-      return users;
-    } catch (err) {}
+
+      if (users.length === 0) {
+        return {
+          status: 400,
+          statusMsj: "No se han encontrado datos de usuarios",
+          ok: true,
+          data: undefined,
+        };
+      } else {
+        return {
+          status: 200,
+          statusMsj: "Se han encotrado datos",
+          ok: true,
+          data: users,
+        };
+      }
+    } catch (err) {
+      return {
+        status: 500,
+        statusMsj: `Ah ocurrido un error inesperado: ${err}`,
+        ok: false,
+        data: undefined,
+      };
+    }
   };
 
   getUserByID = async (idToFind) => {
@@ -129,19 +151,65 @@ class UserManager {
     }
   };
 
-  deletUser = async (idToDelete) => {
+  deletUser = async (uid) => {
     try {
-      const user = await userModel.findByIdAndRemove(1);
+      const user = await userModel.deleteOne({ _id: uid });
+
+      if (user.deletedCount === 1) {
+        return {
+          status: 200,
+          statusMsj: "Usuario eliminado correctamente.",
+          ok: true,
+          data: undefined,
+        };
+      } else {
+        return {
+          status: 200,
+          statusMsj: "No se encontró ningún usuario con el ID especificado.",
+          ok: false,
+          data: undefined,
+        };
+      }
     } catch (err) {
-      return err;
+      return {
+        status: 500,
+        statusMsj: `Ha ocurrido un error inesperado: ${err}`,
+        ok: false,
+        data: undefined,
+      };
     }
   };
 
-  updateUser = async (pid, bodyData) => {
+  updateUser = async (uid, bodyData) => {
     try {
-      await userModel.updateOne({ _id: pid }, bodyData);
+      const updateUser = await userModel.updateOne({ _id: uid }, bodyData, {
+        new: true,
+      });
+
+      if (updateUser.acknowledged) {
+        return {
+          status: 200,
+          statusMsj: "Se ha modificado el usuario con exito",
+          ok: true,
+          data: updateUser,
+        };
+      } else {
+        return {
+          status: 400,
+          statusMsj:
+            "La actualización no tuvo ningún efecto. No se encontraron documentos que coincidieran con el filtro proporcionado.",
+          ok: false,
+          data: undefined,
+        };
+      }
     } catch (err) {
-      return err;
+      logger.error(err);
+      return {
+        status: 500,
+        statusMsj: `Ha ocurrido un problema indesperado: ${err}`,
+        ok: false,
+        data: undefined,
+      };
     }
   };
 

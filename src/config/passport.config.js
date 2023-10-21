@@ -11,12 +11,10 @@ const GithubStrategy = require("passport-github2");
 const handleUser = new (require("../dao/MongoManager/UserManager"))();
 
 const passportJWT = require("passport-jwt");
-const { privateKey } = require("./objetConfig");
+const { PRIVATE_KEY } = require("./config");
 const { logger } = require("../middlewares/logger");
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
-
-require("dotenv").config();
 
 function verificarCamposNoVacios(req) {
   const { ...data } = req.body;
@@ -44,7 +42,7 @@ const cookieExtrator = (req) => {
 const optionsJWT = {};
 
 optionsJWT.jwtFromRequest = ExtractJWT.fromExtractors([cookieExtrator]);
-optionsJWT.secretOrKey = privateKey;
+optionsJWT.secretOrKey = PRIVATE_KEY;
 
 const initPassportJWT = () => {
   passport.use(

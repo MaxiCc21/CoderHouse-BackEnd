@@ -34,35 +34,32 @@ const {
 const { passportAuth } = require("../config/passportAuth");
 const { authorizaton } = require("../config/passportAuthorization");
 
+//localhost:8080/session
 router.get("/", allUsersGET);
 
-router.get(
-  "/miscompras",
-  passportAuth("jwt"),
-  authorizaton("user"),
-  misComprasGET
-);
-
-router.get("/paginate", paginateGET);
-
-//localhost:8080/handleUser/updateuser/6461c87748c1be7bd066bc2f
+//localhost:8080/session/updateuser/6461c87748c1be7bd066bc2f
 // {
 // "firstname":"Prueba"
 // }
 
-http: router.put(
-  "/updateuser/:pid",
-  passportAuth("jwt"),
-  authorizaton("user"),
-  updateUserPUT
-);
+router.put("/updateuser/:uid", updateUserPUT);
 
-//localhost:8080/handleUser/deleteuser/6461c87748c1be7bd066bc2f
-http: router.delete(
-  "/deleteuser/:pid",
-  passportAuth("jwt"),
-  authorizaton("user"),
-  deleteUserDELETE
+//localhost:8080/session/deleteuser/:uid
+router.delete("/deleteuser/:uid", deleteUserDELETE);
+
+//http://localhost:8080/session/register
+// {
+//   "firstname": "asdfsadfsdf",
+//   "lastname": "prueba ",
+//   "username": "prueba3",
+//   "email": "prueba5@weirby.com",
+//   "password": "Pass1234",
+//   "address": "sadfsdaf"
+// }
+router.post(
+  "/register",
+  passport.authenticate("register", { failureRedirect: "/session/register" }),
+  registerPOST
 );
 
 router.get(
@@ -78,6 +75,15 @@ router.get(
   githubcallbackGET
 );
 
+router.get(
+  "/miscompras",
+  passportAuth("jwt"),
+  authorizaton("user"),
+  misComprasGET
+);
+
+router.get("/paginate", paginateGET);
+
 // ---------------------------
 router.get("/login", loginGET);
 
@@ -92,12 +98,6 @@ router.get("/failLogin", (req, res) => {
 });
 
 router.get("/register", registerGET);
-
-router.post(
-  "/register",
-  passport.authenticate("register", { failureRedirect: "/session/register" }),
-  registerPOST
-);
 
 router.get("/recover-password", recoverGET);
 

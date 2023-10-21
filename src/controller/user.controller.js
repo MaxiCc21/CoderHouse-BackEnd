@@ -10,36 +10,16 @@ const { tr } = require("@faker-js/faker");
 const { options } = require("../routes/user.routes");
 
 class UserController {
+  // http://localhost:8080/session
   allUsersGET = async (req, res) => {
-    let data = await handleUser.getAllUser();
-    let options = {
-      style: "user_Ingresar.css",
-      data,
-    };
+    let { status, ...users } = await userService.getAllUser();
 
-    res.send(options.data);
-  };
-
-  misComprasGET = async (req, res) => {
-    const jwtUser = req.user;
-    const foundSendTicket = await ticketService.getSendTicket(jwtUser.sub);
-
-    const options = {
-      style: "misCompras.css",
-      data: foundSendTicket.data,
-      usercookie: jwtUser,
-    };
-
-    if (!foundSendTicket.ok) {
-      res.status(400).send(foundSendTicket.statusMsj);
-    } else {
-      res.render("shopping/misCompras", options);
-    }
+    res.status(status).send(users);
   };
 
   paginateGET = async (req, res) => {
     const { page = 1, limit = 5 } = req.query;
-    let data = await handleUser.getAllUserPaginate(page, limit);
+    let data = await userService.getAllUserPaginate(page, limit);
 
     const { docs, hasPrevPage, hasNextPage, prevPage, nextPage } = data;
     let options = {
@@ -67,27 +47,20 @@ class UserController {
   };
 
   deleteUserDELETE = async (req, res) => {
-    let pid = req.params.pid;
+    let { uid } = req.params;
+    console.log(uid);
+    let { status, ...resto } = await userService.deletUser(uid);
 
-    let myRes = await handleUser.deletUser(pid);
-    if (!myRes) {
-      logger.info("Objeto eliminado exitosamento");
-    } else {
-      res.send("A ocurrido un error al eliminar el objeto");
-    }
+    res.status(status).send(resto);
   };
 
   updateUserPUT = async (req, res) => {
-    let pid = req.params.pid;
-    let bodyData = req.body;
+    let { uid } = req.params;
+    let { body } = req;
 
-    let myRes = await handleUser.updateUser(pid, bodyData);
+    let { status, ...rest } = await userService.updateUser(uid, body);
 
-    if (!myRes) {
-      res.send("Se an realizado los cambios correctamente");
-    } else {
-      res.send("A ocurrido un erro");
-    }
+    res.status(status).send(rest);
   };
 
   premiumGET = async (req, res) => {
@@ -133,6 +106,23 @@ class UserController {
       res.redirect("/publicar");
     } else {
       res.send(updateStatusUser.statusMsj);
+    }
+  };
+
+  misComprasGET = async (req, res) => {
+    const jwtUser = req.user;
+    const foundSendTicket = await ticketService.getSendTicket(jwtUser.sub);
+
+    const options = {
+      style: "misCompras.css",
+      data: foundSendTicket.data,
+      usercookie: jwtUser,
+    };
+
+    if (!foundSendTicket.ok) {
+      res.status(400).send(foundSendTicket.statusMsj);
+    } else {
+      res.render("shopping/misCompras", options);
     }
   };
 
