@@ -95,6 +95,10 @@ const forgotPasswordButton = document.getElementById(
 const loginForm = document.getElementById("userLoginForm");
 const userLoginButton = document.getElementById("userLoginButton");
 
+if (loginErrorMessage !== "false") {
+  alert(loginErrorMessage);
+}
+
 userLoginButton.addEventListener("click", function (e) {
   const datosFormulario = new FormData(loginForm);
 
