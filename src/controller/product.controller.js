@@ -7,8 +7,6 @@ const {
   ticketService,
 } = require("../service");
 
-require("dotenv").config();
-
 const mercadopago = require("../config/mercadopago");
 const { PORT } = require("../config/config");
 
