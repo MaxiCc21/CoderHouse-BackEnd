@@ -10,13 +10,8 @@
               <option value="pause" {{#eq data.online 'pause'}}selected{{/eq}}>Pausado</option>
               <option value="off" {{#eq data.online 'off'}}selected{{/eq}}>Desconectado</option>
             </select><br>
-          {{!-- <label for="isAdmin">¿Es administrador?</label>
-          <input type="checkbox" name="isAdmin" id="isAdmin" {{data.isAdmin}} /> <br> --}}
           <input type="submit" value="Guardar" /> <br>
-          {{!-- <input type="text" name="onlineStatus" id="onlineStatus" value="{{data.online}}"> --}}
           <input type="text" name="userID" id="userID" data-user-id="{{data._id}}" readonly hidden>
-
-
         </form>
       </div>
       <div class="userEditAdmin-img-box">

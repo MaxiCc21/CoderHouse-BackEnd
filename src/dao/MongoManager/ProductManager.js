@@ -219,7 +219,13 @@ class HandleProducts {
         data: updateProduct,
       };
     } catch (err) {
-      return err;
+      logger.error(err);
+      return {
+        status: 500,
+        statusMsj: `Ha ocurrido un error inesperado: ${err}`,
+        ok: false,
+        data: undefined,
+      };
     }
   };
 

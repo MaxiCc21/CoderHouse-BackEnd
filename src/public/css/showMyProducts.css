@@ -26,3 +26,49 @@
 .products-section-a {
   color: black !important;
 }
+
+.section-showymyproduct {
+  display: grid;
+  grid-template-columns: 1.4fr 0.6fr;
+  grid-template-rows: 1fr;
+  grid-auto-columns: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas: "z-left-showmyproduct z-right-showmyproduct";
+  background-color: rgb(86, 235, 255);
+  width: 150px;
+  height: 200px;
+}
+
+.z-right-showmyproduct {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.4fr 1.6fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "z-right-top-showmyproduct"
+    "z-right-botton-showmyproduct";
+  grid-area: z-right-showmyproduct;
+}
+
+.z-right-top-showmyproduct {
+  grid-area: z-right-top-showmyproduct;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.z-right-botton-showmyproduct {
+  grid-area: z-right-botton-showmyproduct;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 15px;
+}
+
+.z-left-showmyproduct {
+  grid-area: z-left-showmyproduct;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
