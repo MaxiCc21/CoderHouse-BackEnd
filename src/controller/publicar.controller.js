@@ -52,7 +52,7 @@ class PublicarController {
     delete dataNewProduct.ownerUsername;
     const createNewProduct = await productService.createProduct(dataNewProduct);
 
-    res.send(createNewProduct);
+    res.redirect("/publicar/myproducts");
   };
 }
 
