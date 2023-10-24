@@ -25,6 +25,7 @@ class ComprarController {
   MercadoPagoResponseGET = async (req, res) => {
     const { pid } = req.params;
     const JWTuser = req.user;
+    console.log(req.query.status, "EStadoDeCompra");
     if (req.query.status === "approved") {
       const foundTicket = await ticketService.getTicket(pid);
 
@@ -65,9 +66,12 @@ class ComprarController {
 
         const createTicket = await ticketService.createNewTicket(newTicketData);
       }
+      res.redirect("/home?status=approved");
+    } else if (req.query.status === "rejected") {
+      res.redirect("/home?status=rejected");
+    } else if (req.query.status === "pending") {
+      res.redirect("/home?status=pending");
     }
-
-    res.redirect("/home");
   };
 
   shoppingPOST = async (req, res) => {
