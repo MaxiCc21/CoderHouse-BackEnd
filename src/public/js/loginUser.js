@@ -31,7 +31,11 @@ userLoginButton.addEventListener("click", function (e) {
 if (forgotPasswordButton) {
   forgotPasswordButton.addEventListener("click", function (e) {
     e.preventDefault();
-
     window.location.href = "recover-password";
   });
+}
+
+if (registerMessage !== "false") {
+  alert(registerMessage);
+  location.href = "/session/login";
 }

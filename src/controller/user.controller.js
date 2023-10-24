@@ -160,6 +160,10 @@ class UserController {
   //* ------------Login------------
 
   loginGET = async (req, res) => {
+    let registerMessage = req.query.register
+      ? "Usuario Creado Con exito"
+      : false;
+
     let loginError = req.query.error
       ? "Alguno de los datos no es correcto"
       : false;
@@ -167,6 +171,7 @@ class UserController {
     let options = {
       style: "user_Ingresar.css",
       loginErrorMessage: loginError,
+      registerMessage,
     };
 
     res.render("users/userLogin", options);
@@ -225,7 +230,7 @@ class UserController {
         );
 
         logger.info(`Mensaje: ${message}`);
-        return res.status(200).redirect("/session/login");
+        return res.status(200).redirect("/session/login?register=true");
       } else {
         logger.warning(`Mensaje: ${message}`);
         return res.status(400).redirect("/session/register");
