@@ -1,4 +1,5 @@
 <div class="cart-container">
+
   {{#each products}}
     <a href="/products/{{this._id}}" class="link-product-home">
       <div id="myDiv" class="cart">
@@ -11,6 +12,10 @@
     </a>
   {{/each}}
 </div>
+
+<script>
+  let paymentStatusMessage = '{{paymentStatusMessage}}'
+</script>
 
 <script src="/static/js/home.js"></script>
 <script src="/static/js/main.js"></script>
