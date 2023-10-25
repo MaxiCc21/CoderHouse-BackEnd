@@ -11,15 +11,14 @@ const mailRoutes = require("./routes/mailing.routes");
 const mockingRoutes = require("./routes/mock.routes");
 const publicarRoutes = require("./routes/publicar.routes");
 const cokieParser = require("cookie-parser");
-const { uploader } = require("./utils/multer");
 const productHandle = new (require("./dao/MongoManager/ProductManager"))();
 const { connectDB, PORT } = require("./config/config");
 const messagesHandle = new (require("./dao/MongoManager/ChatManager"))();
-const { errorHandler } = require("./middlewares/error.middleware");
 const { cartService } = require("./service");
 const { addLogger, logger } = require("./middlewares/logger");
 const { Server: ServerIO } = require("socket.io");
 const { Server: ServerHTTP } = require("http");
+const handlebars = require("express-handlebars");
 
 //---------------Swagger--------------
 const swaggerJsDoc = require("swagger-jsdoc");
@@ -40,8 +39,7 @@ connectDB();
 
 const app = express();
 // HandleBars
-const handlebars = require("express-handlebars");
-const exphbs = require("express-handlebars");
+
 app.engine("handlebars", handlebars.engine());
 
 app.set("views", __dirname + `/views`);
@@ -145,10 +143,6 @@ app.use((err, req, res, next) => {
 });
 
 // Socket-----------------------------------------------------------------------------
-
-// app.get("/realtimeproducts", (req, res) => {
-//   res.render("realTimeProducts", { style: "realTime.css" });
-// });
 
 const serverHTTP = ServerHTTP(app);
 const io = new ServerIO(serverHTTP);
