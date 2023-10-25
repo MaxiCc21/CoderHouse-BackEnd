@@ -3,6 +3,7 @@ const { productModel } = require("../models/product.model");
 const { ObjectId } = require("bson");
 const { tr } = require("@faker-js/faker");
 const { logger } = require("../../middlewares/logger");
+const { on } = require("events");
 
 const IdGenerator = () => {
   return Date.now();
@@ -67,7 +68,9 @@ class HandleProducts {
 
   getAllProducts = async () => {
     try {
-      let myRes = await this.productModel.find().lean();
+      let myRes = await this.productModel
+        .find({ estado: { $ne: "off" } })
+        .lean();
       return myRes;
     } catch (err) {
       logger.error(err.stateMsj);
