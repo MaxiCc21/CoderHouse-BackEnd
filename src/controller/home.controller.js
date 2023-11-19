@@ -1,10 +1,5 @@
-const { productModel } = require("../dao/models/product.model");
 const { logger } = require("../middlewares/logger");
 const { productService } = require("../service");
-const fs = require("fs");
-const path = require("path");
-const mongoose = require("mongoose");
-const { userModel } = require("../dao/models/user.model");
 
 class UserController {
   loadProduct = async (req, res) => {
