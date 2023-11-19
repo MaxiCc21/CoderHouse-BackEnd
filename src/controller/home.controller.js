@@ -52,7 +52,6 @@ class UserController {
         await productModel.insertMany(productsFromJson);
         await userModel.insertMany(userFromJson);
         logger.info("Datos importados desde MercadoLibre.products.json.");
-        location.reload();
       } else {
         logger.info("listProducts NO está vacío, no se importaron datos.");
       }
