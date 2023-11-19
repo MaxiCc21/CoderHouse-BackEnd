@@ -36,26 +36,6 @@ class UserController {
     } else {
       let listProducts = await productService.getAllProducts();
 
-      if (listProducts.length === 0) {
-        const productJsonFilePath = path.resolve(
-          __dirname,
-          "../../MercadoLibre.products.json"
-        );
-        const userJsonFilePath = path.resolve(
-          __dirname,
-          "../../MercadoLibre.users.json"
-        );
-        const userJsonData = fs.readFileSync(userJsonFilePath, "utf8");
-        const productJsonData = fs.readFileSync(productJsonFilePath, "utf8");
-        const productsFromJson = JSON.parse(productJsonData);
-        const userFromJson = JSON.parse(userJsonData);
-        await productModel.insertMany(productsFromJson);
-        await userModel.insertMany(userFromJson);
-        logger.info("Datos importados desde MercadoLibre.products.json.");
-      } else {
-        logger.info("listProducts NO está vacío, no se importaron datos.");
-      }
-
       let options = {
         products: listProducts,
         style: "home.css",
