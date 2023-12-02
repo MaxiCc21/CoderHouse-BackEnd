@@ -1,0 +1,34 @@
+@import "navBar";
+@import "main";
+@import "footer";
+@import "home";
+// Others
+@import "productShow";
+@import "Others/realTime";
+@import "Others/shopping";
+@import "Others/showUser_paginate";
+
+// Utils
+@import "cart";
+@import "chat";
+
+// Admin
+@import "AdminStyles/adminHome";
+@import "AdminStyles/createNewUserAdmin";
+@import "AdminStyles/productPaginateAdmin";
+@import "AdminStyles/userEditAdmin";
+
+// User
+@import "UserStyles/createOwnProduct";
+@import "UserStyles/editMyProduct";
+@import "UserStyles/misCompras";
+@import "UserStyles/modifyPassword";
+@import "UserStyles/recoverPassword";
+@import "UserStyles/showMyProducts";
+@import "UserStyles/user_Inglesar";
+@import "UserStyles/userCrear";
+@import "UserStyles/yourProduct";
+
+// Paymetn
+
+@import "methodPayment";
